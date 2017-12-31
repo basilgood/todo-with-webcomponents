@@ -28,4 +28,6 @@ antigen bundle ssh-agent
 antigen apply
 
 source ~/.alias
-
+# stty (else ^S freeze terminal until ^Q)
+stty start undef
+stty stop undef

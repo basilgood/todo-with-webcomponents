@@ -2,20 +2,11 @@
   allowUnfree = true;
 
   packageOverrides = pkgs_: with pkgs_; {
-    termite-config = import ./termite-config {
-      inherit (pkgs) stdenv;
-      vte = gnome3.vte;
-    };
-
-    bash-config = import ./bash-config {
-      inherit (pkgs) stdenv;
-    };
 
     all = with pkgs; buildEnv {
       name = "all";
 
       paths = [
-        termite-config
 
         telnet
 
@@ -31,6 +22,7 @@
         tree
         ripgrep
         fd
+        mc
         ranger
         atom
         jupp
@@ -52,6 +44,8 @@
 
         firefoxWrapper
         chromium
+
+        gimp
 
         nodejs-8_x
 
