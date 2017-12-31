@@ -6,7 +6,7 @@
 
 dir=~/.dot                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files=".nixpkgs .gemrc .npmrc .tmux.conf .vim .zshrc .alias"        # list of files/folders to symlink in homedir
+files="nixpkgs gemrc npmrc tmux.conf vim zshrc alias"        # list of files/folders to symlink in homedir
 
 ##########
 
@@ -23,9 +23,9 @@ echo "...done"
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 for file in $files; do
   echo "Moving any existing dotfiles from ~ to $olddir"
-  mv ~/$file ~/dotfiles_old/
+  mv ~/.$file ~/dotfiles_old/
   echo "Creating symlink to $file in home directory."
-  ln -s $dir/$file ~/$file
+  ln -s $dir/$file ~/.$file
 done
 
 # It adds all symlinks to a .gitignore file that aren't in there already.
@@ -38,4 +38,3 @@ for f in $(git status --porcelain | grep '^??' | sed 's/^?? //'); do
         find ${f%/} -type l -not -exec grep -q "^{}$" .gitignore \; -print >> .gitignore
     fi
 done
-# source ~/.bashrc

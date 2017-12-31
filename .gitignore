@@ -1,4 +1,1 @@
-.vim/pack/*
-.nixpkgs/.nixpkgs
-.vim/pack/minpac/opt/ale/test/.config/nvim/init.vim
-.vim/.vim
+vim/pack/*
