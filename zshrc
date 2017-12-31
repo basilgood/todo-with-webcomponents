@@ -6,7 +6,9 @@ source ~/.antigen/antigen.zsh
 # Antigen Theme
 #
 antigen bundle mafredri/zsh-async
-antigen theme geometry-zsh/geometry
+# antigen theme geometry-zsh/geometry
+antigen bundle sindresorhus/pure
+
 #
 # Antigen Bundles
 #
