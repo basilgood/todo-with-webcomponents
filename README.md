@@ -1,7 +1,8 @@
-dotfiles for linux or for nixos linux
+dotfiles for linux for nixos linux
 ---
+```bash
 - git clone git@github.com:basilgood/.dot.git ~/.dot
-
+```
 - chmod +x .dot/install.sh
 
 - .dot/install.sh
