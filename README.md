@@ -1,4 +1,4 @@
-dotfiles for linux for nixos linux
+dotfiles for linux or nixos linux
 ---
 ```bash
 - git clone git@github.com:basilgood/.dot.git ~/.dot
