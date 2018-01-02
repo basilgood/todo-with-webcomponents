@@ -19,7 +19,7 @@ endif
 
 set shell=sh
 
-runtime! options.vim
-runtime! mappings.vim
 runtime! plugins.vim
 runtime! theme.vim
+runtime! options.vim
+runtime! mappings.vim

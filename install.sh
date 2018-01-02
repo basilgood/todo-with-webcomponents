@@ -1,4 +1,9 @@
 #!/bin/sh
+repository=git@github.com:sorin-ionescu/prezto.git
+localFolder="${ZDOTDIR:-$HOME}/.zprezto"
+git clone --recursive "$repository" "$localFolder"
+# git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
 # This script creates symlinks from the home directory to any desired dotfiles in ~/.dot
 ############################
 
