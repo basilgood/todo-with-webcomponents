@@ -11,7 +11,7 @@ git clone --recursive "$repository" "$localFolder"
 
 dir=~/.dot                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="nixpkgs bashrc gemrc npmrc tmux.conf vim zshrc alias"        # list of files/folders to symlink in homedir
+files="nixpkgs bashrc gemrc npmrc tmux.conf vim zshrc zpreztorc alias"        # list of files/folders to symlink in homedir
 
 ##########
 
