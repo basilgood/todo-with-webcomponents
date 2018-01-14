@@ -1,9 +1,5 @@
 scriptencoding utf-8
 
-" For Undo Revision, Break Undo Sequence
-inoremap <C-w> <C-g>u<C-w>
-inoremap <C-u> <C-g>u<C-u>
-
 " Clear hlsearch and set nopaste
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
@@ -20,9 +16,6 @@ nnoremap > >>
 nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
-
-" paste in insert mode
-inoremap <C-v> <C-r>*
 
 " quick save, quit and undo
 nnoremap <silent> <C-s> :<C-u>update<CR>
@@ -59,8 +52,8 @@ vnoremap . :normal .<CR>
 noremap ,n :set invnumber<CR>
 
 " substitute
-nnoremap <F4> :<C-u>%s/<C-r>//
-vnoremap <F4> :s/<C-r><C-w>/
+nnoremap <F6> :<C-u>%s/<C-r>//
+vnoremap <F6> :s/<C-r><C-w>/
 nnoremap <F5> :<C-u>%s/<C-r><C-w>/
 
 " Substitute

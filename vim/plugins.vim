@@ -12,6 +12,7 @@ if exists('*minpac#init')
   " files
   call minpac#add('scrooloose/nerdtree', {'type': 'opt'})
   call minpac#add('francoiscabrol/ranger.vim', {'type': 'opt'})
+  call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
 
   " git
   call minpac#add('tpope/vim-fugitive')
@@ -25,7 +26,8 @@ if exists('*minpac#init')
   call minpac#add('chr4/nginx.vim', {'type': 'opt'})
   call minpac#add('dag/vim-fish', { 'type': 'opt' })
   " call minpac#add('pearofducks/ansible-vim', { 'type': 'opt' })
-  call minpac#add('stephpy/vim-yaml', { 'type': 'opt' })
+  " call minpac#add('stephpy/vim-yaml', { 'type': 'opt' })
+  call minpac#add('pocke/iro.vim', { 'type': 'opt' })
   call minpac#add('kchmck/vim-coffee-script', { 'type': 'opt' })
   call minpac#add('Valloric/MatchTagAlways', { 'type': 'opt' })
 
@@ -57,6 +59,28 @@ if exists('*minpac#init')
   " search
   call minpac#add('gabesoft/vim-ags', {'type': 'opt'})
 endif
+
+if has('gui_running')
+  set guioptions=Mc
+endif
+
+let g:loaded_2html_plugin      = 1
+let g:loaded_logiPat           = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_gzip              = 1
+let g:loaded_man               = 1
+let g:loaded_matchit           = 1
+let g:loaded_matchparen        = 1
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_shada_plugin      = 1
+let g:loaded_spellfile_plugin  = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_zipPlugin         = 1
 
 com! PackClean     packadd minpac | call minpac#clean()
 com! PackUpdate    packadd minpac | call minpac#clean() | call minpac#update()

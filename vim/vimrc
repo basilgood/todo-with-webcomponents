@@ -1,6 +1,6 @@
 unlet! g:skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
-
+set nocompatible
 augroup MyVimrc
   autocmd!
 augroup END
