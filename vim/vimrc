@@ -1,10 +1,11 @@
 unlet! g:skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
-set nocompatible
+
+set shell=/bin/sh
+
 augroup MyVimrc
   autocmd!
 augroup END
-
 command! -nargs=* AutoCmd autocmd MyVimrc <args>
 
 if has('vim_starting')
@@ -13,13 +14,15 @@ if has('vim_starting')
   \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
 endif
 
-if has('vim_starting') && &encoding !=# 'utf-8'
-  set encoding=utf-8
-endif
 
-set shell=sh
-
-runtime! plugins.vim
-runtime! theme.vim
 runtime! options.vim
+runtime! theme.vim
+runtime! autocmd.vim
+runtime! functions.vim
 runtime! mappings.vim
+runtime! gui.vim
+runtime! softwrap.vim
+runtime! completion.vim
+runtime! highlight.vim
+runtime! list.vim
+runtime! experiments.vim

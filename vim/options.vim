@@ -1,78 +1,55 @@
-scriptencoding utf-8
-
-set nonumber
-set display=lastline
-set laststatus=2
-set noruler
-set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮
-set showmatch
-set matchtime=1
-set shortmess+=I
-set cmdheight=1 cmdwinheight=10
-set showbreak=\\\
-set fillchars=diff:⣿,vert:│
-set fillchars=diff:⣿,vert:\|
-set mouse=a
-set mousemodel=popup_setpos
-set nofoldenable
-set splitbelow
-set splitright
-set nostartofline
-set equalalways
-set synmaxcol=300
-set modeline
-
-set complete=.,w,b,u,t,i
-set complete&
-set completeopt=preview
-set completeopt=menuone
-set completeopt=noinsert
-set completeopt=noselect
-set omnifunc=syntaxcomplete#Complete
-set infercase
-set showfulltag
-set pumheight=10
-
-set wildmenu
-set wildmode=full
-set wildchar=9
-
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set shiftround
-set formatoptions=qrn1j
-
-set spelllang=en
-
-set incsearch
-set ignorecase
-set smartcase
-set hlsearch|nohlsearch
-
-set noswapfile
-set nobackup
-set history=1000
-
-set clipboard=unnamedplus
-
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-set ttyfast
-set lazyredraw
-set updatetime=750
-
-set autoread
+filetype plugin indent on
+syntax enable
 set backspace=indent,eol,start
-set hidden
-
-set virtualedit=block
-set whichwrap=b,s,h,l,[,],<,>
-set wrap
-
-set wildcharm=<C-z>
-
-set noerrorbells visualbell t_vb=
+set complete-=i
+set autoindent
+set expandtab
+set smarttab
+set tabstop=2
+set shiftwidth=0
+set softtabstop=-1
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+set incsearch
+set hlsearch|nohlsearch
+set laststatus=2
+set wildmenu
+set scrolloff=1
+set sidescrolloff=5
+set display+=lastline
+set encoding=utf-8
+if &shell =~# 'fish$' && (v:version < 704 || v:version == 704 && !has('patch276'))
+  set shell=/bin/sh
+endif
+set autoread
+if &history < 1000
+  set history=1000
+endif
+if &tabpagemax < 50
+  set tabpagemax=50
+endif
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+set sessionoptions-=options
+if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
+  set t_Co=16
+endif
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+set switchbuf=useopen
+set mouse=a
+set clipboard^=unnamed
+set updatetime=750
+set statusline=
+let &stl .= '%<%f'                " Filename, truncate right
+let &stl .= ' %h%m%r'             " [Help] [modified] [read-only]
+let &stl .= '%='                  " Right-align from here on
+let &stl .= ' [line %l of %L]'    " current line, total lines
+let &stl .= ' [col %v]'           " column
+let &stl .= ' [0x%B]'             " Byte value under cursor
+let &rulerformat = '%l/%L %c 0x%B'
+set list listchars=tab:▸\ ,eol:¬,trail:~,space:·,extends:>,precedes:<,nbsp:•
+set wildmode=longest:full,full
