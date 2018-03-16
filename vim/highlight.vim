@@ -2,7 +2,7 @@ fun! s:hi()
   " Works better
   hi DiffText ctermbg=lightred
 
-  hi Normal guibg=NONE ctermbg=NONE
+  "hi Normal guibg=NONE ctermbg=NONE
   " Not so dark.
   hi SignColumn ctermbg=254
 

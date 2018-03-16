@@ -11,7 +11,7 @@ function! OpenNetrw()
 endfunction
 
 function! MenuNetrw()
-  let c = input("What to you want to do? (M)ake a dir, Make a (F)ile, (R)ename, (D)elete : ")
+  let c = input("(M)ake a dir, Make a (F)ile, (R)ename, (D)elete : ")
   if (c == "m" || c == "M")
     normal d
   elseif (c == "f" || c == "F")
@@ -36,3 +36,18 @@ function! KeysInNetrw()
   " n - Menu
   nmap <buffer> n :call MenuNetrw()<CR>
 endfunction
+
+function! AdjustWindowHeight(minheight, maxheight)
+  let l = 1
+  let n_lines = 0
+  let w_width = winwidth(0)
+  while l <= line('$')
+    " number to float for division
+    let l_len = strlen(getline(l)) + 0.0
+    let line_width = l_len/w_width
+    let n_lines += float2nr(ceil(line_width))
+    let l += 1
+  endw
+  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+

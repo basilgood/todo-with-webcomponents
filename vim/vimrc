@@ -20,9 +20,11 @@ runtime! theme.vim
 runtime! autocmd.vim
 runtime! functions.vim
 runtime! mappings.vim
-runtime! gui.vim
-runtime! softwrap.vim
 runtime! completion.vim
 runtime! highlight.vim
 runtime! list.vim
 runtime! experiments.vim
+
+for s:f in glob('~/.vim/p-*.vim', 0, 1)
+  execute 'source ' . s:f
+endfor
