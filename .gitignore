@@ -1,3 +1,1 @@
-vim/pack/*
-vim/vim
-.netrwhist
+*.swp
