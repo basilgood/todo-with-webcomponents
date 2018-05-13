@@ -13,6 +13,8 @@ end
 
 _dircolors_set_256_color
 
+set -x XDG_SESSION_TYPE wayland
+
 set NPM_PACKAGES "$HOME/.npm-packages"
 if test -x "$NPM_PACKAGES/bin"
     set PATH "$NPM_PACKAGES/bin" $PATH
