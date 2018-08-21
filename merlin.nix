@@ -13,6 +13,15 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  boot.kernelModules = ["coretemp"];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "merlin"; # Define your hostname.
+  networking.networkmanager.enable = true;
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";
@@ -32,7 +41,7 @@ in {
 
   programs = {
     tmux.enable = true;
-    fish.enable = true;
+    zsh.enable = true;
     ssh.startAgent = true;
   };
 
@@ -40,14 +49,14 @@ in {
     enable = true;
 
     displayManager.sddm.enable = true;
-    desktopManager.xterm.enable = false;
     desktopManager.plasma5.enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
+
    };
 
   users = {
-    defaultUserShell = "/run/current-system/sw/bin/fish";
+    defaultUserShell = "/run/current-system/sw/bin/zsh";
     groups.vasy = { gid = 1000; };
     users.vasy = {
       isNormalUser = true;
