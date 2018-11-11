@@ -1,17 +1,13 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    # all new pkgs and/or overlays
-    # ../pkgs/all.nix
-
     # config
-    ../modules/virtualisation/lxc.nix
-    ../modules/virtualisation/lxd.nix
-    # ../modules/hardware/ssd.nix
-    # ../modules/hardware/zram.nix
+    ../virtualisation/lxc.nix
+    ../virtualisation/lxd.nix
+    ../virtualisation/virtualbox.nix
   ];
 
-  nix.buildCores = 0;
+  nix.buildCores = 4;
   nixpkgs.config.allowUnfree = true;
 
   i18n = {
@@ -26,7 +22,7 @@
 
   programs = {
     tmux.enable = true;
-    zsh.enable = true;
+    # zsh.enable = true;
     java.enable = true;
   };
 
@@ -36,18 +32,15 @@
     # cpu.intel.updateMicrocode = true;
     cpu.amd.updateMicrocode = true;
 
-    opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
+    # opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
   };
 
   boot = {
-    kernelModules = [
-      "coretemp"
-    ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  users.defaultUserShell = "/run/current-system/sw/bin/zsh";
-  
+  users.defaultUserShell = "/run/current-system/sw/bin/bash";
+
   environment.systemPackages = with pkgs; [
     # common
     acl
