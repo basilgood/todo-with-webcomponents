@@ -4,7 +4,7 @@
   services.xserver = {
     enable = true;
 
-    displayManager.lightdm = {
+    displayManager.slim = {
       enable = true;
     };
 
@@ -16,7 +16,6 @@
         enable = true;
         package = pkgs.i3-gaps;
         extraPackages = with pkgs; [
-          enlightenment.terminology
           j4-dmenu-desktop
           arc-theme
           arc-icon-theme
@@ -36,9 +35,10 @@
     networkmanager.enable = true;
   };
 
+  services.upower.enable = true;
   services.udev.packages = with pkgs; [
     brightnessctl
-      android-udev-rules
+    android-udev-rules
   ];
 
   programs.ssh.startAgent = true;
