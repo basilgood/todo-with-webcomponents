@@ -16,7 +16,9 @@
         enable = true;
         package = pkgs.i3-gaps;
         extraPackages = with pkgs; [
+          lxappearance
           j4-dmenu-desktop
+          dmenu
           arc-theme
           arc-icon-theme
           compton
