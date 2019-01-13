@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+# bash behaviour configuration
+# append to history file instead of overwriting it when shell exits
+shopt -s histappend 2> /dev/null
+
+# treat directory paths as arguments to an implicit cd command
+shopt -s autocd 2> /dev/null
+
+# enable globbing
+shopt -s extglob
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# automatically correct minor spelling errors in arguments of cd command
+shopt -s cdspell 2> /dev/null
+
+# Expand the history size.
+export HISTFILESIZE=10000
+export HISTSIZE=10000
+
+# don't save duplicates, l, ll, ls, bf, bg, su and exit commands to command
+# history
+export HISTIGNORE='&:l:ll:ls:[bf]g:su:exit:cd'
+
+# don't put duplicate lines in the history
+export HISTCONTROL="ignoredups:erasedups"
+tac ~/.bash_history | awk '!a[$0]++' | tac > t; mv t ~/.bash_history
+
+# editor
+# alias vis='vim --servername Demo'
+# alias vir='vim --servername Demo --remote'
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export PAGER=less
+export LESS='-XFr'
+export NNN_USE_EDITOR=1
+# LESS man page colors (makes Man pages more readable).
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# Always use color output for `ls`
+eval "$(dircolors ~/.dircolors)"
+alias dir='dir --color'
+alias ls='ls --color'
+alias less='less --RAW-CONTROL-CHARS'
+
+# grep with colors
+alias grep='grep --color=auto'
+
+# Show $PATH in a readable way
+alias path='echo -e ${PATH//:/\\n}'
+PATH=~/.local/bin:$PATH
+
+# tmux
+alias qa='tmux kill-session -t'
+
+# show repository status (staged/modified/untracked files)
+function gst() {
+  attr='4;34'
+  git -c color.status=always status --branch --short "$@" |
+    sed "s/^#\\(#\\?[A-Za-z0-9 ()\"<>,.:'/-]*\\)/\x1b["$attr"m#\\1\x1b[0m/"
+}
+# create a ZIP archive of a folder.
+zipf() { zip -r "$1".zip "$1"; }
+
+# extract most know archives.
+extract() {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1;;
+      *.tar.gz)    tar xzf $1;;
+      *.tar.xz)    tar Jxvf $1 ;;
+      *.bz2)       bunzip2 $1;;
+      *.rar)       unrar e $1;;
+      *.gz)        gunzip $1;;
+      *.tar)       tar xf $1;;
+      *.tbz2)      tar xjf $1;;
+      *.tgz)       tar xzf $1;;
+      *.zip)       unzip $1;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1;;
+      *)     echo "'$1' cannot be extracted.";;
+    esac
+  else
+    echo "'$1' is not a valid file."
+  fi
+}
+
+# prompt
+
+# How many character to display if we go with very long directory path from
+# right to left,
+PROMPT_DIRTRIM=3
+
+# new line
+NL='
+'
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+bold=$(tput bold)
+red=$(tput setaf 1)
+yellow=$(tput setaf 3)
+cyan=$(tput setaf 6)
+magenta=$(tput setaf 5)
+reset=$(tput sgr0)
+
+set_active_venv() {
+  export ACTIVE_VENV=""
+  if [ "$VIRTUAL_ENV" != "" ]; then
+    export ACTIVE_VENV="(`basename \"$VIRTUAL_ENV\"`)"
+  fi
+}
+
+active_nix_shell() {
+  if [ -n "$IN_NIX_SHELL" ]; then
+    # export NSHELL=""
+    export NSHELL="nix "
+  fi
+}
+
+export PROMPT_COMMAND='\
+  set_active_venv; active_nix_shell; __git_ps1 \
+  "${NL}\[$yellow\]${ACTIVE_VENV}${NSHELL}\[$reset\]\[$red\]\${?#0}\[$reset\]\[$bold\]\[$cyan\]\w\[$reset\]" \
+  "\[$magenta\]${NL}❯\[$reset\] "'
+
+alias dotfiles="git -c core.excludesFile=~/.dotignore --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+stty -ixon

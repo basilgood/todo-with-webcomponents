@@ -1,0 +1,35 @@
+*.termname: st-256color
+!
+/* st.shell: /bin/sh */
+/* *.font: Source Code Pro for Powerline:size=9.5 */
+/* *.font: SauceCodePro Nerd Font:size=11 */
+/* *.font: RobotoMono Nerd Font Mono:size=10 */
+/* *.font:  Iosevka:size=10 */
+*.font: InconsolataLGC Nerd Font Mono:size=9.5
+/* st.font: Fantasque Sans Mono:size=13 */
+/* st.font: Pragmata Pro for Powerline:size=10 */
+
+*.xfps:         300
+*.actionfps:    1200
+*.chscale:      1.0
+*.cwscale:      1.0
+*.blinktimeout: 800
+*.bellvolume:   0
+
+!! The default colors are "Gruvbox":
+*.color0: #1d2021
+*.color1: #cc241d
+*.color2: #98971a
+*.color3: #d79921
+*.color4: #458588
+*.color5: #b16286
+*.color6: #689d6a
+*.color7: #a89984
+*.color8: #928374
+*.color9: #fb4934
+*.color10: #b8bb26
+*.color11: #fabd2f
+*.color12: #83a598
+*.color13: #d3869b
+*.color14: #8ec07c
+*.color15: #ebdbb2
