@@ -3,10 +3,10 @@
 {
   nixpkgs.overlays = [
     (import ./overlays/vagrant)
-    (import ./overlays/gitkraken)
     (import ./overlays/skype)
     (import ./overlays/chromium)
     (import ./overlays/st)
+    (import ./overlays/dmenu)
   ];
 
   home = {
@@ -26,6 +26,7 @@
     fd
     universal-ctags
     fzf
+    fzy
     usbutils
     bat
     lf
@@ -33,6 +34,13 @@
     mc
     qbittorrent
     htop
+    unzip
+
+    lxappearance
+    j4-dmenu-desktop
+    dmenu
+    arc-theme
+    arc-icon-theme
 
     chromium
     firefox
@@ -45,6 +53,7 @@
     editorconfig-core-c
     emacs
     vimHugeX
+    vim-vint
 
     keepassxc
 
@@ -138,6 +147,9 @@
       set -g status-right '#{prefix_highlight}'
     '';
   };
+
+  services.compton.enable = true;
+  services.compton.backend = "glx";
 
   programs.home-manager = {
     enable = true;
