@@ -28,6 +28,7 @@ export HISTIGNORE='&:l:ll:ls:[bf]g:su:exit:cd'
 # don't put duplicate lines in the history
 export HISTCONTROL="ignoredups:erasedups"
 tac ~/.bash_history | awk '!a[$0]++' | tac > t; mv t ~/.bash_history
+export PROMPT_COMMAND='history -a;history -c;history -r'
 
 # editor
 # alias vis='vim --servername Demo'
