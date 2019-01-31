@@ -1,5 +1,33 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs,options, ... }:
+with builtins;
+let
+  overlaysPath = ../overlays;
+  isDir = path: pathExists (path + "/.");
+  overlays = path:
+    if isDir path then
+      let content = readDir path; in
+        map
+          (n: import (path + ("/" + n)))
+          (filter
+            (n: match ".*\\.nix" n != null || pathExists (path + ("/" + n + "/default.nix")))
+            (attrNames content)
+          )
+    else
+      import path;
+in
 {
+  nix = {
+    nixPath =
+      options.nix.nixPath.default ++
+    ["nixpkgs-overlays=${toString overlaysPath}"];
+  };
+
+  nixpkgs.overlays = [
+    (self: super:
+      lib.foldl (p: n: p  // n self super) ({}) (overlays overlaysPath)
+    )
+  ];
+
   imports = [
     ../virtualisation/lxc.nix
     ../virtualisation/lxd.nix
@@ -9,17 +37,17 @@
   nix.buildCores = 4;
   nixpkgs.config.allowUnfree = true;
 
-  i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
+    i18n = {
+      consoleFont = "Lat2-Terminus16";
+      consoleKeyMap = "us";
+      defaultLocale = "en_US.UTF-8";
+    };
 
-  powerManagement = {
-    enable = true;
-  };
+    powerManagement = {
+      enable = true;
+    };
 
-  programs = {
+    programs = {
     # tmux.enable = true;
     java.enable = true;
   };
@@ -37,6 +65,18 @@
   };
 
   users.defaultUserShell = "/run/current-system/sw/bin/bash";
+
+  networking.networkmanager = {
+    dns = "dnsmasq";
+    dynamicHosts =  {
+      enable = true;
+    };
+  };
+
+  environment.etc."NetworkManager/dnsmasq.d/10-dns-lxcd.conf".text = ''
+    server=/local/10.0.3.1
+    server=/lxd/10.0.4.1
+  '';
 
   fonts = {
     fonts = with pkgs; [

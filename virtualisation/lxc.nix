@@ -1,36 +1,36 @@
 { config, lib, pkgs, ... }:
 {
-  services.dnsmasq = {
-    enable = true;
-    extraConfig =
-    if config.services.dnsmasq.enable then
-      ''
-      bind-interfaces
-      except-interface=lxcbr0
-      except-interface=lxdbr0
-      listen-address=127.0.0.1
-      server=/local/10.0.3.1
-      server=/lxd/10.0.4.1
-      ''
-    else
-      "";
+  # environment.systemPackages = with pkgs; [
+  #   lxc-templates
+  # ];
+
+  system.activationScripts = {
+    lxc = {
+      text = ''
+        mkdir -p /usr/share
+        ln -sfn /run/current-system/sw/share/lxc  /usr/share/lxc
+      '';
+      deps = [];
+    };
   };
-  networking.networkmanager.insertNameservers = ["127.0.0.1"];
 
   virtualisation = {
     lxc = {
       enable = true;
       defaultConfig = ''
-        lxc.aa_profile = unconfined
-        lxc.network.type = veth
-        lxc.network.link = lxcbr0
-        lxc.network.flags = up
+        lxc.apparmor.profile = unconfined
+        lxc.net.0.type = veth
+        lxc.net.0.link = lxcbr0
+        lxc.net.0.flags = up
       '';
+      lxcfs.enable = true;
     };
   };
+
   environment.etc."default/lxc".text = ''
     [ ! -f /etc/default/lxc-net ] || . /etc/default/lxc-net
   '';
+
   environment.etc."default/lxc-net".text = ''
     USE_LXC_BRIDGE="true"
     LXC_DOMAIN="local"
@@ -40,7 +40,7 @@
   systemd.services.lxc-net = {
     after     = [ "network.target" "systemd-resolved.service" ];
     wantedBy  = [ "multi-user.target" ];
-    path      = [ pkgs.dnsmasq pkgs.lxc pkgs.iproute pkgs.iptables pkgs.glibc];
+    path      = with pkgs; [ dnsmasq lxc iproute iptables glibc];
 
     serviceConfig = {
       Type            = "oneshot";
@@ -49,4 +49,6 @@
       ExecStop        = "${pkgs.lxc}/libexec/lxc/lxc-net stop";
     };
   };
+
+  environment.pathsToLink = ["/share/lxc"];
 }
