@@ -36,8 +36,9 @@
     htop
     unzip
 
+    compton
+    lm_sensors
     lxappearance
-    j4-dmenu-desktop
     dmenu
     arc-theme
     arc-icon-theme
@@ -147,9 +148,6 @@
       set -g status-right '#{prefix_highlight}'
     '';
   };
-
-  services.compton.enable = true;
-  services.compton.backend = "glx";
 
   programs.home-manager = {
     enable = true;
