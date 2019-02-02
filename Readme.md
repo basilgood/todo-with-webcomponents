@@ -25,7 +25,7 @@ $ home-manager switch
 For nixos:
 
 ```shell
-$ sudo nix-channel --add https://nixos.org/channels/nixos-unstable unstable
+$ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 $ sudo nix-channel --update
 $ sudo nixos-rebuild switch
 ```
