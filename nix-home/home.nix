@@ -13,8 +13,6 @@
     file = {
       ".gitconfig".text = pkgs.lib.readFile ../dotfiles/gitconfig;
       ".bashrc".text = pkgs.lib.readFile ../dotfiles/bashrc;
-      ".bash_profile".text = pkgs.lib.readFile ../dotfiles/bash_profile;
-      ".inputrc".text = pkgs.lib.readFile ../dotfiles/inputrc;
       ".Xresources".text = pkgs.lib.readFile ../dotfiles/Xresources;
       ".dircolors".text = pkgs.lib.readFile ../dotfiles/dircolors;
       ".config/dunst/dunstrc".text = pkgs.lib.readFile ../dotfiles/dunst/dunstrc;
