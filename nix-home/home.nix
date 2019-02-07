@@ -7,6 +7,7 @@
     (import ./overlays/chromium)
     (import ./overlays/st)
     (import ./overlays/dmenu)
+    (import ./overlays/tig)
   ];
 
   home = {
