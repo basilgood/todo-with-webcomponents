@@ -50,7 +50,7 @@
     libnotify
 
     editorconfig-core-c
-    emacs
+    # emacs
     vimHugeX
     vim-vint
 
