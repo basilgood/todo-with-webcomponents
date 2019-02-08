@@ -8,8 +8,8 @@ set main-view-date-display = relative
 bind refs n !@git branch "%(prompt Enter branch name: )"
 
 #Fetch
-bind generic  ?git fetch %(remote)
-bind main     ?git fetch %(remote)
+bind generic <Ctrl-f> ?git fetch %(remote)
+bind main    <Ctrl-f> ?git fetch %(remote)
 
 # reset
 bind main   H ?git reset --hard %(commit)
@@ -28,12 +28,15 @@ bind refs B ?git rebase -i %(branch)
 # push
 bind generic P ?git push -u %(remote) %(repo:head)
 bind status P ?git push -u %(remote) %(repo:head)
-bind main   w !?git push --force-with-lease
-bind status w !?git push --force-with-lease
+bind main   w !?git push -f %(remote) %(repo:head)
+bind status w !?git push -f %(remote) %(repo:head)
+
+# pull
+bind main <Ctrl-p> ?git pull --ff-only
 
 # commit
-bind generic a ?git commit --amend
-bind generic + ?git commit --amend --allow-empty
+bind status a ?git commit --amend
+bind status + ?git commit --amend --allow-empty
 
 # revert commit
 bind main ! !?git revert %(commit)
@@ -45,7 +48,7 @@ bind stage 1 stage-update-line
 bind main T !?@git tag %(prompt) %(commit)
 
 # add current file to gitignore
-bind status <Ctrl-r> !?/bin/sh -c "echo %(file) >> .gitignore"
+bind status <Ctrl-r> ?sh -c "echo %(file) >> .gitignore"
 
 # copy sha to clipboard
 bind generic 9 !sh -c "echo -n %(commit) | xclip -selection c && echo Copied %(commit) to clipboard"
