@@ -148,6 +148,9 @@ alias less='less --RAW-CONTROL-CHARS'
 # grep with colors
 alias grep='grep --color=auto'
 
+# lazygit with kitty
+alias lazygit='TERM=xterm lazygit'
+
 # Show $PATH in a readable way
 alias path='echo -e ${PATH//:/\\n}'
 PATH=~/.local/bin:$PATH

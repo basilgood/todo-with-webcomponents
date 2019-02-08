@@ -65,7 +65,8 @@
     feh
     i3lock-fancy
     scrot
-    st
+    # st
+    kitty
 
     git
     lazygit
