@@ -6,10 +6,11 @@ set main-view-date-display = relative
 
 # branch
 bind refs n !@git branch "%(prompt Enter branch name: )"
+bind main <C-n> !@git branch "%(prompt Enter branch name: )" %(commit)
 
 #Fetch
-bind generic <Ctrl-f> ?git fetch %(remote)
-bind main    <Ctrl-f> ?git fetch %(remote)
+bind generic <Ctrl-f> ?git fetch -p %(remote)
+bind main    <Ctrl-f> ?git fetch -p %(remote)
 
 # reset
 bind main   H ?git reset --hard %(commit)
