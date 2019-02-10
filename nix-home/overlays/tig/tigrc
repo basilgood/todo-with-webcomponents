@@ -90,5 +90,5 @@ color diff-index  default default bold # index abc..def
 color diff-chunk  cyan    default      # @@ -.. +.. @@
 
 # refresh
-set refresh-mode = auto
-# set refresh-interval = 5
+set refresh-mode = true
+set refresh-interval = 5
