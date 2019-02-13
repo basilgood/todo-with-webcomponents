@@ -9,6 +9,7 @@
     (import ./overlays/dmenu)
     (import ./overlays/tig)
     (import ./overlays/lazygit)
+    (import ./overlays/git-cola)
   ];
 
   home = {
@@ -70,6 +71,7 @@
 
     git
     lazygit
+    git-cola
     gitAndTools.tig
     gitAndTools.diff-so-fancy
     git-lfs
