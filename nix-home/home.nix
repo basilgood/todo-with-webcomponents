@@ -19,6 +19,7 @@
       ".Xresources".text = pkgs.lib.readFile ../dotfiles/Xresources;
       ".dircolors".text = pkgs.lib.readFile ../dotfiles/dircolors;
       ".config/dunst/dunstrc".text = pkgs.lib.readFile ../dotfiles/dunst/dunstrc;
+      ".config/alacritty/alacritty.yml".text = pkgs.lib.readFile ../dotfiles/alacritty.yml;
     };
   };
 
@@ -33,6 +34,7 @@
     lf
     aspell
     mc
+    nnn
     qbittorrent
     htop
     unzip
@@ -55,7 +57,8 @@
     editorconfig-core-c
     # emacs
     vimHugeX
-    vim-vint
+    # vim-vint
+    emacs
 
     keepassxc
 
@@ -67,7 +70,7 @@
     i3lock-fancy
     scrot
     # st
-    kitty
+    alacritty
 
     git
     lazygit
@@ -107,7 +110,7 @@
       set-window-option -g xterm-keys on
       set -g default-terminal 'tmux-256color'
       # set -ga terminal-overrides ",xterm-256color:Tc"
-      set -ga terminal-overrides ",st-256color:Tc"
+      set -ga terminal-overrides ",alacritty:Tc"
 
       set -g history-limit 10000
       set -sg escape-time 0
