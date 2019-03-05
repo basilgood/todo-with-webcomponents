@@ -2,10 +2,10 @@
 !
 /* st.shell: /bin/sh */
 /* *.font: Source Code Pro for Powerline:size=9.5 */
-/* *.font: SauceCodePro Nerd Font:size=11 */
+*.font: SauceCodePro Nerd Font:size=11
 /* *.font: RobotoMono Nerd Font Mono:size=10 */
 /* *.font:  Iosevka:size=10 */
-*.font: InconsolataLGC Nerd Font Mono:size=9.5
+/* *.font: InconsolataLGC Nerd Font Mono:size=9.5 */
 /* st.font: Fantasque Sans Mono:size=13 */
 /* st.font: Pragmata Pro for Powerline:size=10 */
 
