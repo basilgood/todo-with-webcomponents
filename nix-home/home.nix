@@ -80,6 +80,9 @@
     git-lfs
     gitkraken
 
+    nodejs-10_x
+    ruby
+
     vagrant_2
     redir
     bridge-utils
