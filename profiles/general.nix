@@ -1,31 +1,9 @@
 { config, lib, pkgs,options, ... }:
-with builtins;
-let
-  overlaysPath = ../overlays;
-  isDir = path: pathExists (path + "/.");
-  overlays = path:
-    if isDir path then
-      let content = readDir path; in
-        map
-          (n: import (path + ("/" + n)))
-          (filter
-            (n: match ".*\\.nix" n != null || pathExists (path + ("/" + n + "/default.nix")))
-            (attrNames content)
-          )
-    else
-      import path;
-in
+
 {
-  nix = {
-    nixPath =
-      options.nix.nixPath.default ++
-    ["nixpkgs-overlays=${toString overlaysPath}"];
-  };
 
   nixpkgs.overlays = [
-    (self: super:
-      lib.foldl (p: n: p  // n self super) ({}) (overlays overlaysPath)
-    )
+    (import ../overlays/lxd)
   ];
 
   imports = [
@@ -37,17 +15,17 @@ in
   nix.buildCores = 4;
   nixpkgs.config.allowUnfree = true;
 
-    i18n = {
-      consoleFont = "Lat2-Terminus16";
-      consoleKeyMap = "us";
-      defaultLocale = "en_US.UTF-8";
-    };
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "us";
+    defaultLocale = "en_US.UTF-8";
+  };
 
-    powerManagement = {
-      enable = true;
-    };
+  powerManagement = {
+    enable = true;
+  };
 
-    programs = {
+  programs = {
     # tmux.enable = true;
     java.enable = true;
   };
@@ -56,6 +34,8 @@ in
     pulseaudio.enable = true;
 
     cpu.amd.updateMicrocode = true;
+
+    opengl.enable = true;
 
     # opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
   };
@@ -79,13 +59,15 @@ in
   '';
 
   fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts
-      font-awesome-ttf
-      noto-fonts-cjk
-      noto-fonts-emoji
+      inconsolata
+      unifont
+      ubuntu_font_family
+      symbola
       nerdfonts
-      helvetica-neue-lt-std
     ];
   };
 

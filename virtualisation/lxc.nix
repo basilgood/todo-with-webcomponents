@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 {
-  # environment.systemPackages = with pkgs; [
-  #   lxc-templates
-  # ];
+  environment.systemPackages = with pkgs; [
+    lxc-templates
+  ];
 
   system.activationScripts = {
     lxc = {
@@ -11,7 +11,7 @@
         ln -sfn /run/current-system/sw/share/lxc  /usr/share/lxc
       '';
       deps = [];
-    };
+    }; 
   };
 
   virtualisation = {
