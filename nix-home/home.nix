@@ -23,6 +23,8 @@
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     ag
     fd
@@ -55,10 +57,10 @@
     libnotify
 
     editorconfig-core-c
-    # emacs
     vimHugeX
-    # vim-vint
-    emacs
+    (vim-vint.overridePythonAttrs(old: {
+      checkPhase = false;
+    }))
 
     keepassxc
 
@@ -74,7 +76,6 @@
 
     git
     lazygit
-    git-cola
     gitAndTools.tig
     gitAndTools.diff-so-fancy
     git-lfs
