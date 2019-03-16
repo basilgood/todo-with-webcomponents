@@ -9,7 +9,6 @@
     (import ./overlays/dmenu)
     (import ./overlays/tig)
     (import ./overlays/lazygit)
-    (import ./overlays/git-cola)
   ];
 
   home = {
@@ -19,7 +18,6 @@
       ".Xresources".text = pkgs.lib.readFile ../dotfiles/Xresources;
       ".dircolors".text = pkgs.lib.readFile ../dotfiles/dircolors;
       ".config/dunst/dunstrc".text = pkgs.lib.readFile ../dotfiles/dunst/dunstrc;
-      ".config/alacritty/alacritty.yml".text = pkgs.lib.readFile ../dotfiles/alacritty.yml;
     };
   };
 
@@ -71,8 +69,7 @@
     feh
     i3lock-fancy
     scrot
-    # st
-    alacritty
+    st
 
     git
     lazygit
@@ -114,7 +111,7 @@
       set-window-option -g xterm-keys on
       set -g default-terminal 'tmux-256color'
       # set -ga terminal-overrides ",xterm-256color:Tc"
-      set -ga terminal-overrides ",alacritty:Tc"
+      set -ga terminal-overrides ",st-256color:Tc"
 
       set -g history-limit 10000
       set -sg escape-time 0
