@@ -18,6 +18,9 @@
       ".Xresources".text = pkgs.lib.readFile ../dotfiles/Xresources;
       ".dircolors".text = pkgs.lib.readFile ../dotfiles/dircolors;
       ".config/dunst/dunstrc".text = pkgs.lib.readFile ../dotfiles/dunst/dunstrc;
+      ".config/i3/config".text = pkgs.lib.readFile ../dotfiles/i3/config;
+      ".config/i3/compton.conf".text = pkgs.lib.readFile ../dotfiles/i3/compton.conf;
+      ".config/i3/blocks.conf".text = pkgs.lib.readFile ../dotfiles/i3/blocks.conf;
     };
   };
 

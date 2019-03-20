@@ -1,22 +1,12 @@
 # i3 config file
 set $mod Mod4
 set $term st
-set $menu j4-dmenu-desktop
-# set $menu termite --class "fzf-menu" -e "bash -c 'compgen -c | sort -u | fzf | xargs -r i3-msg -t command exec'"
-# set $file lxterminal --class "fm" -e bash -c 'fm | xargs -r i3-msg -t command exec'
-# bindsym $mod+c exec termite -e "bash -c 'vifm Projects'" >/dev/null 2>&1
+set $menu dmenu_run
 
 font pango: InconsolataGo Nerd Font 9
 
 # Output configuration
 exec_always --no-startup-id xrandr DVI-0 resolution 1920x1080
-# input
-# input "2:14:ETPS/2_Elantech_Touchpad" {
-#   dwt enabled
-#   tap enabled
-#   natural_scroll enabled
-#   middle_emulation enabled
-# }
 
 # Basics
   set $ws1 "1 "
@@ -110,14 +100,16 @@ bindsym $mod+a focus parent
 # Move windows in and out of the scratchpad with mod+(shift)+t
 bindsym $mod+Shift+t move scratchpad
 bindsym $mod+t scratchpad show
-# Cycle through border styles with mod+b
-bindsym $mod+b border toggle
+# Statusbar toggle
+bindsym $mod+b bar mode toggle
+# Alt-Tab like
+bindsym $mod+Tab workspace back_and_forth
 # reload the configuration file
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # Run terminal with mod+enter
 bindsym $mod+Return exec $term
-# dmenu with mod+d for arbituary programs
+# dmenu with mod+d for programs
 bindsym $mod+d exec $menu
 # bindsym $mod+c exec $file
 for_window [class="^fzf-menu$"] floating enable
@@ -175,11 +167,10 @@ client.unfocused        $base01 $base00 $base05 $base01 $base01
 client.urgent           $base08 $base08 $base00 $base08 $base08
 #client.placeholder      $base00 $base00 $base05 $base00 $base00
 #client.background       $base07
-# exec --no-startup-id compton -f --backend xr_glx_hybrid --fade-exclude 'class_g = "Emacs"' --opacity-rule '99:class_g = "Emacs"'
-# exec --no-startup-id compton -c ~/.config/i3/compton.conf
-# exec_always --no-startup-id "killall -q compton; allow_rgb10_configs=false compton --backend glx"
-exec_always --no-startup-id "killall -q compton; allow_rgb10_configs=false compton --config ~/.config/i3/compton.conf"
+# exec_always --no-startup-id "killall -q compton; allow_rgb10_configs=false compton --config ~/.config/i3/compton.conf"
+exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
 #Window clases
+bindsym $mod+y exec "find ~/Projects/ -maxdepth 1 -type d | dmenu -p 'Repos: ' -l 60 | sh -c 'read repo; cd $repo; st -e tig'"
 exec --no-startup-id feh --bg-fill ~/.config/i3/Mojave.jpg
 bindsym $mod+shift+l exec i3lock-fancy -- scrot -z
 bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
