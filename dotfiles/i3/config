@@ -169,8 +169,9 @@ client.urgent           $base08 $base08 $base00 $base08 $base08
 #client.background       $base07
 # exec_always --no-startup-id "killall -q compton; allow_rgb10_configs=false compton --config ~/.config/i3/compton.conf"
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
+exec_always --no-startup-id feh --bg-scale ~/Projects/nixos/dotfiles/i3/Mojave.jpg
 #Window clases
 bindsym $mod+y exec "find ~/Projects/ -maxdepth 1 -type d | dmenu -p 'Repos: ' -l 60 | sh -c 'read repo; cd $repo; st -e tig'"
 exec --no-startup-id feh --bg-fill ~/.config/i3/Mojave.jpg
 bindsym $mod+shift+l exec i3lock-fancy -- scrot -z
-bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+bindsym --release Print exec scrot -s
