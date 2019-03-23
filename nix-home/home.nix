@@ -73,6 +73,7 @@
     i3lock-fancy
     scrot
     st
+    kitty
 
     git
     lazygit
@@ -113,8 +114,8 @@
       set-option -g renumber-windows on
       set-window-option -g xterm-keys on
       set -g default-terminal 'tmux-256color'
-      # set -ga terminal-overrides ",xterm-256color:Tc"
-      set -ga terminal-overrides ",st-256color:Tc"
+      set -ga terminal-overrides ",xterm-256color:Tc"
+      # set -ga terminal-overrides ",st-256color:Tc"
 
       set -g history-limit 10000
       set -sg escape-time 0

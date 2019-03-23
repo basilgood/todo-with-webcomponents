@@ -1,9 +1,10 @@
 # i3 config file
 set $mod Mod4
-set $term st
+set $term kitty
 set $menu dmenu_run
 
-font pango: InconsolataGo Nerd Font 9
+# font pango: InconsolataGo Nerd Font 9
+font pango: Mononoki Nerd Font 9
 
 # Output configuration
 exec_always --no-startup-id xrandr DVI-0 resolution 1920x1080
