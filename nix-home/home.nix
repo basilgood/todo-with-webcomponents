@@ -1,4 +1,4 @@
-{ pkgs, lib, config, options }:
+{ pkgs, lib, config, options, ... }:
 
 {
   nixpkgs.overlays = [
@@ -21,6 +21,8 @@
       ".config/i3/config".text = pkgs.lib.readFile ../dotfiles/i3/config;
       ".config/i3/compton.conf".text = pkgs.lib.readFile ../dotfiles/i3/compton.conf;
       ".config/i3/blocks.conf".text = pkgs.lib.readFile ../dotfiles/i3/blocks.conf;
+      # ".config/vifm/vifmrc".text = pkgs.lib.readFile ../dotfiles/vifm/vifmrc;
+      # ".config/vifm/colors/iceberg.vifm".text = pkgs.lib.readFile ../dotfiles/vifm/colors/iceberg.vifm;
     };
   };
 
@@ -34,28 +36,28 @@
     fzy
     usbutils
     bat
-    lf
     aspell
+    lf
     mc
+    vifm
     nnn
     qbittorrent
     htop
     unzip
+    zip
+    unzip
+    gimp-with-plugins
 
-    compton
-    lm_sensors
-    lxappearance
-    dmenu
-    arc-theme
-    arc-icon-theme
+    ncmpcpp
+    rofi
 
     chromium
     firefox
     chromedriver
 
-    neomutt
     skypeforlinux
     libnotify
+    zathura
 
     editorconfig-core-c
     vimHugeX
@@ -65,15 +67,19 @@
 
     keepassxc
 
+    compton
+    lm_sensors
+    dmenu
+    gnome3.dconf
     i3blocks
+    i3lock-fancy
     pavucontrol
     mpg123
     dunst
     feh
-    i3lock-fancy
     scrot
     st
-    kitty
+    lxterminal
 
     git
     lazygit
@@ -81,6 +87,7 @@
     gitAndTools.diff-so-fancy
     git-lfs
     gitkraken
+    meld
 
     nodejs-10_x
     ruby
@@ -94,9 +101,27 @@
 
   ];
 
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc";
+    };
+    iconTheme = {
+      package = pkgs.arc-icon-theme;
+      name = "Arc";
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
   programs.tmux = with pkgs; {
     enable = true;
     package = tmux;
+    terminal = "tmux-256color";
     plugins = [
       tmuxPlugins.resurrect
       tmuxPlugins.sensible
@@ -113,9 +138,10 @@
 
       set-option -g renumber-windows on
       set-window-option -g xterm-keys on
-      set -g default-terminal 'tmux-256color'
-      set -ga terminal-overrides ",xterm-256color:Tc"
-      # set -ga terminal-overrides ",st-256color:Tc"
+      set -g default-terminal "xterm-256color"
+      # set -ga terminal-overrides ",xterm-termite:Tc"
+      set-option -ga terminal-overrides ",xterm-256color:Tc"
+
 
       set -g history-limit 10000
       set -sg escape-time 0
@@ -159,6 +185,10 @@
       set -g status-left-length 30
       set -g status-right '#{prefix_highlight}'
     '';
+  };
+
+  services.mpd = {
+    enable = true;
   };
 
   programs.home-manager = {
