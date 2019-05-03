@@ -155,6 +155,23 @@
       set -g prefix C-Space
       bind C-Space send-prefix
 
+      bind -n M-c new-window
+      bind -n M-, previous-window
+      bind -n M-. next-window
+      bind -n M-z resize-pane -Z
+      bind -n M-v split-window -h
+      bind -n M-s split-window -v
+
+      bind -n M-h resize-pane -L 5
+      bind -n M-j resize-pane -D 5
+      bind -n M-k resize-pane -U 5
+      bind -n M-l resize-pane -R 5
+
+      bind -n M-Left select-pane -L
+      bind -n M-Right select-pane -R
+      bind -n M-Up select-pane -U
+      bind -n M-Down select-pane -D
+
       # Default colors
       set-option -g status-style fg=colour145,bg=colour235
 
@@ -184,6 +201,7 @@
       set-option -g @prefix_highlight_copy_mode_attr 'fg=colour235,bg=colour176'
       set -g status-left-length 30
       set -g status-right '#{prefix_highlight}'
+      setw -g window-status-current-format '#{?window_zoomed_flag,#[fg=yellow],}#F#I #W '
     '';
   };
 
