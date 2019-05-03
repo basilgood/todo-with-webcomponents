@@ -87,6 +87,7 @@
     gitAndTools.diff-so-fancy
     git-lfs
     gitkraken
+    smartgithg
     meld
 
     nodejs-10_x
