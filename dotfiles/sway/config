@@ -1,0 +1,187 @@
+# i3 config file
+set $mod Mod4
+set $term lxterminal
+
+# set $menu rofi -show run
+set $menu j4-dmenu-desktop
+
+font pango: Mononoki Nerd Font 9
+
+# Output configuration
+# exec_always --no-startup-id xrandr DVI-0 resolution 1920x1080
+
+# Basics
+  set $ws1 "1 "
+  set $ws2 "2 "
+  set $ws3 "3 "
+  set $ws4 "4 "
+  set $ws5 "5 "
+  set $ws6 "6 "
+  set $ws7 "7 "
+  set $ws8 "8 "
+  set $ws9 "9 "
+  set $ws10 "10 "
+# Meta key bindings
+# Move window with mod+mouse drag
+  floating_modifier $mod
+# Kill focused window with mod+shift+q
+  bindsym $mod+Shift+q kill
+# Toggle fullscreen with mod+f
+  bindsym $mod+f fullscreen
+  bindsym $mod+Escape exec xkill
+# change focus with mod+hjkl or mod+arrow
+  bindsym $mod+Left focus left
+  bindsym $mod+Down focus down
+  bindsym $mod+Up focus up
+  bindsym $mod+Right focus right
+# move focused window with mod+shift+hjkl
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
+# switch to workspace with mod+1234567890
+  bindsym $mod+1 workspace $ws1
+  bindsym $mod+2 workspace $ws2
+  bindsym $mod+3 workspace $ws3
+  bindsym $mod+4 workspace $ws4
+  bindsym $mod+5 workspace $ws5
+  bindsym $mod+6 workspace $ws6
+  bindsym $mod+7 workspace $ws7
+  bindsym $mod+8 workspace $ws8
+  bindsym $mod+9 workspace $ws9
+  bindsym $mod+0 workspace $ws10
+
+# move container to workspace with meta+shift+1234567890
+  bindsym $mod+Shift+1 move container to workspace $ws1
+  bindsym $mod+Shift+2 move container to workspace $ws2
+  bindsym $mod+Shift+3 move container to workspace $ws3
+  bindsym $mod+Shift+4 move container to workspace $ws4
+  bindsym $mod+Shift+5 move container to workspace $ws5
+  bindsym $mod+Shift+6 move container to workspace $ws6
+  bindsym $mod+Shift+7 move container to workspace $ws7
+  bindsym $mod+Shift+8 move container to workspace $ws8
+  bindsym $mod+Shift+9 move container to workspace $ws9
+  bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Resizing containers:
+mode "resize" {
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+set $sysmenu "system: [l]ogout  [p]oweroff  [r]eboot"
+bindsym $mod+Shift+e mode $sysmenu
+
+mode $sysmenu {
+    bindsym l         exit
+    bindsym p         exec shutdown -P now
+    bindsym r         exec shutdown -r now
+    bindsym Return    mode "default"
+    bindsym Escape    mode "default"
+}
+# split in horizontal orientation
+bindsym $mod+h split h
+# split in vertical orientation
+bindsym $mod+v split v
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# Toggle floating with mod+shift+space
+bindsym $mod+Shift+space floating toggle
+# Swap focus between tiling windows and floating windows
+bindsym $mod+space focus mode_toggle
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+# Move focus to parent container with mod+a
+bindsym $mod+a focus parent
+# Move windows in and out of the scratchpad with mod+(shift)+t
+bindsym $mod+Shift+t move scratchpad
+bindsym $mod+t scratchpad show
+# Statusbar toggle
+bindsym $mod+b bar mode toggle
+# Alt-Tab like
+bindsym $mod+Tab workspace back_and_forth
+# reload the configuration file
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+# Run terminal with mod+enter
+bindsym $mod+Return exec $term
+# dmenu with mod+d for programs
+bindsym $mod+d exec $menu
+# lock screen
+bindsym $mod+shift+l exec i3lock-fancy -- scrot -z
+# screenshot
+bindsym --release Print exec scrot -s
+#default_floating_border none
+#hide_edge_borders both
+# for_window [class="^.*"] border pixel 0
+# gaps edge_gaps off
+smart_gaps on
+default_border pixel 1
+gaps inner 7
+gaps outer 0
+smart_borders on
+
+# Base16 colors
+set $base00 #282c34
+set $base01 #353b45
+set $base02 #3e4451
+set $base03 #545862
+set $base04 #565c64
+set $base05 #abb2bf
+set $base06 #b6bdca
+set $base07 #c8ccd4
+set $base08 #e06c75
+set $base09 #d19a66
+set $base0A #e5c07b
+set $base0B #98c379
+set $base0C #56b6c2
+set $base0D #61afef
+set $base0E #c678dd
+set $base0F #be5046
+
+# Status Bar:
+bar {
+  position bottom
+  swaybar_command waybar -c ~/.config/sway/waybar-config -s ~/.config/sway/waybar.css
+    colors {
+      background $base00
+        separator  $base01
+        statusline $base04
+
+# State                     Border  BG      Text
+        focused_workspace   $base05 $base0D $base00
+        active_workspace    $base05 $base03 $base00
+        inactive_workspace  $base03 $base01 $base05
+        urgent_workspace    $base08 $base08 $base00
+        binding_mode        $base0A $base0A $base00
+    }
+}
+
+client.focused          $base05 $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+
+# exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
+# exec_always --no-startup-id feh --bg-scale ~/Projects/nixos/dotfiles/i3/Mojave.jpg
+
+# floating
+for_window [class="nmtui"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Skype"] floating enable
+
+# default workspaces
+assign [class="Chromium"] $ws1
+assign [class="Skype"] $workspace9
+
+# startup
+# exec --no-startup-id feh --bg-fill ~/.config/i3/Mojave.jpg
+exec --no-startup-id chromium

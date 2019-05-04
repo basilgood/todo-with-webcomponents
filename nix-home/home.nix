@@ -4,9 +4,9 @@
   nixpkgs.overlays = [
     (import ./overlays/vagrant)
     (import ./overlays/skype)
-    (import ./overlays/chromium)
+    # (import ./overlays/chromium)
     (import ./overlays/st)
-    (import ./overlays/dmenu)
+    # (import ./overlays/dmenu)
     (import ./overlays/tig)
     (import ./overlays/lazygit)
   ];
@@ -18,9 +18,12 @@
       ".Xresources".text = pkgs.lib.readFile ../dotfiles/Xresources;
       ".dircolors".text = pkgs.lib.readFile ../dotfiles/dircolors;
       ".config/dunst/dunstrc".text = pkgs.lib.readFile ../dotfiles/dunst/dunstrc;
-      ".config/i3/config".text = pkgs.lib.readFile ../dotfiles/i3/config;
-      ".config/i3/compton.conf".text = pkgs.lib.readFile ../dotfiles/i3/compton.conf;
-      ".config/i3/blocks.conf".text = pkgs.lib.readFile ../dotfiles/i3/blocks.conf;
+      # ".config/i3/config".text = pkgs.lib.readFile ../dotfiles/i3/config;
+      # ".config/i3/compton.conf".text = pkgs.lib.readFile ../dotfiles/i3/compton.conf;
+      # ".config/i3/blocks.conf".text = pkgs.lib.readFile ../dotfiles/i3/blocks.conf;
+      ".config/sway/config".text = pkgs.lib.readFile ../dotfiles/sway/config;
+      ".config/sway/waybar-config".text = pkgs.lib.readFile ../dotfiles/sway/waybar-config;
+      ".config/sway/waybar.css".text = pkgs.lib.readFile ../dotfiles/sway/waybar.css;
       # ".config/vifm/vifmrc".text = pkgs.lib.readFile ../dotfiles/vifm/vifmrc;
       # ".config/vifm/colors/iceberg.vifm".text = pkgs.lib.readFile ../dotfiles/vifm/colors/iceberg.vifm;
     };
@@ -51,9 +54,9 @@
     ncmpcpp
     rofi
 
-    chromium
-    firefox
-    chromedriver
+    # chromium
+    # firefox
+    # chromedriver
 
     skypeforlinux
     libnotify
