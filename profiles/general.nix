@@ -35,9 +35,10 @@
 
     cpu.amd.updateMicrocode = true;
 
-    opengl.enable = true;
-
-    # opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
+    };
   };
 
   boot = {
@@ -54,8 +55,8 @@
   };
 
   environment.etc."NetworkManager/dnsmasq.d/10-dns-lxcd.conf".text = ''
-    server=/local/10.0.3.1
-    server=/lxd/10.0.4.1
+      server=/local/10.0.3.1
+      server=/lxd/10.0.4.1
   '';
 
   fonts = {
