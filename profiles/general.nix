@@ -32,9 +32,7 @@
 
   hardware = {
     pulseaudio.enable = true;
-
     cpu.amd.updateMicrocode = true;
-
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
