@@ -4,10 +4,15 @@ pkgs: with pkgs;
   acl
   tree
   wget
+  htop
   xclip
   p7zip
   lm_sensors
   keepassxc
+  pavucontrol
+  fzy
+  fd
+  ag
 
   # wayland specific
   xwayland
@@ -24,6 +29,7 @@ pkgs: with pkgs;
 
   # editor
   vimHugeX
+  editorconfig-core-c
 
   # git
   git
