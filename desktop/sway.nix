@@ -2,14 +2,13 @@
 let
   url = "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz";
   waylandOverlay = (import (builtins.fetchTarball url));
-  waybarConfig = pkgs.writeText "config" (builtins.readFile ./waybar-config);
-  waybarStyle = pkgs.writeText "config" (builtins.readFile ./waybar.css);
 in {
   nixpkgs.overlays = [ waylandOverlay ];
   programs.sway = {
     enable = true;
     extraSessionCommands = ''
-        export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle,caps:escape
+      export XKB_DEFAULT_LAYOUT=us
+      export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle,caps:escape
     '';
     extraPackages = with pkgs; [
       swayidle
@@ -25,8 +24,4 @@ in {
 
   environment.systemPackages = import ../system-packages.nix pkgs;
 
-  environment.etc."sway/config".text = with pkgs; ''
-    set $status ${waybar}/bin/waybar -c ${waybarConfig} -s ${waybarStyle}
-    ${builtins.readFile ./config}
-  '';
 }
