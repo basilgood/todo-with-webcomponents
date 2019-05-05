@@ -7,6 +7,7 @@ pkgs: with pkgs;
   xclip
   p7zip
   lm_sensors
+  keepassxc
 
   # wayland specific
   xwayland
@@ -20,5 +21,13 @@ pkgs: with pkgs;
 
   # terminals
   lxterminal
+
+  # editor
+  vimHugeX
+
+  # git
+  git
+  gitAndTools.diff-so-fancy
+  lazygit
 
 ]
