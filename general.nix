@@ -4,9 +4,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # nixpkgs.overlays = [
-  #   (import ../overlays/lxd)
-  # ];
+  nixpkgs.overlays = [
+    (import ./overlays/waybar)
+    # (import ../overlays/lxd)
+  ];
 
   # imports = [
   #   ../virtualisation/lxc.nix
