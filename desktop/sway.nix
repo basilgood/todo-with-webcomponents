@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
-let
-  url = "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz";
-  waylandOverlay = (import (builtins.fetchTarball url));
-in {
-  nixpkgs.overlays = [ waylandOverlay ];
+# let
+#   url = "https://github.com/colemickens/nixpkgs-wayland/archive/master.tar.gz";
+#   waylandOverlay = (import (builtins.fetchTarball url));
+# in {
+#   nixpkgs.overlays = [ waylandOverlay ];
+{
   programs.sway = {
     enable = true;
     extraSessionCommands = ''
@@ -17,8 +18,6 @@ in {
       grim
       slurp
       mako
-      redshift-wayland
-      xdg-desktop-portal-wlr
     ];
   };
 
