@@ -6,6 +6,8 @@
 
   nixpkgs.overlays = [
     (import ./overlays/waybar)
+    (import ./overlays/st)
+    (import ./overlays/tig)
     # (import ../overlays/lxd)
   ];
 

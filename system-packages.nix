@@ -26,6 +26,7 @@ pkgs: with pkgs;
 
   # terminals
   lxterminal
+  st
 
   # editor
   vimHugeX
@@ -33,7 +34,11 @@ pkgs: with pkgs;
 
   # git
   git
+  gitAndTools.tig
   gitAndTools.diff-so-fancy
   lazygit
+  smartgithg
+
+  spotify
 
 ]
