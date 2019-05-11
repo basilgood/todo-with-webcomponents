@@ -68,6 +68,7 @@
   nixpkgs.overlays = [
     (import ./overlays/waybar)
     (import ./overlays/tig)
+    (import ./overlays/tmux)
     # (import ./overlays/alacritty)
     # (import ../overlays/lxd)
   ];

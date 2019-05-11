@@ -7,12 +7,14 @@ pkgs: with pkgs;
   htop
   xclip
   p7zip
+  unzip
   lm_sensors
   keepassxc
   pavucontrol
   fzy
   fd
   ag
+  lf
 
   # wayland specific
   xwayland
