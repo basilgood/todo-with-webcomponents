@@ -2,15 +2,6 @@
 
 {
 
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.overlays = [
-    (import ./overlays/waybar)
-    (import ./overlays/st)
-    (import ./overlays/tig)
-    # (import ../overlays/lxd)
-  ];
-
   # imports = [
   #   ../virtualisation/lxc.nix
   #   ../virtualisation/lxd.nix
@@ -57,10 +48,29 @@
     };
   };
 
-  environment.etc."NetworkManager/dnsmasq.d/10-dns-lxcd.conf".text = ''
+  environment.etc = {
+    "NetworkManager/dnsmasq.d/10-dns-lxcd.conf".text = ''
       server=/local/10.0.3.1
       server=/lxd/10.0.4.1
-  '';
+    '';
+  };
+
+  environment.sessionVariables =
+  {
+    # Allow GTK 2.0/3.0 themes to be found.
+    GTK_DATA_PREFIX = "/run/current-system/sw";
+    # Allow KDE apps to work better in i3.
+    DESKTOP_SESSION = "kde";
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    (import ./overlays/waybar)
+    (import ./overlays/tig)
+    # (import ./overlays/alacritty)
+    # (import ../overlays/lxd)
+  ];
 
   fonts = {
     enableFontDir = true;
