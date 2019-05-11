@@ -108,7 +108,7 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # run terminal with mod+enter
-bindsym $mod+Return exec $lxterm
+bindsym $mod+Return exec $term
 # dmenu with mod+d for programs
 bindsym $mod+d exec $menu
 # lock screen

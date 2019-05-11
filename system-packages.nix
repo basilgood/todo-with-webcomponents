@@ -27,6 +27,7 @@ pkgs: with pkgs;
   # terminals
   lxterminal
   st
+  alacritty
 
   # editor
   vimHugeX
