@@ -11,22 +11,44 @@ set status-show-untracked-dirs = yes
 set refresh-mode               = periodic
 set refresh-interval           = 5
 set line-graphics              = utf-8
+bind status  u  none
+bind stage   u  none
 
 # Bindings
-
+# unbind all
+bind generic g none
+bind generic m none
+bind generic r none
+bind generic s none
+bind generic p none
+bind generic v  none
+bind generic u  none
+bind generic c  none
+# movements
 bind generic j move-down
 bind generic k move-up
 
-bind generic g none
 bind generic gg move-first-line
 bind main    G move-last-line
 bind generic G move-last-line
+# views
+bind generic vm view-main
+bind generic vd view-diff
+bind generic vl view-log
+bind generic vt view-tree
+bind generic vb view-blob
+bind generic vx view-blame
+bind generic vr view-refs
+bind generic vs view-status
+bind generic vu view-stage
+bind generic vy view-stash
+bind generic vg view-grep
+bind generic vp view-pager
+bind generic vh view-help
 # fetch
 bind generic f ?git fetch -p %(remote)
 bind main f ?git fetch -p %(remote)
 # reset hard
-bind generic r none
-bind generic s none
 bind main rh ?git reset --hard %(commit)
 bind diff rh ?git reset --hard %(commit)
 bind refs rh ?git reset --hard %(branch)
@@ -37,7 +59,6 @@ bind main ri ?git rebase -i %(branch)
 bind main ri ?git rebase -i %(commit)
 bind refs ri ?git rebase -i %(branch)
 # push
-bind generic p none
 bind generic ps ?git push -u %(remote) %(repo:head)
 bind status ps ?git push -u %(remote) %(repo:head)
 bind main   pf !?git push -f %(remote) %(repo:head)
@@ -61,30 +82,12 @@ bind main T !?@git tag %(prompt) %(commit)
 bind generic <C-f> move-page-down
 bind generic <C-b> move-page-up
 
-bind generic v  none
-bind generic vm view-main
-bind generic vd view-diff
-bind generic vl view-log
-bind generic vt view-tree
-bind generic vb view-blob
-bind generic vx view-blame
-bind generic vr view-refs
-bind generic vs view-status
-bind generic vu view-stage
-bind generic vy view-stash
-bind generic vg view-grep
-bind generic vp view-pager
-bind generic vh view-help
-
-bind status  u  none
-bind stage   u  none
-bind generic uu status-update
+bind generic - status-update
 bind generic ur status-revert
 bind generic um status-merge
 bind generic ul stage-update-line
 bind generic us stage-split-chunk
 
-bind generic c  none
 bind generic cc !git commit
 bind generic ca !?@git commit --amend --no-edit
 
