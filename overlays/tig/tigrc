@@ -70,8 +70,6 @@ bind status a ?git commit --amend
 bind status + ?git commit --amend --allow-empty
 # revert commit
 bind main ! !?git revert %(commit)
-# chunk under cursor on diff (stage or unstage)
-  bind stage 1 stage-update-line
 # tag the selected commit
 bind main T !?@git tag %(prompt) %(commit)
 # add current file to gitignore
@@ -84,14 +82,12 @@ bind generic <C-b> move-page-up
 
 bind generic s status-update
 bind generic r status-revert
-bind generic um status-merge
-bind generic ul stage-update-line
-bind generic us stage-split-chunk
+bind generic m status-merge
+bind generic l stage-update-line
+bind generic - stage-split-chunk
 
-bind generic cc !git commit
-bind generic ca !?@git commit --amend --no-edit
-
-bind generic <C-w><C-w> view-next
+bind generic c !git commit
+bind generic a !?@git commit --amend --no-edit
 
 # COLORS
 
