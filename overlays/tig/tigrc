@@ -69,7 +69,7 @@ bind main pu ?git pull --ff-only
 bind status a ?git commit --amend
 bind status + ?git commit --amend --allow-empty
 # revert commit
-bind main ! !?git revert %(commit)
+bind main r !?git revert %(commit)
 # tag the selected commit
 bind main T !?@git tag %(prompt) %(commit)
 # add current file to gitignore
