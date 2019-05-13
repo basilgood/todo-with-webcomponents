@@ -14,14 +14,13 @@ pkgs: with pkgs;
   fzy
   fd
   ag
-  lf
 
   # wayland specific
   xwayland
-  firefox-wayland
 
   # browsers
   chromium
+  firefox-wayland
 
   # launcher
   j4-dmenu-desktop
