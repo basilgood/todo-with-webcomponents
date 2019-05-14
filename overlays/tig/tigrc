@@ -1,93 +1,72 @@
 # Settings
-set main-view-author-display = email-user
-set main-view-date         = custom
-set main-view-date-local   = yes
-set main-view-date-format = "%Y-%m-%d %H:%M"
+set main-view = \
+  line-number:no,interval=5 \
+  id:yes \
+  date:relative-compact \
+  author:email-user \
+  commit-title:yes,graph,refs,overflow=no
+set refs-view = \
+  line-number:no \
+  id:no \
+  date:relative-compact \
+  author:full ref commit-title
 
 set blame-options              = -C -C -C
 set show-notes                 = yes
 set show-changes               = yes
 set status-show-untracked-dirs = yes
-set refresh-mode               = periodic
-set refresh-interval           = 5
+set refresh-mode               = after-command
 set line-graphics              = utf-8
-bind status  u  none
-bind stage   u  none
 
-# Bindings
-# unbind all
-bind generic g none
-bind generic m none
-bind generic r none
-bind generic s none
-bind generic p none
-bind generic v  none
-bind generic u  none
-bind generic c  none
-# movements
-bind generic j move-down
-bind generic k move-up
+# branch
+bind refs n !@git branch "%(prompt Enter branch name: )"
+bind main \n !@git branch "%(prompt Enter branch name: )" %(commit)
+bind main \c ?git checkout %(commit)
+bind refs <del> ?git branch -d %(branch)
+bind refs \<del> !?git push %(remote) --delete %(branch)
+bind main <del> !?git push %(remote) --delete %(branch)
 
-bind generic gg move-first-line
-bind main    G move-last-line
-bind generic G move-last-line
-# views
-bind generic vm view-main
-bind generic vd view-diff
-bind generic vl view-log
-bind generic vt view-tree
-bind generic vb view-blob
-bind generic vx view-blame
-bind generic vr view-refs
-bind generic vs view-status
-bind generic vu view-stage
-bind generic vy view-stash
-bind generic vg view-grep
-bind generic vp view-pager
-bind generic vh view-help
-# fetch
-bind generic f ?git fetch -p %(remote)
-bind main f ?git fetch -p %(remote)
-# reset hard
-bind main rh ?git reset --hard %(commit)
-bind diff rh ?git reset --hard %(commit)
-bind refs rh ?git reset --hard %(branch)
-bind status rh ?git reset --hard HEAD
+#Fetch
+bind generic F none
+bind generic F ?git fetch -p %(remote)
+bind main    F ?git fetch -p %(remote)
+
+# reset
+bind main   ! ?git reset --hard %(commit)
+bind refs   ! ?git reset --hard %(branch)
+bind main \s ?git reset --soft HEAD~"%(prompt Enter number: )"
+
 # rebase
-bind refs rb ?git rebase %(branch)
-bind main ri ?git rebase -i %(branch)
-bind main ri ?git rebase -i %(commit)
-bind refs ri ?git rebase -i %(branch)
+bind refs \r ?git rebase %(branch)
+
+# rebase interactive
+bind main \r ?git rebase -i %(branch)
+bind main \R ?git rebase -i %(commit)
+bind refs r ?git rebase -i %(branch)
+bind main a ?git rebase --abort
+bind refs a ?git rebase --abort
+
 # push
+bind generic p none
 bind generic ps ?git push -u %(remote) %(repo:head)
 bind status ps ?git push -u %(remote) %(repo:head)
 bind main   pf !?git push -f %(remote) %(repo:head)
 bind status pf !?git push -f %(remote) %(repo:head)
+
 # pull
 bind main pu ?git pull --ff-only
+
 # commit
-bind status a ?git commit --amend
-bind status + ?git commit --amend --allow-empty
-# revert commit
-bind main r !?git revert %(commit)
+bind generic A none
+bind main \C ?git cherry-pick -n %(commit)
+bind main A ?git commit --amend
+bind main + ?git commit --amend --no-edit
+
 # tag the selected commit
 bind main T !?@git tag %(prompt) %(commit)
-# add current file to gitignore
-  bind status <Ctrl-r> ?sh -c "echo %(file) >> .gitignore"
+
 # copy sha to clipboard
-  bind generic 9 !sh -c "echo -n %(commit) | xclip -selection c && echo Copied %(commit) to clipboard"
-
-bind generic <C-f> move-page-down
-bind generic <C-b> move-page-up
-
-bind generic s status-update
-bind generic r status-revert
-bind generic m status-merge
-bind generic l stage-update-line
-bind generic - stage-split-chunk
-
-bind generic c !git commit
-bind generic a !?@git commit --amend --no-edit
+bind generic Y !sh -c "echo -n %(commit) | xclip -selection c && echo Copied %(commit) to clipboard"
 
 # COLORS
 
@@ -115,9 +94,6 @@ color   main-tracked            221     default     bold
 color   main-ref                81      default
 color   main-head               213     default     bold
 color   graph-commit            226     default
-
-# status
-#color  stat-head       81      default
 
 # Diff   colors
 color   diff_add                10      default
@@ -150,8 +126,8 @@ color   pp_refs                 213     default
 # status
 color   status.header           221     default
 color   status.section          81      default
-color   stat_staged             213     default
-color   stat_unstaged           213     default
+color   stat_staged             10     default
+color   stat_unstaged           11     default
 color   stat_untracked          213     default
 
 # raw commit header
