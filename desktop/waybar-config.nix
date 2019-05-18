@@ -1,4 +1,4 @@
-{lxterminal}:
+{alacritty}:
 # vim: set syntax=json:
 ''
 {
@@ -18,7 +18,6 @@
       "temperature#cpu",
       "temperature#gpu",
       "memory",
-      "backlight",
       "pulseaudio",
       "battery",
       "tray"
@@ -39,7 +38,7 @@
         "ethernet": [""],
         "disconnected": [""]
       },
-      "on-click": "${lxterminal}/bin/lxterminal --title 'nmtui' -e nmtui",
+      "on-click": "${alacritty}/bin/alacritty --title 'nmtui' -e nmtui",
       "tooltip": false
     },
     "clock": {
@@ -55,14 +54,14 @@
     },
     "temperature#cpu": {
       "thermal-zone": 1,
-      "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+      "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
       "critical-threshold": 80,
       "format-critical": "{temperatureC}°C ",
       "format": "{temperatureC}°C "
     },
     "temperature#gpu": {
       "thermal-zone": 2,
-      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+      "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
       "critical-threshold": 80,
       "format-critical": "{temperatureC}°C ",
       "format": "{temperatureC}°C "
@@ -71,7 +70,7 @@
       "format": "{}% "
     },
     "battery": {
-      "bat": "BAT2",
+      "bat": "BAT1",
       "interval": 60,
       "states": {
         "warning": 40,
@@ -83,11 +82,6 @@
     },
     "tray": {
       "spacing": 10
-    },
-    "backlight": {
-      "device": "intel_backlight",
-      "format": "{percent}% {icon}",
-      "format-icons": ["", ""]
     },
     "pulseaudio": {
       "format": "{volume}% {icon}",
