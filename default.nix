@@ -6,5 +6,6 @@
     ./desktop/sway.nix
     ./tmux.nix
     ./lf.nix
+    # ./dotfiles/default.nix
   ];
 }
