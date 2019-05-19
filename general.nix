@@ -2,11 +2,9 @@
 
 {
 
-  # imports = [
-  #   ../virtualisation/lxc.nix
-  #   ../virtualisation/lxd.nix
-  #   # ../virtualisation/virtualbox.nix
-  # ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   nix.buildCores = 4;
 
@@ -20,11 +18,6 @@
     enable = true;
   };
 
-  programs = {
-    # tmux.enable = true;
-    java.enable = true;
-  };
-
   hardware = {
     pulseaudio.enable = true;
     cpu.amd.updateMicrocode = true;
@@ -32,10 +25,6 @@
       enable = true;
       extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
     };
-  };
-
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   users.defaultUserShell = "/run/current-system/sw/bin/bash";
@@ -63,16 +52,6 @@
     DESKTOP_SESSION = "kde";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.overlays = [
-    (import ./overlays/waybar)
-    (import ./overlays/tig)
-    (import ./overlays/tmux)
-    (import ./overlays/alacritty)
-    # (import ../overlays/lxd)
-  ];
-
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -88,6 +67,19 @@
     android-udev-rules
   ];
 
-  programs.ssh.startAgent = true;
+  programs = {
+    ssh.startAgent = true;
+    java.enable = true;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    (import ./overlays/waybar)
+    (import ./overlays/tig)
+    (import ./overlays/tmux)
+    (import ./overlays/alacritty)
+    # (import ../overlays/lxd)
+  ];
 
 }
