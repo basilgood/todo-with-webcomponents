@@ -36,12 +36,13 @@ with pkgs.tmuxPlugins;
       set -g @theme "one"
       set -g @theme-background "dark"
       set -g status-left-length 30
-      set -g status-right '#{prefix_highlight}'
+      set -g  status-left '#S:  '
+      set -g window-status-separator '  '
+      set -g  status-right '#{?client_prefix, prefix ,}'
       run-shell ${pain-control.rtp}
       run-shell ${sensible.rtp}
       run-shell ${resurrect.rtp}
       run-shell ${tmux-theme.rtp}
-      run-shell ${prefix-highlight.rtp}
     '';
   };
 }
