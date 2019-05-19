@@ -42,9 +42,9 @@ bind refs grh ?git reset --hard %(branch)
 bind main grs ?git reset --soft %(commit)
 
 # rebase interactive
-bind main gri ?git rebase -i %(branch)
-bind main grb ?git rebase -i %(commit)
-bind refs gri ?git rebase -i %(branch)
+bind main grb ?git rebase -i %(branch)
+bind main gri ?git rebase -i %(commit)
+bind refs grb ?git rebase -i %(branch)
 bind main gra ?git rebase --abort
 bind refs gra ?git rebase --abort
 bind main grc ?git rebase --continue
