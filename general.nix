@@ -27,8 +27,6 @@
     };
   };
 
-  users.defaultUserShell = "/run/current-system/sw/bin/bash";
-
   networking.networkmanager = {
     enable = true;
     dns = "dnsmasq";
