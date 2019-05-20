@@ -5,8 +5,6 @@ with pkgs.tmuxPlugins;
     enable = true;
     baseIndex = 1;
     terminal = "tmux-256color";
-    historyLimit = 10000;
-    escapeTime = 0;
     keyMode = "vi";
     extraTmuxConf = ''
       # Automatically set window title
@@ -18,6 +16,7 @@ with pkgs.tmuxPlugins;
       set -g focus-events on
       setw -g mouse on
       setw -g monitor-activity on
+
       unbind C-b
       set -g prefix C-Space
       bind C-Space send-prefix
@@ -33,16 +32,32 @@ with pkgs.tmuxPlugins;
       bind -n M-Down select-pane -D
       bind -n M-,  previous-window
       bind -n M-. next-window
-      set -g @theme "one"
-      set -g @theme-background "dark"
+
+      # Default colors
+      set-option -g status-style fg=colour145,bg=colour235
+
+      # Window titles
+      set-window-option -g window-status-style fg=default,bg=default
+      set-window-option -g window-status-current-style fg=white,bold,bg=default
+      set-window-option -g window-status-activity-style fg=default,noreverse,bg=default
+
+      # Pane borders
+      set-option -g pane-border-style fg=colour240,bg=default
+      set-option -g pane-active-border-style fg=colour76,bg=default
+
+      # Message text
+      set-option -g message-style fg=colour76,bg=default
+      set-option -g message-command-style fg=colour75,bg=default
+
+      # Copy mode
+      set-window-option -g mode-style fg=default,bg=colour240
       set -g status-left-length 30
       set -g  status-left '#S:  '
       set -g window-status-separator '  '
-      set -g  status-right '#{?client_prefix, prefix ,}'
+      set -g status-right '#{?client_prefix, prefix ,}'
       run-shell ${pain-control.rtp}
       run-shell ${sensible.rtp}
       run-shell ${resurrect.rtp}
-      run-shell ${tmux-theme.rtp}
     '';
   };
 }
