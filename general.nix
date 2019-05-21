@@ -65,6 +65,11 @@
     android-udev-rules
   ];
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   programs = {
     ssh.startAgent = true;
     java.enable = true;
@@ -77,6 +82,7 @@
     (import ./overlays/tig)
     (import ./overlays/tmux)
     (import ./overlays/alacritty)
+    (import ./overlays/lazygit)
     # (import ../overlays/lxd)
   ];
 

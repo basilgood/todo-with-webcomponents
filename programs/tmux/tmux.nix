@@ -1,7 +1,5 @@
-{ config, options, lib, pkgs, ... }:
-with pkgs.tmuxPlugins;
+{pkgs}:
 {
-  programs.tmux = {
     enable = true;
     baseIndex = 1;
     terminal = "tmux-256color";
@@ -55,9 +53,8 @@ with pkgs.tmuxPlugins;
       set -g  status-left '#S:  '
       set -g window-status-separator '  '
       set -g status-right '#{?client_prefix, prefix ,}'
-      run-shell ${pain-control.rtp}
-      run-shell ${sensible.rtp}
-      run-shell ${resurrect.rtp}
+      run-shell ${pkgs.tmuxPlugins.pain-control.rtp}
+      run-shell ${pkgs.tmuxPlugins.sensible.rtp}
+      run-shell ${pkgs.tmuxPlugins.resurrect.rtp}
     '';
-  };
 }
