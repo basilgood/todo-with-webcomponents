@@ -73,6 +73,8 @@
   programs = {
     ssh.startAgent = true;
     java.enable = true;
+    bash = import ./bash/default.nix;
+    tmux = import ./tmux/tmux.nix {inherit pkgs;};
   };
 
   nixpkgs.config.allowUnfree = true;
