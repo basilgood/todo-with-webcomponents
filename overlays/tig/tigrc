@@ -40,6 +40,7 @@ bind generic gf ?git fetch --all --prune
 bind main grh ?git reset --hard %(commit)
 bind refs grh ?git reset --hard %(branch)
 bind main grs ?git reset --soft %(commit)
+bind status gx ?git checkout %(file)
 
 # rebase interactive
 bind main grb ?git rebase -i %(branch)
