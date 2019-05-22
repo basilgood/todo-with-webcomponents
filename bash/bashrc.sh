@@ -215,3 +215,4 @@ PROMPT_COMMAND='\
 PROMPT_COMMAND="hfix; $PROMPT_COMMAND"
 
 stty -ixon
+eval "$(fasd --init auto)"

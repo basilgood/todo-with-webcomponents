@@ -14,6 +14,7 @@ pkgs: with pkgs;
   fzy
   fd
   ag
+  fasd
 
   # wayland specific
   xwayland
