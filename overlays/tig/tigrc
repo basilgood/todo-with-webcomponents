@@ -40,9 +40,12 @@ bind generic gf ?git fetch --all --prune
 bind main grh ?git reset --hard %(commit)
 bind refs grh ?git reset --hard %(branch)
 bind main grs ?git reset --soft %(commit)
+
+# reset file
 bind status gx ?git checkout %(file)
 
 # rebase interactive
+bind main grm ?git rebase -i "%(prompt Enter branch name: )"
 bind main grb ?git rebase -i %(branch)
 bind main gri ?git rebase -i %(commit)
 bind refs grb ?git rebase -i %(branch)
@@ -55,6 +58,7 @@ bind main grk ?git rebase --skip
 bind generic gps ?git push -u %(remote) %(repo:head)
 bind status  gps ?git push -u %(remote) %(repo:head)
 bind main    gpf !?git push -f %(remote) %(repo:head)
+bind main    gpp !?git push
 bind status  gpf !?git push -f %(remote) %(repo:head)
 
 # pull without merge
