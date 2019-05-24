@@ -9,9 +9,10 @@
   nix.buildCores = 4;
 
   i18n = {
-    consoleFont = "Lat2-Terminus16";
+    consoleFont = "ter-132n";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
+    consolePackages = [ pkgs.terminus_font ];
   };
 
   powerManagement = {
@@ -70,22 +71,37 @@
     openDefaultPorts = true;
   };
 
-  programs = {
+  programs         = {
     ssh.startAgent = true;
-    java.enable = true;
-    bash = import ./bash/default.nix;
-    tmux = import ./tmux/tmux.nix {inherit pkgs;};
+    java.enable    = true;
+    # zsh = {
+    #   enable = true;
+    #   autosuggestions = {
+    #     enable = true;
+    #     highlightStyle = "fg=241";
+    #   };
+    #   enableCompletion = true;
+    #   syntaxHighlighting.enable = true;
+    #   ohMyZsh.theme = "spaceship";
+    #   interactiveShellInit = ''
+    #     export SPACESHIP_VI_MODE_COLOR=black
+    #   '';
+    # };
+    tmux           = import ./tmux/tmux.nix {inherit pkgs;};
+  };
+
+  virtualisation = {
+    lxc.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
+    (import ./overlays/zsh)
     (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
     (import ./overlays/alacritty)
-    (import ./overlays/lazygit)
-    # (import ../overlays/lxd)
   ];
 
 }
