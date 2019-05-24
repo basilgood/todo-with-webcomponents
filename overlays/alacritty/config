@@ -25,15 +25,15 @@ tabspaces: 8
 
 font:
   normal:
-    family: NotoSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     style: Regular
   bold:
-    family: NotoSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     style: Bold
   italic:
-    family: NotoSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     style: Italic
-  size: 12.0
+  size: 11.0
   offset:
     x: 0
     y: 0
@@ -108,11 +108,6 @@ cursor:
   unfocused_hollow: false
 
 live_config_reload: true
-
-shell:
-  program: /run/current-system/sw/bin/bash
-  args:
-    - --login
 
 enable_experimental_conpty_backend: false
 
