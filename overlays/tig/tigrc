@@ -25,7 +25,7 @@ bind generic g none
 bind generic gg view-grep
 
 # branch
-bind refs gn  !@git branch "%(prompt Enter branch name: )"
+bind refs gn  !@git branch "%(prompt Enter branch name: )" %(branch)
 bind main gn  !@git branch "%(prompt Enter branch name: )" %(commit)
 bind main gco ?git checkout %(commit)
 bind main gcb ?git checkout %(branch)
@@ -35,17 +35,14 @@ bind main gD  !?git push %(remote) --delete %(branch)
 
 #Fetch
 bind generic gf ?git fetch --all --prune
+bind refs gf ?git fetch %(remote) %(branch):%(branch)
 
 # reset
 bind main grh ?git reset --hard %(commit)
 bind refs grh ?git reset --hard %(branch)
 bind main grs ?git reset --soft %(commit)
 
-# reset file
-bind status gx ?git checkout %(file)
-
 # rebase interactive
-bind main grm ?git rebase -i "%(prompt Enter branch name: )"
 bind main grb ?git rebase -i %(branch)
 bind main gri ?git rebase -i %(commit)
 bind refs grb ?git rebase -i %(branch)
@@ -63,7 +60,7 @@ bind status  gpf !?git push -f %(remote) %(repo:head)
 
 # pull without merge
 bind main gpu ?git pull --ff-only
-bind main gpr ?git pull --rebase
+bind main gpr ?git pull --rebase --autostash
 
 # commit
 bind main   gC  ?git cherry-pick %(commit)
