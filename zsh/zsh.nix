@@ -25,10 +25,61 @@
       bindkey '\e[1;5D' vi-backward-word           # C-Left
       bindkey '\e[5~'   history-search-backward # PgUp
       bindkey '\e[6~'   history-search-forward  # PgDn
-      export EDITOR=nvim
+      export EDITOR=vim
+      export PYTHONWARNINGS=ignore::yaml.YAMLLoadWarning
       eval `${pkgs.coreutils}/bin/dircolors "${./dircolors}"`
       HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=black,fg=yellow,bold'
       alias ..="cd ../"
+
+      extract() {
+        if [ -f "$1" ] ; then
+          local filename=$(basename "$1")
+          local foldername="''${filename%%.*}"
+          local fullpath=$(perl -e 'use Cwd "abs_path";print abs_path(shift)' "$1")
+          local didfolderexist=false
+
+          if [ -d "$foldername" ]; then
+            didfolderexist=true
+            read -p "$foldername already exists, do you want to overwrite it? (y/n) " -n 1
+            echo
+            if [[ $REPLY =~ ^[Nn]$ ]]; then
+              return
+            fi
+          fi
+
+          mkdir -p "$foldername" && cd "$foldername"
+          case $1 in
+            *.tar.bz2) tar xjf "$fullpath" ;;
+            *.tar.gz) tar xzf "$fullpath" ;;
+            *.tar.xz) tar Jxvf "$fullpath" ;;
+            *.tar.Z) tar xzf "$fullpath" ;;
+            *.tar) tar xf "$fullpath" ;;
+            *.taz) tar xzf "$fullpath" ;;
+            *.tb2) tar xjf "$fullpath" ;;
+            *.tbz) tar xjf "$fullpath" ;;
+            *.tbz2) tar xjf "$fullpath" ;;
+            *.tgz) tar xzf "$fullpath" ;;
+            *.txz) tar Jxvf "$fullpath" ;;
+            *.zip) unzip "$fullpath" ;;
+            *) echo "'$1' cannot be extracted via extract()" && cd .. && ! $didfolderexist && rm -r "$foldername" ;;
+          esac
+        else
+          echo "'$1' is not a valid file"
+        fi
+      }
+
+      man() {
+        env \
+          LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+          LESS_TERMCAP_md=$(printf "\e[1;31m") \
+          LESS_TERMCAP_me=$(printf "\e[0m") \
+          LESS_TERMCAP_se=$(printf "\e[0m") \
+          LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+          LESS_TERMCAP_ue=$(printf "\e[0m") \
+          LESS_TERMCAP_us=$(printf "\e[1;4;36m") \
+          man "$@"
+      }
+
       stty -ixon
     '';
 
