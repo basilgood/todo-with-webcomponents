@@ -80,6 +80,8 @@
           man "$@"
       }
 
+      export FZF_DEFAULT_OPTS='--height 30% --layout=reverse --border'
+      export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
       stty -ixon
     '';
 
