@@ -1,4 +1,4 @@
-{ag, fzf, fd, rustup, rustracer}:
+{ag, fzf, fd}:
 # vim: set syntax=vim:
 ''
 " core
@@ -40,6 +40,7 @@ let g:lightline.subseparator = {
 " ale lint plugin
 let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
+let g:ale_completion_enabled = 1
 let g:ale_sign_info = 'i'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_pattern_options_enabled = 1
@@ -52,14 +53,15 @@ let g:ale_sign_warning = '●'
 let g:ale_sign_error = '●'
 let g:ale_fixers = {
   \ 'javascript': ['eslint'],
-  \ 'html': ['eslint']
+  \ 'html': ['eslint'],
+  \ 'rust': ['rustfmt']
   \}
 let g:ale_linter_aliases = {
   \ 'html': 'javascript'
   \}
 let g:ale_linters = {
   \ 'javascript': ['eslint'],
-  \ 'rust': ['cargo'],
+  \ 'rust': ['rls', 'cargo','rustc'],
   \ 'yaml': ['yamllint'],
   \ 'vim': ['vint'],
   \ 'nix': ['nix'],
@@ -137,36 +139,6 @@ noremap <silent> <Bs> :call fzf#run(fzf#wrap({
   \ 'options': '-m --expect='.join(keys(buffer_action), ',')
   \ }))<CR>
 
-" vim-jsx-improve
-let g:jsx_ext_required = 0
-
 " markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
-
-" nvim_typescript
-let g:nvim_typescript#diagnostics_enable = 0
-
-" rustracer
-let g:racer_cmd = "racer"
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-augroup rustracer
-autocmd!
-  augroup FileType rust nmap gf <Plug>(rust-def)
-  augroup FileType rust nmap gs <Plug>(rust-def-split)
-  augroup FileType rust nmap gx <Plug>(rust-def-vertical)
-  augroup FileType rust nmap <leader>gd <Plug>(rust-doc)
-augroup END
-
-" Language server protocol
-let g:LanguageClient_serverCommands = {
-  \'rust': ['rustup', 'run', 'nightly', 'rls']
-  \ }
-  let g:LanguageClient_autoStart = 1
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 ''

@@ -1,6 +1,31 @@
 { vimUtils, fetchFromGitHub, makeWrapper, callPackage }:
 with vimUtils;
 {
+  ale = buildVimPluginFrom2Nix {
+    pname = "ale";
+    version = "2019-06-05";
+    src = fetchFromGitHub {
+      owner = "w0rp";
+      repo = "ale";
+      rev = "7b78f2b846e2f3443dcb2ceacee54eb99e37f040";
+      sha256 = "1f6kldvcysa525xn6fnzg09chp39s63m7nxsq008lzykm30v00jr";
+    };
+  };
+
+  mergetool = buildVimPlugin {
+    pname= "mergetool-vim";
+    version = "0.1";
+    src = fetchFromGitHub {
+      owner = "samoshkin";
+      repo = "vim-mergetool";
+      rev = "2e2e80a74e3bdcc1ba017ae9dd3d16da8aee73fc";
+      sha256 = "0sc7pfac0yvdgj0qgs349va3yd5l1x1ghbmj4z0wsrb35pvbfcbj";
+    };
+
+    buildPhase = ":";
+    configurePhase =":";
+  };
+
   quickfix = buildVimPlugin {
     pname= "quickfix-vim";
     version = "0.1";

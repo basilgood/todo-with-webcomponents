@@ -14,8 +14,8 @@ in {
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "c6cd6081b8c449fa9890c18b5e2151e3af9bd45d";
-      sha256 = "1v978z88ikw3lldd5y8zsdyy9rzciwy10q298z0s8m4aal8612bs";
+      rev = "16ee24082f72162d3bdfbddb0b40b5abc2c90fda";
+      sha256 = "1hqharf1l4jgjwv76rjxislc3z3nmhqp52fx6dy58whll5rj2l6r";
     };
     NIX_CFLAGS_COMPILE = "-O3 -march=native";
   });
@@ -32,22 +32,17 @@ in {
               \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
           augroup END
         endif
-
         augroup vimrc
           autocmd!
         augroup END
-
         """" large file
         let g:LargeFile = 20*1024*1024 " 20MB
-
         ${ callPackage ./options.vim.nix {}}
         ${ callPackage ./mappings.vim.nix {}}
         ${ callPackage ./autocmds.vim.nix {}}
         ${ callPackage ./configs.vim.nix {}}
-
         syntax enable
         filetype plugin indent on
-
         set background=dark
         colorscheme onehalfdark
       '';
@@ -58,9 +53,9 @@ in {
           lightline-vim
           vinegar
           vim-nix
+          rust-vim
         ];
         opt = [
-          ale
           ack-vim
           commentary
           surround
@@ -73,6 +68,8 @@ in {
           vim-jinja
           vim-markdown
         ]++ (with plugins; [
+          ale
+          mergetool
           starsearch
           onehalfdark
           quickfix
