@@ -15,6 +15,10 @@ pkgs: with pkgs;
   fd
   ag
   fasd
+  file
+  mupdf
+  pciutils
+  mimeo
 
   # wayland specific
   xwayland
@@ -32,7 +36,13 @@ pkgs: with pkgs;
 
   # editor
   vimHugeX
+  neovim
   editorconfig-core-c
+  gimp-with-plugins
+
+  # linters
+  vim-vint
+  python37Packages.yamllint
 
   # git
   git
@@ -42,5 +52,8 @@ pkgs: with pkgs;
   smartgithg
 
   spotify
+  mpv
+  moc
+  feh
 
 ]

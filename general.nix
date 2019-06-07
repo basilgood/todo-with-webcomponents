@@ -9,7 +9,7 @@
   nix.buildCores = 4;
 
   i18n = {
-    consoleFont = "ter-132n";
+    consoleFont = "ter-118n";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
     consolePackages = [ pkgs.terminus_font ];
@@ -102,6 +102,7 @@
     (import ./overlays/tig)
     (import ./overlays/tmux)
     (import ./overlays/alacritty)
+    (import ./overlays/neovim)
   ];
 
 }
