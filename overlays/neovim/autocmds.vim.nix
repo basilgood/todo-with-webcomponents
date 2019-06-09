@@ -73,8 +73,9 @@ augroup remember_position
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | exe 'normal! g`"zz' | endif
 augroup END
 
+autocmd User Fugitive SignifyRefresh
 augroup signify_refresh
-  autocmd FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | SignifyRefresh | endif
+  autocmd FocusGained * if !bufexists("[Command Line]") | checktime | SignifyRefresh | endif
 augroup END
 
 augroup diff_update
