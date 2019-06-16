@@ -1,4 +1,4 @@
-{alacritty}:
+{st}:
 # vim: set syntax=json:
 ''
 {
@@ -38,7 +38,7 @@
         "ethernet": [""],
         "disconnected": [""]
       },
-      "on-click": "${alacritty}/bin/alacritty --title 'nmtui' -e nmtui",
+      "on-click": "${st}/bin/st --title 'nmtui' -e nmtui",
       "tooltip": false
     },
     "clock": {
