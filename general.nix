@@ -102,6 +102,7 @@
     (import ./overlays/tig)
     (import ./overlays/tmux)
     (import ./overlays/alacritty)
+    (import ./overlays/st)
     (import ./overlays/neovim)
   ];
 
