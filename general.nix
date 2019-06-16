@@ -99,7 +99,8 @@
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
-    (import ./overlays/zsh)
+    # (import ./overlays/zsh)
+    (import ./overlays/bash)
     (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
