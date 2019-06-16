@@ -28,13 +28,18 @@
     };
   };
 
-  networking.networkmanager = {
-    enable = true;
-    dns = "dnsmasq";
-    dynamicHosts =  {
+  networking = {
+    hostName = "merlin";
+    networkmanager = {
       enable = true;
+      dns = "dnsmasq";
+      dynamicHosts =  {
+        enable = true;
+      };
     };
   };
+
+  time.timeZone = "Europe/Bucharest";
 
   environment.etc = {
     "NetworkManager/dnsmasq.d/10-dns-lxcd.conf".text = ''
