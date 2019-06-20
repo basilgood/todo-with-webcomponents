@@ -89,7 +89,7 @@
     git.extraConfig = '''';
     git.difftool = "vim";
     git.mergetool = "vim";
-    # git.gitInterface = pkgs.gitAndTools.tig;
+    git.interface = pkgs.gitAndTools.tig;
   };
 
   virtualisation = {
@@ -100,7 +100,7 @@
 
   nixpkgs.overlays = [
     (import ./overlays/waybar)
-    # (import ./overlays/tig)
+    (import ./overlays/tig)
     (import ./overlays/tmux)
     (import ./overlays/alacritty)
     (import ./overlays/st)

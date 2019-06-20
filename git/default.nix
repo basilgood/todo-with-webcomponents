@@ -62,10 +62,9 @@ in {
         default = "nvim";
       };
 
-      gitInterface =  mkOption {
+      interface =  mkOption {
         type = types.package;
         default = pkgs.gitAndTools.tig;
-        defaultText = "pkgs.oh-my-zsh";
       };
     };
   };
@@ -75,7 +74,7 @@ in {
       environment = {
         systemPackages = with pkgs; [
           git
-          "${cfg.gitInterface}"
+          cfg.interface
         ];
         etc."gitconfig".text = ''
           [user]
