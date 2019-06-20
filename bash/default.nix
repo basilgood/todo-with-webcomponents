@@ -1,7 +1,9 @@
 { config, options, lib, pkgs, ... }:
 {
   programs.bash = {
-    shellAliases = {
+    shellAliases= {
+      hh="${pkgs.hstr}/bin/hh";
+      "~"="cd ~";
       grep="grep --color=auto";
       qq="tmux kill-session -t";
     };
@@ -13,43 +15,34 @@
       GIT_PS1_SHOWCOLORHINTS=1
       GIT_PS1_SHOWDIRTYSTATE=1
       VIRTUAL_ENV_DISABLE_PROMPT=1
-
       bold=$(tput bold)
       red=$(tput setaf 1)
       yellow=$(tput setaf 3)
       cyan=$(tput setaf 6)
       magenta=$(tput setaf 5)
       reset=$(tput sgr0)
-
       set_active_venv() {
         export ACTIVE_VENV=""
         if [ "$VIRTUAL_ENV" != "" ]; then
           export ACTIVE_VENV="(`basename \"$VIRTUAL_ENV\"`)"
         fi
       }
-
       active_nix_shell() {
         if [ -n "$IN_NIX_SHELL" ]; then
-          # export NSHELL=""
-          export NSHELL="nix "
+          export NSHELL=" "
         fi
       }
-
       PROMPT_COMMAND='\
         set_active_venv; active_nix_shell; __git_ps1 \
         "''${NL}\[$yellow\]''${ACTIVE_VENV}''${NSHELL}\[$reset\]\[$red\]\''${?#0}\[$reset\]\[$bold\]\[$cyan\]\w\[$reset\]" \
         "\[$magenta\]''${NL}❯\[$reset\] "'
-
       alias hfix='history -n && history | sort -k2 -k1nr | uniq -f1 | sort -n | cut -c8- > ~/.tmp$$ && history -c && history -r ~/.tmp$$ && history -w && rm ~/.tmp$$'
       PROMPT_COMMAND="hfix; $PROMPT_COMMAND"
     '';
     interactiveShellInit= ''
-      shopt -s checkwinsize
       PROMPT_DIRTRIM=3
-      bind Space:magic-space
-      shopt -s globstar 2> /dev/null
-      shopt -s nocaseglob;
 
+      bind Space:magic-space
       bind "set completion-ignore-case on"
       bind "set completion-map-case on"
       bind "set show-all-if-ambiguous on"
@@ -74,12 +67,9 @@
       bind '"\e[1;5D": backward-word'
       bind '"\e[M": kill-word'
 
-      shopt -s histappend
-      shopt -s histreedit
-      shopt -s histverify
-      shopt -s cmdhist
-      shopt -s lithist
-
+      shopt -s checkwinsize
+      shopt -s globstar 2> /dev/null
+      shopt -s nocaseglob;
       shopt -s autocd 2> /dev/null
       shopt -s dirspell 2> /dev/null
       shopt -s cdspell 2> /dev/null
@@ -94,15 +84,11 @@
       PAGER=less
       LESS='-XFr'
 
-      export LESS_TERMCAP_mb=$'\E[01;31m'
-      export LESS_TERMCAP_md=$'\E[01;31m'
-      export LESS_TERMCAP_me=$'\E[0m'
-      export LESS_TERMCAP_se=$'\E[0m'
-      export LESS_TERMCAP_so=$'\E[01;44;33m'
-      export LESS_TERMCAP_ue=$'\E[0m'
-      export LESS_TERMCAP_us=$'\E[01;32m'
-
       shopt -s histappend
+      shopt -s histreedit
+      shopt -s histverify
+      shopt -s cmdhist
+      shopt -s lithist
       HISTFILESIZE=-1
       HISTSIZE=''${HISTFILESIZE}
       HH_CONFIG=hicolor
@@ -111,10 +97,13 @@
       eval `${pkgs.coreutils}/bin/dircolors "${./dircolors}"`
       source ${pkgs.fzf}/share/fzf/completion.bash
       source ${pkgs.fzf}/share/fzf/key-bindings.bash
-      export FZF_CTRL_T_OPTS="--preview '${pkgs.bat}/bin/bat --color=always --line-range :500 {}'"
-      export FZF_DEFAULT_COMMAND='${pkgs.fd}bin/fd --type f --hidden --follow --exclude .git'
+      FZF_CTRL_T_OPTS="--preview '${pkgs.bat}/bin/bat --color=always --line-range :500 {}'"
+      FZF_DEFAULT_COMMAND="${pkgs.fd}bin/fd --type f --hidden --follow --exclude .git"
+      bind '"\C-r": "\C-a hh -- \C-j"';
+      bind '"\C-xk": "\C-a hh -k \C-j"'
 
       stty -ixon
     '';
   };
+  users.defaultUserShell = pkgs.bash;
 }
