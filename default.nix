@@ -1,5 +1,4 @@
-{ config, options, lib, pkgs, ... }:
-{
+{ config, options, lib, pkgs, ... }: {
   imports = [
     ./local.nix
     ./general.nix

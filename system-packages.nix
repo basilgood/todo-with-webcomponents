@@ -1,5 +1,5 @@
-pkgs: with pkgs;
-[
+pkgs:
+with pkgs; [
   # common
   acl
   tree

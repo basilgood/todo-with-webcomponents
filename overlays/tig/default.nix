@@ -1,13 +1,12 @@
 self: super:
-with super;
-{
+with super; {
   gitAndTools = gitAndTools // {
     tig = super.symlinkJoin {
 
       name = "tig-with-config";
 
       paths = [
-        (gitAndTools.tig.overrideAttrs(old: rec {
+        (gitAndTools.tig.overrideAttrs (old: rec {
           pname = "tig";
           version = "2.4.2";
           name = "${pname}-${version}";
@@ -24,7 +23,7 @@ with super;
       nativeBuildInputs = [ super.makeWrapper ];
 
       postBuild = ''
-        wrapProgram $out/bin/tig --set TIGRC_USER ${ ./tigrc}
+        wrapProgram $out/bin/tig --set TIGRC_USER ${./tigrc}
       '';
     };
   };

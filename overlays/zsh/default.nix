@@ -1,6 +1,5 @@
 self: super:
-with super;
-{
+with super; {
   zshThemes = {
     spaceship = stdenv.mkDerivation rec {
       pname = "spaceship-prompt";
@@ -10,7 +9,7 @@ with super;
       src = fetchFromGitHub {
         owner = "denysdovhan";
         repo = pname;
-        rev= "d9f25e14e7bec4bef223fd8a9151d40b8aa868fa";
+        rev = "d9f25e14e7bec4bef223fd8a9151d40b8aa868fa";
         sha256 = "0vl5dymd07mi42wgkh0c3q8vf76hls1759dirlh3ryrq6w9nrdbf";
       };
 
@@ -35,7 +34,7 @@ with super;
       src = fetchFromGitHub {
         owner = "chisui";
         repo = pname;
-        rev= "b2609ca787803f523a18bb9f53277d0121e30389";
+        rev = "b2609ca787803f523a18bb9f53277d0121e30389";
         sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
       };
 
