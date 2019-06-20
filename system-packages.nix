@@ -12,6 +12,8 @@ pkgs: with pkgs;
   keepassxc
   pavucontrol
   fzy
+  fzf
+  bat
   fd
   ag
   fasd
