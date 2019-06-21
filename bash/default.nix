@@ -79,11 +79,6 @@
       set output-meta on
       set convert-meta off
 
-      VISUAL=vim
-      EDITOR="$VISUAL"
-      PAGER=less
-      LESS='-XFr'
-
       shopt -s histappend
       shopt -s histreedit
       shopt -s histverify
