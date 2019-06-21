@@ -98,7 +98,7 @@
       source ${pkgs.fzf}/share/fzf/completion.bash
       source ${pkgs.fzf}/share/fzf/key-bindings.bash
       FZF_CTRL_T_OPTS="--preview '${pkgs.bat}/bin/bat --color=always --line-range :500 {}'"
-      FZF_DEFAULT_COMMAND="${pkgs.fd}bin/fd --type f --hidden --follow --exclude .git"
+      FZF_DEFAULT_COMMAND='${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git'
       bind '"\C-r": "\C-a hh -- \C-j"';
       bind '"\C-xk": "\C-a hh -k \C-j"'
 
