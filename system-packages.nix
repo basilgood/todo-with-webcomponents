@@ -21,6 +21,7 @@ with pkgs; [
   mupdf
   pciutils
   mimeo
+  nixfmt
 
   # wayland specific
   xwayland
