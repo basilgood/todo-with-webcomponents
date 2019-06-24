@@ -22,6 +22,7 @@ with pkgs; [
   pciutils
   mimeo
   nixfmt
+  popcornTime
 
   # wayland specific
   xwayland

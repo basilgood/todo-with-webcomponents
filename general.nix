@@ -91,6 +91,7 @@
     (import ./overlays/alacritty)
     (import ./overlays/st)
     (import ./overlays/nixfmt)
+    (import ./overlays/popcorn)
   ];
 
 }
