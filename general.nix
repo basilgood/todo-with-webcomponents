@@ -10,7 +10,7 @@
     consoleFont = "ter-118n";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
-    consolePackages = [ pkgs.terminus_font ];
+    consolePackages = [pkgs.terminus_font];
   };
 
   powerManagement = { enable = true; };
