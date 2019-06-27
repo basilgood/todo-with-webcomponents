@@ -33,6 +33,5 @@ in {
     output * bg ${./Mohave.jpg} fill
     ${builtins.readFile ./config}
   '';
-  environment.systemPackages = import ../system-packages.nix pkgs;
 
 }

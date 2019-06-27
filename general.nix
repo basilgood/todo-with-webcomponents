@@ -84,6 +84,11 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.systemPackages = with pkgs; [
+    acl
+    wget
+  ];
+
   nixpkgs.overlays = [
     (import ./overlays/waybar)
     (import ./overlays/tig)

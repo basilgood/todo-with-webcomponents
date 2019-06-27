@@ -100,5 +100,4 @@
       stty -ixon
     '';
   };
-  users.defaultUserShell = pkgs.bash;
 }
