@@ -4,5 +4,8 @@ let
   waylandPkgs = ((import (builtins.fetchTarball url)) self super).waylandPkgs;
 in {
 
-  waybar = waylandPkgs.waybar;
+  # waybar = waylandPkgs.waybar;
+  waybar = super.waybar.override {
+    pulseSupport = true;
+  };
 }
