@@ -96,6 +96,7 @@
       FZF_DEFAULT_COMMAND='${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git'
       bind '"\C-r": "\C-a hh -- \C-j"';
       bind '"\C-xk": "\C-a hh -k \C-j"'
+      PATH=$PATH:~/bin
 
       stty -ixon
     '';
