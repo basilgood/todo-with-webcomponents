@@ -12,7 +12,6 @@ in {
     extraPackages = with pkgs; [
       swayidle
       swaylock
-      waybar
       grim
       slurp
       mako
