@@ -16,6 +16,15 @@ let
       ${pkgs.vim}/bin/vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'';
     kdiff3 =
     ''${pkgs.kdiff3}/bin/kdiff3 "$BASE" "$LOCAL" "$REMOTE" -o "$MERGED"'';
+    v3 = ''
+      ${pkgs.vim}/bin/vim -f -d  \"$LOCAL\" \"$MERGED\" \"$REMOTE\" \"+2wincmd w\"
+      '';
+    vimmerge = ''
+      vimmerge \"$MERGED\"
+    '';
+    meld = ''
+      ${pkgs.meld}/bin/meld --diff $BASE $LOCAL --diff $BASE $REMOTE --diff $LOCAL $BASE $REMOTE $MERGED
+    '';
   };
 in {
   options = {
@@ -61,7 +70,7 @@ in {
       };
 
       mergetool = mkOption {
-        type = types.enum [ "nvim" "vim" "kdiff3" ];
+        type = types.enum [ "nvim" "vim" "kdiff3" "v3" "vimmerge" "meld" ];
         default = "nvim";
       };
 
@@ -83,7 +92,7 @@ in {
           [core]
             editor = ${cfg.editor}
             pager = ${cfg.pager}
-            excludesfile = ~/.gitignore
+            excludesfile = $HOME/.gitignore
           [status]
             showuntrackedfiles = all
           [rerere]
