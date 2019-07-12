@@ -49,6 +49,11 @@
     DESKTOP_SESSION = "kde";
   };
 
+  environment.variables = let vim = "${pkgs.vim}/bin/vim"; in {
+    EDITOR=vim;
+    VISUAL=vim;
+  };
+
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -72,11 +77,10 @@
     git.name = "vasile luta";
     git.email = "elsile69@yahoo.com";
     git.editor = "${pkgs.vim}/bin/vim";
-    git.pager =
-    "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=1,5 -XFR";
+    git.pager = "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=1,5 -XFR";
     git.extraConfig = "";
     git.difftool = "vim";
-    git.mergetool = "vim";
+    git.mergetool = "meld";
     git.interface = pkgs.gitAndTools.tig;
   };
 
@@ -84,16 +88,22 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    acl
-    wget
-  ];
+  environment.systemPackages = with pkgs; [ acl wget ];
 
+  # users = {
+  #   groups.vasy = { gid = 1000; };
+  #   users.vasy = {
+  #     isNormalUser = true;
+  #     createHome = true;
+  #     home = "/home/vasy";
+  #     uid = 1000;
+  #   };
+  # };
   nixpkgs.overlays = [
     (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
-    (import ./overlays/alacritty)
+    (import ./overlays/chromium)
     (import ./overlays/st)
     (import ./overlays/nixfmt)
     (import ./overlays/popcorn)
