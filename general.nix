@@ -90,16 +90,8 @@
 
   environment.systemPackages = with pkgs; [ acl wget ];
 
-  # users = {
-  #   groups.vasy = { gid = 1000; };
-  #   users.vasy = {
-  #     isNormalUser = true;
-  #     createHome = true;
-  #     home = "/home/vasy";
-  #     uid = 1000;
-  #   };
-  # };
   nixpkgs.overlays = [
+    (import ./overlays/packages)
     (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
