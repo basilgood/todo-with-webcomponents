@@ -80,6 +80,10 @@ bind main T !?@git tag %(prompt) %(commit)
 # copy sha to clipboard
 bind generic Y !sh -c "echo -n %(commit) | xclip -selection c && echo Copied %(commit) to clipboard"
 
+# universal command
+bind pager . :!git %(prompt)
+bind main , :!git %(prompt) %(prompt)
+
 # COLORS
 
 color date      default default
