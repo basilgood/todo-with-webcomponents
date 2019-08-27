@@ -95,6 +95,7 @@
     (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
+    (import ./overlays/vim)
     (import ./overlays/chromium)
     (import ./overlays/st)
     (import ./overlays/nixfmt)
