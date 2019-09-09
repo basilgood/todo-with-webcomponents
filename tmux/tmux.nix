@@ -11,8 +11,10 @@
     set-window-option -g xterm-keys on
     set -ga terminal-overrides ",xterm-256color:Tc"
     set -g focus-events on
-    setw -g mouse on
+    set-option -g -q mouse on
     setw -g monitor-activity on
+    bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M; send-keys -M; send-keys -M; send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M; send-keys -M; send-keys -M; send-keys -M' 'copy-mode -e; send-keys -M; send-keys -M; send-keys -M; send-keys -M'"
+    bind -n WheelDownPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M; send-keys -M; send-keys -M; send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M; send-keys -M; send-keys -M; send-keys -M' 'copy-mode -e; send-keys -M; send-keys -M; send-keys -M; send-keys -M'"
 
     unbind C-b
     set -g prefix C-Space
