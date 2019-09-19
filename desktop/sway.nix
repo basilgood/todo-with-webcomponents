@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  waybarConfig = pkgs.writeText "config" (pkgs.callPackage ./waybar-config.nix {});
+  waybarConfig =
+    pkgs.writeText "config" (pkgs.callPackage ./waybar-config.nix { });
   waybarStyle = pkgs.writeText "config" (builtins.readFile ./waybar.css);
 in {
   programs.sway = {
@@ -9,13 +10,7 @@ in {
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle,caps:escape
     '';
-    extraPackages = with pkgs; [
-      swayidle
-      swaylock
-      grim
-      slurp
-      mako
-    ];
+    extraPackages = with pkgs; [ swayidle swaylock grim slurp mako xwayland ];
   };
 
   environment.etc."sway/config".text = with pkgs; ''
@@ -28,7 +23,7 @@ in {
     set $xclip ${xclip}/bin/xclip
     set $mako ${mako}/bin/mako
     set $swaylock ${swaylock}/bin/swaylock
-    set $status ${waybar}/bin/waybar -c ${waybarConfig} -s ${waybarStyle}
+    set $status ${waybar.override { pulseSupport = true; }}/bin/waybar
     output * bg ${./Mohave.jpg} fill
     ${builtins.readFile ./config}
   '';
