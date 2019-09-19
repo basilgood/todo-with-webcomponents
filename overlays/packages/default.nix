@@ -1,47 +1,49 @@
 self: super: {
   pack = with self;
-  buildEnv {
-    name = "pack";
-    paths = [
-      tree
-      htop
-      xclip
-      p7zip
-      unzip
-      lm_sensors
-      keepassxc
-      pavucontrol
-      fzy
-      fzf
-      bat
-      fd
-      ag
-      fasd
-      file
-      mupdf
-      pciutils
-      mimeo
-      nixfmt
-      popcornTime
+    buildEnv {
+      name = "pack";
+      paths = [
+        tree
+        htop
+        xclip
+        p7zip
+        unzip
+        lm_sensors
+        keepassxc
+        pavucontrol
+        fzy
+        fzf
+        bat
+        fd
+        ag
+        fasd
+        file
+        mupdf
+        pciutils
+        mimeo
+        nixfmt
+        # popcornTime
 
-      chromium
-      firefox
+        chromium
+        firefox
 
-      j4-dmenu-desktop
+        j4-dmenu-desktop
 
-      st
+        st
 
-      vimHugeX
-      editorconfig-core-c
-      gimp-with-plugins
+        vimHugeX
+        editorconfig-core-c
+        vscode
+        emacs
+        # hnix-lsp
 
-      vim-vint
-      python37Packages.yamllint
+        vim-vint
+        python37Packages.yamllint
 
-      spotify
-      mpv
-      moc
-      feh
-    ];
-  };
+        spotify
+        mpv
+        moc
+        feh
+      ];
+    };
 }
