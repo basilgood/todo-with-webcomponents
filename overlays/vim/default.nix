@@ -1,15 +1,14 @@
 self: super:
 with super; {
-  vimHugeX = vimHugeX.overrideAttrs (attrs: rec {
+  vimHugeX = (vimHugeX.overrideAttrs (attrs: rec {
     name = "vim-${version}";
-    version = "8.1.1931";
+    version = "8.1.2056";
 
     src = fetchFromGitHub {
       owner = "vim";
       repo = "vim";
       rev = "v${version}";
-      sha256 = "01j18660m09nvnrkq2991bsvh43xxns51zv05frdnfqg3fdlmjdj";
+      sha256 = "0rqyapmcp0w35168dj4bgsgjacl9yqjdnwjg56qx469x2nn5z428";
     };
-  });
-  vim_configurable = vim_configurable.override { python = python3; };
+  })).override { python = python3; };
 }
