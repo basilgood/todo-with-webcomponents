@@ -4,13 +4,13 @@
 
   boot = { kernelPackages = pkgs.linuxPackages_latest; };
 
-  nix.buildCores = 4;
+  nix.buildCores = 0;
 
   i18n = {
     consoleFont = "ter-118n";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
-    consolePackages = [pkgs.terminus_font];
+    consolePackages = [ pkgs.terminus_font ];
   };
 
   powerManagement = { enable = true; };
@@ -49,9 +49,10 @@
     DESKTOP_SESSION = "kde";
   };
 
-  environment.variables = let vim = "${pkgs.vim}/bin/vim"; in {
-    EDITOR=vim;
-    VISUAL=vim;
+  environment.variables = let vim = "${pkgs.vim}/bin/vim";
+  in {
+    EDITOR = vim;
+    VISUAL = vim;
   };
 
   fonts = {
@@ -77,7 +78,8 @@
     git.name = "vasile luta";
     git.email = "elsile69@yahoo.com";
     git.editor = "${pkgs.vim}/bin/vim";
-    git.pager = "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=1,5 -XFR";
+    git.pager =
+      "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=1,5 -XFR";
     git.extraConfig = "";
     git.difftool = "vim";
     git.mergetool = "meld";
@@ -87,19 +89,27 @@
   virtualisation = { lxc.enable = true; };
 
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   nur = import (builtins.fetchTarball
+  #     "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+  #       inherit pkgs;
+  #     };
+  # };
 
   environment.systemPackages = with pkgs; [ acl wget ];
 
   nixpkgs.overlays = [
     (import ./overlays/packages)
-    (import ./overlays/waybar)
     (import ./overlays/tig)
     (import ./overlays/tmux)
+    (import ./overlays/emacs)
     (import ./overlays/vim)
+    # (import ./overlays/lsp)
     (import ./overlays/chromium)
     (import ./overlays/st)
     (import ./overlays/nixfmt)
-    (import ./overlays/popcorn)
+    # (import ./overlays/popcorn)
+    # (import ./overlays/nodeEnv)
   ];
 
 }
