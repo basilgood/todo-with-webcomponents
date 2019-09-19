@@ -1,8 +1,7 @@
 self: super:
-with super;
-{
+with super; {
   tmuxPlugins = tmuxPlugins // (with tmuxPlugins; {
-    prefix-highlight =  prefix-highlight.overrideAttrs (old: rec {
+    prefix-highlight = prefix-highlight.overrideAttrs (old: rec {
       src = fetchgit {
         url = "https://github.com/tmux-plugins/tmux-prefix-highlight";
         rev = "8880f9c9c43cd57443e0272334d17fda9991f369";
@@ -10,7 +9,7 @@ with super;
       };
     });
 
-    resurrect = resurrect.overrideAttrs (old : rec {
+    resurrect = resurrect.overrideAttrs (old: rec {
       src = fetchgit {
         url = "https://github.com/tmux-plugins/tmux-resurrect";
         rev = "b020b2481e9365d5ac09f22033f2bb01a86c0f2e";
