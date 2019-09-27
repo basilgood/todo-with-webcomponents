@@ -1,8 +1,9 @@
-{ config, options, lib, pkgs, ... }:
-{
+{ config, options, lib, pkgs, ... }: {
   programs.bash = {
-    shellAliases= {
-      grep="grep --color=auto";
+    shellAliases = {
+      grep = "grep --color=auto";
+      hid =
+        "gawk -i inplace '!a[$0]++' .bash_history; sed -i 's/[[:space:]]*$//' .bash_history";
     };
     promptInit = ''
       GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -27,11 +28,11 @@
         prompt_end+="\n"
         [ $(id -u) -eq 0 ] && prompt_end+="\[$red\]#\[$reset\]" || prompt_end+="\[$magenta\]❯\[$reset\]"
         __git_ps1 "$prompt" "$prompt_end "
-        history -n; history -w; history -c; history -r
+        history -a
       }
       PROMPT_COMMAND=prompt_command
     '';
-    interactiveShellInit= ''
+    interactiveShellInit = ''
       PROMPT_DIRTRIM=3
       set -o notify
       shopt -s checkwinsize
