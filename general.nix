@@ -42,13 +42,6 @@
     '';
   };
 
-  environment.sessionVariables = {
-    # Allow GTK 2.0/3.0 themes to be found.
-    GTK_DATA_PREFIX = "/run/current-system/sw";
-    # Allow KDE apps to work better in i3.
-    DESKTOP_SESSION = "kde";
-  };
-
   environment.variables = let vim = "${pkgs.vim}/bin/vim";
   in {
     EDITOR = vim;
@@ -104,10 +97,11 @@
     (import ./overlays/tmux)
     (import ./overlays/emacs)
     (import ./overlays/vim)
+    (import ./overlays/neovim)
     # (import ./overlays/lsp)
     (import ./overlays/chromium)
     (import ./overlays/st)
-    (import ./overlays/nixfmt)
+    # (import ./overlays/nixfmt)
     # (import ./overlays/popcorn)
     # (import ./overlays/nodeEnv)
   ];
