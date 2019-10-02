@@ -32,6 +32,7 @@ self: super: {
         st
 
         vimHugeX
+        neovim
         editorconfig-core-c
         vscode
         emacs

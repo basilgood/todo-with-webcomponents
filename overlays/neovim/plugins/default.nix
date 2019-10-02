@@ -1,61 +1,60 @@
 { vimUtils, fetchFromGitHub, makeWrapper, callPackage }:
-with vimUtils;
-{
+with vimUtils; {
   ale = buildVimPluginFrom2Nix {
     pname = "ale";
-    version = "2019-06-05";
+    version = "2019-09-25";
     src = fetchFromGitHub {
-      owner = "w0rp";
+      owner = "dense-analysis";
       repo = "ale";
-      rev = "7b78f2b846e2f3443dcb2ceacee54eb99e37f040";
-      sha256 = "1f6kldvcysa525xn6fnzg09chp39s63m7nxsq008lzykm30v00jr";
+      rev = "41ff80dc9ec2cc834cc8c4aaa753e308223d48b8";
+      sha256 = "1bfylcp9490cd2yz00nq6ky1w55dkvldrdjxip36ahci4cpfn0xw";
     };
   };
 
+  tcomment = buildVimPlugin {
+    pname = "tcomment";
+    version = "0.1";
+    src = fetchFromGitHub {
+      owner = "tomtom";
+      repo = "tcomment_vim";
+      rev = "c9cecefc639b6019e0f12b7e9fb5a2375cd550c1";
+      sha256 = "0xb61wchvj1iqzwxzscv3zwbsx1qjh8qhkmijsrjz92566g12xhy";
+    };
+
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
   mergetool = buildVimPlugin {
-    pname= "mergetool-vim";
+    pname = "mergetool-vim";
     version = "0.1";
     src = fetchFromGitHub {
       owner = "samoshkin";
       repo = "vim-mergetool";
-      rev = "2e2e80a74e3bdcc1ba017ae9dd3d16da8aee73fc";
-      sha256 = "0sc7pfac0yvdgj0qgs349va3yd5l1x1ghbmj4z0wsrb35pvbfcbj";
+      rev = "0275a85256ad173e3cde586d54f66566c01b607f";
+      sha256 = "1i3zil06zyndm400i2pfn64ykbs29fw8l720229a8ypp9mxcibcp";
     };
 
     buildPhase = ":";
-    configurePhase =":";
-  };
-
-  quickfix = buildVimPlugin {
-    pname= "quickfix-vim";
-    version = "0.1";
-    src = fetchFromGitHub {
-      owner = "stefandtw";
-      repo = "quickfix-reflector.vim";
-      rev = "c76b7a1f496864315eea3ff2a9d02a53128bad50";
-      sha256 = "02vb7qkdprx3ksj4gwnj3j180kkdal8jky69dcjn8ivr0x8g26s8";
-    };
-
-    buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 
   yats = buildVimPlugin {
-    pname= "yats-vim";
+    pname = "yats-vim";
     version = "0.1";
     src = fetchFromGitHub {
       owner = "HerringtonDarkholme";
       repo = "yats.vim";
-      rev = "2126e8306cd21a58fb5e089376af8272abe36bb5";
-      sha256 = "1dqaikhcpcqnsnk4a0bwjm2kxsvxsb26357j999sqk1ciq9iy5iy";
+      rev = "d9af5fc9fd7f11fa1219a9acb6f4243105e60b38";
+      sha256 = "0dqd9s0s8xvr9yh33ycncfd0y1nlsfh64azb8f92bggx5plkji2r";
     };
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 
   twig = buildVimPlugin {
-    pname= "twig-vim";
+    pname = "twig-vim";
     version = "0.1";
     src = fetchFromGitHub {
       owner = "lumiliet";
@@ -65,11 +64,11 @@ with vimUtils;
     };
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 
   jsx = buildVimPlugin {
-    pname= "jsx-vim";
+    pname = "jsx-vim";
     version = "2.0.1";
     src = fetchFromGitHub {
       owner = "MaxMEllon";
@@ -79,11 +78,11 @@ with vimUtils;
     };
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 
   javascript_syntax = buildVimPlugin {
-    pname= "vim-javascript-syntax";
+    pname = "vim-javascript-syntax";
     version = "0.8.2";
     src = fetchFromGitHub {
       owner = "jelera";
@@ -93,11 +92,39 @@ with vimUtils;
     };
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
+  };
+
+  vim-editorconfig = buildVimPlugin {
+    pname = "vim-editorconfig";
+    version = "0.8.0";
+    src = fetchFromGitHub {
+      owner = "sgur";
+      repo = "vim-editorconfig";
+      rev = "6b50f575752605f7e0a0e99e88be4129b2f99311";
+      sha256 = "1kp82k3aympfhmdnfg45ynf3d5chs75ni740z5j05x6pgcj88rwz";
+    };
+
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  fzf-vim = buildVimPlugin {
+    pname = "fzf-vim";
+    version = "2019-07-4";
+    src = fetchFromGitHub {
+      owner = "junegunn";
+      repo = "fzf.vim";
+      rev = "359a80e3a34aacbd5257713b6a88aa085337166f";
+      sha256 = "0a01g0gw59m57zizidvm9n89qh8lvj0aq4kyxy27i72ysclp3wsf";
+    };
+
+    buildPhase = ":";
+    configurePhase = ":";
   };
 
   html_template = buildVimPlugin {
-    pname= "vim-html-template-literals";
+    pname = "vim-html-template-literals";
     version = "0.2.0";
     src = fetchFromGitHub {
       owner = "jonsmithers";
@@ -107,32 +134,21 @@ with vimUtils;
     };
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 
-  starsearch = buildVimPlugin {
-    pname= "starsearch-vim";
-    version = "0.1";
-    src = fetchFromGitHub {
-      owner = "darfink";
-      repo = "starsearch.vim";
-      rev = "9b8cda1e628160c83846db5a30899a1a1ba5c1c9";
-      sha256 = "1i1ygdqwhz4jqmz9lzjnx1a7s5chdqjsvgkmnd9x0s8ixqa41bpr";
-    };
-  };
-
-  onehalfdark = buildVimPlugin {
-    pname= "onehalfdark-vim";
+  simple = buildVimPlugin {
+    pname = "simple-vim";
     version = "0.0.1";
-    src= ./onehalfdark.vim;
+    src = ./simple.vim;
 
     unpackCmd = ''
       mkdir -p out/colors;
-      ln -s $curSrc out/colors/onehalfdark.vim
+      ln -s $curSrc out/colors/simple.vim
       ls -al $curSrc
     '';
 
     buildPhase = ":";
-    configurePhase =":";
+    configurePhase = ":";
   };
 }
