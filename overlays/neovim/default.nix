@@ -25,33 +25,45 @@ in {
         ${callPackage ./mappings.vim.nix { }}
         ${callPackage ./autocmds.vim.nix { }}
         ${callPackage ./configs.vim.nix { }}
+        ${callPackage ./hlsearch.nix { }}
+
         syntax enable
-        filetype plugin indent on
-        set background=dark
         colorscheme simple
       '';
 
       packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ fugitive vinegar vim-nix rust-vim ];
+        start = [ fugitive vinegar vim-nix rust-vim ]
+          ++ (with plugins; [ vim-startify easy-align ]);
         opt = [
           surround
           repeat
           vim-coffee-script
           vim-jinja
           vim-markdown
+          undotree
+          vim-indent-object
           quickfix-reflector-vim
         ] ++ (with plugins; [
           ale
           fzf-vim
+          agit
           tcomment
+          vim-auto-cursorline
+          targets
+          wildfire
+          ags
+          vim-edgemotion
           vim-editorconfig
+          cmdline
           mergetool
           simple
           javascript_syntax
+          vim-javascript
           jsx
           html_template
           yats
           twig
+          autoload
         ]);
       };
     };

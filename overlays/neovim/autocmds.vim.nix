@@ -6,11 +6,31 @@ pkgs:
     autocmd BufReadPre * silent execute 'packadd' . ' vim-editorconfig'
     autocmd BufReadPost * silent execute 'packadd' . ' ale'
     autocmd BufWinEnter * silent execute 'packadd' . ' fzf-vim'
+    autocmd BufWinEnter * silent execute 'packadd' . ' vim-auto-cursorline'
     autocmd VimEnter * silent execute 'packadd' . ' mergetool-vim'
+    autocmd VimEnter * silent execute 'packadd' . ' autoload'
     autocmd BufRead * silent execute 'packadd' . ' tcomment'
     autocmd BufRead * silent execute 'packadd' . ' vim-repeat'
     autocmd BufRead * silent execute 'packadd' . ' vim-surround'
+    autocmd BufRead * silent execute 'packadd' . ' targets.vim'
+    autocmd BufRead * silent execute 'packadd' . ' wildfire.vim'
+    autocmd BufRead * silent execute 'packadd' . ' vim-ags'
+    autocmd BufRead * silent execute 'packadd' . ' vim-edgemotion'
+    autocmd BufRead * silent execute 'packadd' . ' vim-indent-object'
+    autocmd BufRead * silent execute 'packadd' . ' undotree'
+    autocmd BufRead * silent execute 'packadd' . ' agit.vim'
+    autocmd CmdlineEnter * packadd cmdline-completion
     autocmd FileType qf silent execute 'packadd' . ' quickfix-vim'
+    autocmd FileType javascript silent execute 'packadd' . ' vim-javascript'
+    autocmd FileType javascript silent execute 'packadd' . ' vim-javascript-syntax'
+    autocmd FileType javascript silent execute 'packadd' . ' jsx-vim'
+    autocmd FileType javascript silent execute 'packadd' . ' vim-html-template-literals'
+    autocmd FileType typescript silent execute 'packadd' . ' yats-vim'
+    autocmd FileType typescript silent execute 'packadd' . ' jsx-vim'
+    autocmd FileType coffee silent execute 'packadd' . ' vim-coffee-script'
+    autocmd FileType twig silent execute 'packadd' . ' twig-vim'
+    autocmd FileType jinja silent execute 'packadd' . ' vim-jinja'
+    autocmd FileType markdown silent execute 'packadd' . ' vim-markdown'
   augroup END
 
   augroup set_filetype
@@ -20,12 +40,12 @@ pkgs:
     autocmd BufNewFile,BufRead *.html setlocal filetype=html
     autocmd BufNewFile,BufRead *.yamllint setlocal filetype=yaml
     autocmd BufNewFile,BufRead *.yml setlocal filetype=yaml
-    autocmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
-    autocmd BufReadPre,BufNewFile *.j2 packadd vim-jinja | setlocal filetype=jinja
-    autocmd BufReadPre,BufNewFile *.twig packadd twig-vim | setlocal filetype=twig.html
-    autocmd BufReadPre,BufNewFile *.coffee packadd vim-coffee-script | setlocal filetype=coffee
-    autocmd BufReadPre,BufNewFile *.ts,*.tsx packadd yats-vim | packadd jsx-vim | setlocal filetype=typescript
-    autocmd BufReadPre,BufNewFile *.js,*.jsx packadd vim-javascript-syntax | packadd jsx-vim | packadd vim-html-template-literals | set filetype=javascript
+    autocmd BufRead,BufNewFile *.md,.markdown setlocal filetype=markdown
+    autocmd BufReadPre,BufNewFile *.j2 setlocal filetype=jinja
+    autocmd BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
+    autocmd BufReadPre,BufNewFile *.coffee setlocal filetype=coffee
+    autocmd BufReadPre,BufNewFile *.ts,*.tsx setlocal filetype=typescript
+    autocmd BufReadPre,BufNewFile *.js,*.jsx set filetype=javascript
   augroup END
 
   augroup syntax_sync
@@ -34,10 +54,6 @@ pkgs:
 
   augroup remember_position
     autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | exe 'normal! g`"zz' | endif
-  augroup END
-
-  augroup checktime_refresh
-    autocmd FocusGained * if !bufexists("[Command Line]") | checktime | endif
   augroup END
 
   augroup diff_update
@@ -67,5 +83,18 @@ pkgs:
           \ if s > g:LargeFile || s == -2 |
           \   call s:large_file(fnamemodify(expand("<afile>"), ":p")) |
           \ endif
+  augroup END
+
+  augroup help_qf
+    autocmd FileType qf wincmd J
+    autocmd BufWinEnter * if &ft == 'help' | wincmd J | end
+    autocmd BufReadPost quickfix setlocal nobuflisted
+    autocmd BufReadPost quickfix nnoremap <buffer> gq :bd<CR>
+    autocmd FileType help nnoremap <buffer> gq :bd<CR>
+    autocmd CmdwinEnter * nnoremap <silent><buffer> gq :<C-u>quit<CR>
+  augroup END
+
+  augroup mkdir
+    autocmd BufWritePre * call functions#mkdirifnotexist()
   augroup END
 ''

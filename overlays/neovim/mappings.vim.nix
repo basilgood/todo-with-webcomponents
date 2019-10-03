@@ -16,6 +16,11 @@ pkgs:
   nnoremap }   }zz
   nnoremap {   {zz
 
+  " hlnext
+  nnoremap <silent> n nzz:call functions#hlnext()<cr>
+  nnoremap <silent> N Nzz:call functions#hlnext()<cr>
+  nnoremap <silent> [Space]n :nohlsearch<CR>
+
   " windows
   " nnoremap <silent> <Tab> :wincmd w<CR>
   nnoremap <silent> <Tab> :call functions#nextwindow()<CR>
@@ -64,7 +69,7 @@ pkgs:
   vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
   " cmdwinenter
-  nnoremap <leader><leader> q:
+  nnoremap <leader><leader> q:i
 
   " grep
   nnoremap gr :<C-u>Grep<Space>
@@ -136,7 +141,4 @@ pkgs:
         \ coc#refresh()
   inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-
-  " sessions
-  nnoremap [Space]s :call sessions#load()<cr>
 ''

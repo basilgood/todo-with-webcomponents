@@ -63,7 +63,7 @@ highlight default link FullSpace Error
 highlight Question       guifg=#e78a4e guibg=NONE    guisp=NONE    gui=bold        cterm=bold
 highlight Exception      guifg=#A6E22E gui=bold
 
-highlight StatusLine     guifg=#1d1d1d guibg=#777777 gui=bold      cterm=bold
+highlight StatusLine     guifg=#1d1d1d guibg=#ad9b80 gui=bold      cterm=bold
 highlight StatusLineNC   guifg=#999999 guibg=#444444 gui=NONE      cterm=NONE
 highlight WildMenu       guifg=#282828 guibg=#c9d05c gui=NONE      cterm=NONE
 highlight VertSplit      guifg=#333333 guibg=#333333 gui=NONE      cterm=NONE
