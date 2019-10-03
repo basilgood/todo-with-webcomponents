@@ -21,10 +21,10 @@ in {
         augroup END
         """" large file
         let g:LargeFile = 20*1024*1024 " 20MB
-        ${callPackage ./options.vim.nix { }}
-        ${callPackage ./mappings.vim.nix { }}
-        ${callPackage ./autocmds.vim.nix { }}
-        ${callPackage ./configs.vim.nix { }}
+        ${callPackage ./options.nix { }}
+        ${callPackage ./mappings.nix { }}
+        ${callPackage ./autocmds.nix { }}
+        ${callPackage ./configs.nix { }}
         ${callPackage ./hlsearch.nix { }}
 
         syntax enable
@@ -35,16 +35,18 @@ in {
         start = [ fugitive vinegar vim-nix rust-vim ]
           ++ (with plugins; [ vim-startify easy-align ]);
         opt = [
+          coc-nvim
           surround
           repeat
           vim-coffee-script
           vim-jinja
           vim-markdown
+          vim-json
           undotree
           vim-indent-object
           quickfix-reflector-vim
         ] ++ (with plugins; [
-          ale
+          # ale
           fzf-vim
           agit
           tcomment
@@ -60,7 +62,7 @@ in {
           javascript_syntax
           vim-javascript
           jsx
-          html_template
+          jsonc
           yats
           twig
           autoload

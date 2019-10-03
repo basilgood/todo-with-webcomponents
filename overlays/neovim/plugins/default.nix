@@ -1,5 +1,7 @@
 { vimUtils, fetchFromGitHub, makeWrapper, callPackage }:
-with vimUtils; {
+with vimUtils;
+
+{
   ale = buildVimPluginFrom2Nix {
     pname = "ale";
     version = "2019-09-25";
@@ -19,6 +21,19 @@ with vimUtils; {
       repo = "tcomment_vim";
       rev = "c9cecefc639b6019e0f12b7e9fb5a2375cd550c1";
       sha256 = "0xb61wchvj1iqzwxzscv3zwbsx1qjh8qhkmijsrjz92566g12xhy";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  jsonc = buildVimPlugin {
+    pname = "jsonc.vim";
+    version = "2019-06-25";
+    src = fetchFromGitHub {
+      owner = "neoclide";
+      repo = "jsonc.vim";
+      rev = "80da2a52db41b4c1ecf6f511422d3771e05622fa";
+      sha256 = "1yix6dq1fh5nhwh5c1gr6z9d05ir5a2d0advdsli7n1y0cmwa8hr";
     };
     buildPhase = ":";
     configurePhase = ":";
@@ -234,24 +249,10 @@ with vimUtils; {
     configurePhase = ":";
   };
 
-  html_template = buildVimPlugin {
-    pname = "vim-html-template-literals";
-    version = "0.2.0";
-    src = fetchFromGitHub {
-      owner = "jonsmithers";
-      repo = "vim-html-template-literals";
-      rev = "3499e075ecb780f773375640e2a45ac9dc53ceef";
-      sha256 = "01cmxp56r2796inmii3kdj22p0wc8f66ba2p1fhlbhrzz5yaxwh4";
-    };
-    buildPhase = ":";
-    configurePhase = ":";
-  };
-
   autoload = buildVimPlugin {
     pname = "autoload";
     version = "0.0.1";
     src = ./functions.vim;
-
     unpackCmd = ''
       mkdir -p out/autoload;
       ln -s $curSrc out/autoload/functions.vim
@@ -265,7 +266,6 @@ with vimUtils; {
     pname = "simple-vim";
     version = "0.0.1";
     src = ./simple.vim;
-
     unpackCmd = ''
       mkdir -p out/colors;
       ln -s $curSrc out/colors/simple.vim

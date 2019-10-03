@@ -13,14 +13,13 @@ pkgs:
   set splitright
   set switchbuf=useopen,usetab
   set signcolumn=yes
-  set completeopt+=menuone
-  set completeopt+=noinsert
-  set completeopt+=noselect
-  set pumheight=12
+  set tabline=%!functions#tabline()
   set omnifunc=syntaxcomplete#Complete
   set completefunc=syntaxcomplete#Complete
+  set completeopt+=menuone,noselect
+  set completeopt-=preview
   set complete=.,w,b,u,U,t,i,d,k
-  set pumheight=10
+  set pumheight=12
   set gdefault
   set hlsearch|nohlsearch
   set nostartofline
@@ -61,8 +60,9 @@ pkgs:
   let &g:statusline.='  '
   let &g:statusline.='%{expand("%:s")}'
   let &g:statusline.='  '
-  let &g:statusline.=' %h%r'
+  let &g:statusline.='%h%r'
   let &g:statusline.='%{exists("g:loaded_fugitive")?fugitive#head(5):""} '
+  let &g:statusline.='%{exists("g:did_coc_loaded")?coc#status():""}'
   let &g:statusline.=' %#incsearch#%{&mod?" ✚✚✚ ":""}'
   let &g:statusline.='%*'
   let &g:statusline.='%='

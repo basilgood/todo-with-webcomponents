@@ -4,7 +4,7 @@ pkgs:
   " autocmds
   augroup plugins
     autocmd BufReadPre * silent execute 'packadd' . ' vim-editorconfig'
-    autocmd BufReadPost * silent execute 'packadd' . ' ale'
+    " autocmd BufReadPost * silent execute 'packadd' . ' ale'
     autocmd BufWinEnter * silent execute 'packadd' . ' fzf-vim'
     autocmd BufWinEnter * silent execute 'packadd' . ' vim-auto-cursorline'
     autocmd VimEnter * silent execute 'packadd' . ' mergetool-vim'
@@ -19,18 +19,20 @@ pkgs:
     autocmd BufRead * silent execute 'packadd' . ' vim-indent-object'
     autocmd BufRead * silent execute 'packadd' . ' undotree'
     autocmd BufRead * silent execute 'packadd' . ' agit.vim'
+    autocmd BufRead * silent execute 'packadd' . ' coc-nvim' | autocmd CursorHold * silent call CocActionAsync('highlight')
     autocmd CmdlineEnter * packadd cmdline-completion
     autocmd FileType qf silent execute 'packadd' . ' quickfix-vim'
     autocmd FileType javascript silent execute 'packadd' . ' vim-javascript'
     autocmd FileType javascript silent execute 'packadd' . ' vim-javascript-syntax'
     autocmd FileType javascript silent execute 'packadd' . ' jsx-vim'
-    autocmd FileType javascript silent execute 'packadd' . ' vim-html-template-literals'
     autocmd FileType typescript silent execute 'packadd' . ' yats-vim'
     autocmd FileType typescript silent execute 'packadd' . ' jsx-vim'
     autocmd FileType coffee silent execute 'packadd' . ' vim-coffee-script'
     autocmd FileType twig silent execute 'packadd' . ' twig-vim'
     autocmd FileType jinja silent execute 'packadd' . ' vim-jinja'
     autocmd FileType markdown silent execute 'packadd' . ' vim-markdown'
+    autocmd FileType json silent execute 'packadd' . ' vim-json'
+    autocmd FileType jsonc silent execute 'packadd' . ' jsonc.vim'
   augroup END
 
   augroup set_filetype
@@ -45,7 +47,11 @@ pkgs:
     autocmd BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
     autocmd BufReadPre,BufNewFile *.coffee setlocal filetype=coffee
     autocmd BufReadPre,BufNewFile *.ts,*.tsx setlocal filetype=typescript
-    autocmd BufReadPre,BufNewFile *.js,*.jsx set filetype=javascript
+    autocmd BufWinEnter *.json setlocal conceallevel=0 concealcursor=
+    autocmd BufReadPre *.json setlocal conceallevel=0 concealcursor=
+    autocmd BufReadPre *.json setlocal formatoptions=a2tq
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+    autocmd FileType jsonc setlocal commentstring=//\ %s
   augroup END
 
   augroup syntax_sync
