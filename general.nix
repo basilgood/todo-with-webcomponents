@@ -79,7 +79,10 @@
     git.interface = pkgs.gitAndTools.tig;
   };
 
-  virtualisation = { lxc.enable = true; };
+  virtualisation = {
+    lxc.enable = true;
+    docker.enable = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
   # nixpkgs.config.packageOverrides = pkgs: {
