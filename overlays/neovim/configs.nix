@@ -40,6 +40,7 @@
       \ 'coc-html',
       \ 'coc-lit-html',
       \ 'coc-json',
+      \ 'coc-go',
       \ 'coc-prettier',
       \ 'coc-highlight',
       \ 'coc-git',
@@ -251,4 +252,7 @@
     " edgemotion
     map <C-j> <Plug>(edgemotion-j)
     map <C-k> <Plug>(edgemotion-k)
+
+    " nixfmt
+    command! -nargs=0 NixFormat silent! execute "!${nixfmt}/bin/nixfmt %"
 ''

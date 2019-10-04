@@ -33,6 +33,7 @@ pkgs:
     autocmd FileType markdown silent execute 'packadd' . ' vim-markdown'
     autocmd FileType json silent execute 'packadd' . ' vim-json'
     autocmd FileType jsonc silent execute 'packadd' . ' jsonc.vim'
+    autocmd FileType go silent execute 'packadd' . ' vim-go'
   augroup END
 
   augroup set_filetype

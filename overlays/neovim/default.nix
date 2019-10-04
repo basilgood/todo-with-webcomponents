@@ -42,6 +42,7 @@ in {
           vim-jinja
           vim-markdown
           vim-json
+          vim-go
           undotree
           vim-indent-object
           quickfix-reflector-vim
