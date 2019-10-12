@@ -1,4 +1,5 @@
 self: super: {
+  myNodePackages = super.pkgs.callPackage ../../node-packages { };
   pack = with self;
     buildEnv {
       name = "pack";
@@ -23,6 +24,12 @@ self: super: {
         mimeo
         nixfmt
         # popcornTime
+        skypeforlinux
+        teamviewer
+
+        nodePackages.node2nix
+        nodePackages.bash-language-server
+        nodePackages.typescript
 
         chromium
         firefox
