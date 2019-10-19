@@ -2,16 +2,16 @@
 with vimUtils;
 
 {
-  ale = buildVimPluginFrom2Nix {
-    pname = "ale";
-    version = "2019-09-25";
-    src = fetchFromGitHub {
-      owner = "dense-analysis";
-      repo = "ale";
-      rev = "41ff80dc9ec2cc834cc8c4aaa753e308223d48b8";
-      sha256 = "1bfylcp9490cd2yz00nq6ky1w55dkvldrdjxip36ahci4cpfn0xw";
-    };
-  };
+  # ale = buildVimPluginFrom2Nix {
+  #   pname = "ale";
+  #   version = "2019-09-25";
+  #   src = fetchFromGitHub {
+  #     owner = "dense-analysis";
+  #     repo = "ale";
+  #     rev = "41ff80dc9ec2cc834cc8c4aaa753e308223d48b8";
+  #     sha256 = "1bfylcp9490cd2yz00nq6ky1w55dkvldrdjxip36ahci4cpfn0xw";
+  #   };
+  # };
 
   tcomment = buildVimPlugin {
     pname = "tcomment";
@@ -39,18 +39,18 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  mergetool = buildVimPlugin {
-    pname = "mergetool-vim";
-    version = "0.1";
-    src = fetchFromGitHub {
-      owner = "samoshkin";
-      repo = "vim-mergetool";
-      rev = "0275a85256ad173e3cde586d54f66566c01b607f";
-      sha256 = "1i3zil06zyndm400i2pfn64ykbs29fw8l720229a8ypp9mxcibcp";
-    };
-    buildPhase = ":";
-    configurePhase = ":";
-  };
+  # mergetool = buildVimPlugin {
+  #   pname = "mergetool-vim";
+  #   version = "0.1";
+  #   src = fetchFromGitHub {
+  #     owner = "samoshkin";
+  #     repo = "vim-mergetool";
+  #     rev = "0275a85256ad173e3cde586d54f66566c01b607f";
+  #     sha256 = "1i3zil06zyndm400i2pfn64ykbs29fw8l720229a8ypp9mxcibcp";
+  #   };
+  #   buildPhase = ":";
+  #   configurePhase = ":";
+  # };
 
   yats = buildVimPlugin {
     pname = "yats-vim";
@@ -79,15 +79,14 @@ with vimUtils;
   };
 
   jsx = buildVimPlugin {
-    pname = "jsx-vim";
-    version = "2.0.1";
+    pname = "vim-jsx-pretty";
+    version = "2019-09-18";
     src = fetchFromGitHub {
       owner = "MaxMEllon";
       repo = "vim-jsx-pretty";
-      rev = "007b85e1d51f4dbbba2c15ca4a34b5ff7a8db9ef";
-      sha256 = "1pg6sy41ai212jq8p15pz70w4wkn77wd12362j133myd14nsahjf";
+      rev = "89c30c0defe8ddb31bc0d3cfa5f22f3f6d8eb24f";
+      sha256 = "1l5cwlbmihzxldpxlvn5gc47s0awqs908skzq43cy44iql829hir";
     };
-
     buildPhase = ":";
     configurePhase = ":";
   };
@@ -101,19 +100,31 @@ with vimUtils;
       rev = "139ec9080f219536a94281aef7980654ab7c1a1c";
       sha256 = "18468dljr9fqfy89jfs8ahcfj6a26cp5c4iqi526wwj25irbxf71";
     };
-
     buildPhase = ":";
     configurePhase = ":";
   };
 
-  agit = buildVimPlugin {
-    pname = "agit.vim";
+  gv = buildVimPlugin {
+    pname = "gv.vim";
     version = "2019-04-2";
     src = fetchFromGitHub {
-      owner = "cohama";
-      repo = "agit.vim";
-      rev = "a953f125e1aea1fc2e5aa06f23378ba180b18e4a";
-      sha256 = "1381sglnx3spjqjw7nqf8037z815n9dcnva3dhbazhslyq31hrd3";
+      owner = "junegunn";
+      repo = "gv.vim";
+      rev = "7a84f6342cc79444e3fa873bf1d08fb6c53b097e";
+      sha256 = "0q5xz8iw3jg42kbaspmgd8mlcgl3xglcqh3fyd2jmmwhnfzp3f7r";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  vim-dispatch = buildVimPlugin {
+    pname = "vim-dispatch";
+    version = "0.8.0";
+    src = fetchFromGitHub {
+      owner = "tpope";
+      repo = "vim-dispatch";
+      rev = "4bd1ecd7f38206ef26c37d7d142df58c4237d9dc";
+      sha256 = "0wz8p8fm48dbpzd00h9qw0q2s3r7nm8qa5kcligcrzh1kv139026";
     };
     buildPhase = ":";
     configurePhase = ":";
@@ -249,8 +260,8 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  autoload = buildVimPlugin {
-    pname = "autoload";
+  all-func = buildVimPlugin {
+    pname = "all-func";
     version = "0.0.1";
     src = ./functions.vim;
     unpackCmd = ''
@@ -262,13 +273,13 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  simple = buildVimPlugin {
-    pname = "simple-vim";
+  apprentice = buildVimPlugin {
+    pname = "apprentice-vim";
     version = "0.0.1";
-    src = ./simple.vim;
+    src = ./apprentice.vim;
     unpackCmd = ''
       mkdir -p out/colors;
-      ln -s $curSrc out/colors/simple.vim
+      ln -s $curSrc out/colors/apprentice.vim
       ls -al $curSrc
     '';
     buildPhase = ":";

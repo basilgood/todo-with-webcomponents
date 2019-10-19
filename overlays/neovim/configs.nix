@@ -1,38 +1,31 @@
 { ag, fzf, fd, nixfmt, python27Packages, vim-vint, editorconfig-core-c }:
 # vim: set syntax=vim:
 ''
-    " core
-    let g:loaded_rrhelper = 1
-    let g:did_install_default_menus = 1
-    let g:is_bash = 1
-    let g:sh_noisk = 1
-
     " git.
     nnoremap [fugitive]  <Nop>
     nmap <space>g [fugitive]
-    nnoremap <silent> [fugitive]s :<C-u>Gstatus<CR>
+    nnoremap <silent> [fugitive]s :<C-u>vertical Gstatus<CR>
     nnoremap <silent> [fugitive]c :<C-u>Gcommit<CR>
     nnoremap <silent> [fugitive]C :<C-u>Gcommit --amend<CR>
-    nnoremap <silent> [fugitive]a :<C-u>!git add %<CR>
-    nnoremap <silent> [fugitive]r :<C-u>!git reset %<CR>
-    nnoremap <silent> [fugitive]D :<C-u>!git checkout -- %<CR>
-    nnoremap <silent> [fugitive]p :<C-u>!git push<CR>
-    nnoremap <silent> [fugitive]P :<C-u>!git push -f<CR>
+    nnoremap <silent> [fugitive]a :<C-u>Dispatch! git add %<CR>
+    nnoremap <silent> [fugitive]r :<C-u>Dispatch! git reset %<CR>
+    nnoremap <silent> [fugitive]D :<C-u>Dispatch! git checkout -- %<CR>
+    nnoremap <silent> [fugitive]p :<C-u>Dispatch! git push<CR>
+    nnoremap <silent> [fugitive]P :<C-u>Dispatch! git push -f<CR>
     nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
-    nnoremap <silent> [fugitive]l :<C-u>Agit<CR>
+    nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
 
     function! InFugitive() abort
-      nmap <buffer> zp :<c-u>!git push<CR>
-      nmap <buffer> zf :<c-u>!git push -f<CR>
+      nmap <buffer> zp :<c-u>Dispatch! git push<CR>
+      nmap <buffer> zF :<c-u>Dispatch! git push -f<CR>
+      nmap <buffer> zf :<c-u>Dispatch! git fetch --all --prune<CR>
+      nmap <buffer> zr :<c-u>Dispatch! git pull --rebase --autostash<CR>
     endfunction
 
-    augroup in_fugitive
-      autocmd FileType fugitive call InFugitive()
-    augroup END
+    autocmd vimRc FileType fugitive call InFugitive()
 
     " coc
     let g:coc_global_extensions = [
-      \ 'coc-tslint-plugin',
       \ 'coc-tsserver',
       \ 'coc-emmet',
       \ 'coc-css',
@@ -81,7 +74,6 @@
       autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
       " Update signature help on jump placeholder
       autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-      autocmd User CocDiagnosticChange call lightline#update()
     augroup end
     xmap if <Plug>(coc-funcobj-i)
     xmap af <Plug>(coc-funcobj-a)
@@ -101,41 +93,41 @@
     nmap S ysiw
 
     " ale lint plugin
-    let g:ale_linters_explicit = 1
-    let g:ale_set_highlights = 0
-    let g:ale_completion_enabled = 1
-    let g:ale_sign_info = 'i'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-    let g:ale_pattern_options_enabled = 1
-    let g:ale_pattern_options = {
-      \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-      \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-      \}
-    let g:ale_fix_on_save = 1
-    let g:ale_sign_warning = '_w'
-    let g:ale_sign_error = '_e'
-    let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
-      \ 'html': ['eslint'],
-      \ 'rust': ['rustfmt']
-      \}
-    let g:ale_linter_aliases = {
-      \ 'html': 'javascript'
-      \}
-    let g:ale_yaml_yamllint_executable = '${python27Packages.yamllint}/bin/yamllint'
-    let g:ale_vim_vint_executable = '${vim-vint}/bin/vint'
-    let g:ale_linters = {
-      \ 'javascript': ['eslint'],
-      \ 'rust': ['rls', 'cargo','rustc'],
-      \ 'yaml': ['yamllint'],
-      \ 'vim': ['vint'],
-      \ 'nix': ['nix'],
-      \ 'html': ['eslint'],
-      \ 'typescript': ['eslint','tsserver']
-      \}
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
-    nnoremap <leader>a :ALEFix<space>
+"    let g:ale_linters_explicit = 1
+"   let g:ale_set_highlights = 0
+"   let g:ale_completion_enabled = 1
+"   let g:ale_sign_info = 'i'
+"   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"   let g:ale_pattern_options_enabled = 1
+"   let g:ale_pattern_options = {
+"     \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+"     \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+"     \}
+"   let g:ale_fix_on_save = 1
+"   let g:ale_sign_warning = '_w'
+"   let g:ale_sign_error = '_e'
+"   let g:ale_fixers = {
+"     \ 'javascript': ['eslint'],
+"     \ 'html': ['eslint'],
+"     \ 'rust': ['rustfmt']
+"     \}
+"   let g:ale_linter_aliases = {
+"     \ 'html': 'javascript'
+"     \}
+"   let g:ale_yaml_yamllint_executable = '${python27Packages.yamllint}/bin/yamllint'
+"   let g:ale_vim_vint_executable = '${vim-vint}/bin/vint'
+"   let g:ale_linters = {
+"     \ 'javascript': ['eslint'],
+"     \ 'rust': ['rls', 'cargo','rustc'],
+"     \ 'yaml': ['yamllint'],
+"     \ 'vim': ['vint'],
+"     \ 'nix': ['nix'],
+"     \ 'html': ['eslint'],
+"     \ 'typescript': ['eslint','tsserver']
+"     \}
+"   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+"   nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"   nnoremap <leader>a :ALEFix<space>
 
     " editorconfig.
     let g:editorconfig_root_chdir = 1
@@ -150,19 +142,9 @@
     let g:netrw_altfile             = 1
     let g:netrw_dirhistmax          = 0
 
-    function! InNetrw()
-      nnoremap <buffer> D <Nop>
-      nmap <buffer> <right> <cr>
-      nmap <buffer> <left> -
-      nmap <buffer> J j<cr>
-      nmap <buffer> K k<cr>
-      nmap <buffer> qq :bn<bar>bd#<cr>
-      nmap <buffer> D !rm -rf
-    endfunction
-
     augroup in_netrw
       autocmd!
-      autocmd FileType netrw call InNetrw()
+      autocmd FileType netrw call functions#innetrw()
     augroup END
 
     " fzf plugin

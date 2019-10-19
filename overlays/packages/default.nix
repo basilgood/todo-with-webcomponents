@@ -30,6 +30,9 @@ self: super: {
         nodePackages.node2nix
         nodePackages.bash-language-server
         nodePackages.typescript
+        nodePackages.eslint
+        nodePackages.typescript-language-server
+        nodePackages.dockerfile-language-server-nodejs
 
         chromium
         firefox
@@ -47,6 +50,8 @@ self: super: {
 
         vim-vint
         python37Packages.yamllint
+        # python27Packages.docker
+        # python37Packages.docker
 
         spotify
         mpv

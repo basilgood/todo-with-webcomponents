@@ -3,41 +3,62 @@ with super;
 
 let plugins = callPackage ./plugins/default.nix { };
 in {
-
   neovim = neovim.override {
     withNodeJs = true;
     configure = {
       customRC = ''
-        if !v:vim_did_enter && has('reltime')
-          let g:startuptime = reltime()
-          augroup vimrc-startuptime
-            autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
-              \ | redraw
-              \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
-          augroup END
-        endif
-        augroup vimrc
+        set encoding=utf-8
+        scriptencoding utf-8
+
+        augroup vimRc
           autocmd!
         augroup END
-        """" large file
-        let g:LargeFile = 20*1024*1024 " 20MB
+
+        if has('vim_starting')
+          let g:startuptime = reltime()
+          autocmd vimRc VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+            \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+        endif
+
+        let g:loaded_matchparen         = 1
+        let g:loaded_rrhelper           = 1
+        let g:did_install_default_menus = 1
+        let g:is_bash                   = 1
+        let g:sh_noisk                  = 1
+        let g:loaded_vimball            = 1
+        let g:loaded_vimballPlugin      = 1
+        let g:loaded_getscript          = 1
+        let g:loaded_getscriptPlugin    = 1
+        let g:loaded_logipat            = 1
+        let g:loaded_man                = 1
+
+        let s:mkdir = function('mkdir')
+        let $CACHE      = expand('$HOME/.cache/')
+        let $CACHE_NVIM = expand('$CACHE/nvim')
+
+        """" lazy load plugins
+        if has('vim_starting') && has('timers')
+          autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
+        endif
+
+        ${callPackage ./configs.nix { }}
         ${callPackage ./options.nix { }}
         ${callPackage ./mappings.nix { }}
         ${callPackage ./autocmds.nix { }}
-        ${callPackage ./configs.nix { }}
         ${callPackage ./hlsearch.nix { }}
+        ${callPackage ./commands.nix { }}
 
-        syntax enable
-        colorscheme simple
+        colorscheme apprentice
       '';
-
       packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ fugitive vinegar vim-nix rust-vim ]
-          ++ (with plugins; [ vim-startify easy-align ]);
+        start = [ ] ++ (with plugins; [ vim-startify all-func]);
         opt = [
+          fugitive
+          vinegar
           coc-nvim
           surround
           repeat
+          vim-nix
           vim-coffee-script
           vim-jinja
           vim-markdown
@@ -46,27 +67,24 @@ in {
           undotree
           vim-indent-object
           quickfix-reflector-vim
+          vim-easy-align
         ] ++ (with plugins; [
-          # ale
           fzf-vim
-          agit
+          vim-dispatch
           tcomment
           vim-auto-cursorline
           targets
           wildfire
-          ags
+          gv
           vim-edgemotion
           vim-editorconfig
           cmdline
-          mergetool
-          simple
-          javascript_syntax
           vim-javascript
-          jsx
+          vim-jsx-pretty
           jsonc
           yats
           twig
-          autoload
+          apprentice
         ]);
       };
     };

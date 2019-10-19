@@ -59,13 +59,6 @@ function! functions#mkdirifnotexist() abort
   endif
 endfunction
 
-"""" mkdir
-function! functions#mkdir(dir) abort
-  if !isdirectory(a:dir)
-    call mkdir(a:dir, 'p')
-  endif
-endfunction
-
 """" tabline
 function! functions#tabline() abort
   let s = ''
@@ -110,7 +103,7 @@ function! functions#innetrw() abort
   nmap <buffer> J j<cr>
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
-  nmap <buffer> D .terminal ++close rm -rf
+  nmap <buffer> D !rm -rf
 endfunction
 
 " completion
@@ -176,4 +169,86 @@ endfunction
 function! functions#check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" grep
+function! IsGitWorkTree() abort
+  let l:git=1
+  let l:stdout = system('git rev-parse --git-dir 2> /dev/null')
+  if l:stdout =~# '\.git'
+    let l:git=0
+  endif
+  return l:git
+endfunction
+
+function! functions#grep(cmd, args) abort
+  if IsGitWorkTree() == 0
+    let g:grepprg = 'git  --no-pager grep --exclude-standard --untracked -n'
+  else
+    let g:grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack,bower_components} --exclude="*.min.js" --exclude="*.js.map" -nHIR'
+  endif
+
+  let g:grepformat = '%f:%l:%c:%m,%f:%l:%m'
+
+  if empty(a:args)
+    let l:grepargs = expand("<cword>")
+  else
+    let l:grepargs = a:args . join(a:000, ' ')
+  end
+
+  let grepprg_bak=&grepprg
+  let grepformat_bak=&grepformat
+
+  try
+    let &grepprg=g:grepprg
+    let &grepformat=g:grepformat
+    silent execute a:cmd . " " . escape(l:grepargs, '|')
+  finally
+    let &grepprg=grepprg_bak
+    let &grepformat=grepformat_bak
+  endtry
+
+  let @/ = a:args
+  setlocal hlsearch
+
+endfunction
+
+" lazy load plugins
+function! functions#packaddhandler(timer)
+  execute 'packadd coc-nvim'
+  execute 'packadd vim-fugitive'
+  execute 'packadd vim-vinegar'
+  execute 'packadd vim-dispatch'
+  execute 'packadd fzf-vim'
+  execute 'packadd vim-editorconfig'
+  execute 'packadd vim-surround'
+  execute 'packadd vim-repeat'
+  execute 'packadd tcomment'
+  execute 'packadd vim-easy-align'
+  execute 'packadd gv.vim'
+  execute 'packadd vim-nix'
+  execute 'packadd vim-javascript'
+  execute 'packadd vim-jsx-pretty'
+  execute 'packadd vim-coffee-script'
+  execute 'packadd vim-jinja'
+  execute 'packadd vim-markdown'
+  execute 'packadd vim-json'
+  execute 'packadd jsonc.vim'
+  execute 'packadd vim-go'
+  execute 'packadd yats-vim'
+  execute 'packadd rust-vim'
+  execute 'packadd twig-vim'
+  execute 'packadd undotree'
+  execute 'packadd vim-indent-object'
+  execute 'packadd quickfix-reflector-vim'
+  execute 'packadd vim-startify'
+  execute 'packadd vim-auto-cursorline'
+  execute 'packadd targets.vim'
+  execute 'packadd wildfire.vim'
+  execute 'packadd vim-edgemotion'
+  execute 'packadd vim-ags'
+  execute 'packadd cmdline-completion'
+
+  doautocmd FileType
+  doautocmd fugitive BufReadPost
 endfunction
