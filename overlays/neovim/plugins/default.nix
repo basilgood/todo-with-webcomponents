@@ -91,19 +91,6 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  javascript_syntax = buildVimPlugin {
-    pname = "vim-javascript-syntax";
-    version = "0.8.2";
-    src = fetchFromGitHub {
-      owner = "jelera";
-      repo = "vim-javascript-syntax";
-      rev = "139ec9080f219536a94281aef7980654ab7c1a1c";
-      sha256 = "18468dljr9fqfy89jfs8ahcfj6a26cp5c4iqi526wwj25irbxf71";
-    };
-    buildPhase = ":";
-    configurePhase = ":";
-  };
-
   gv = buildVimPlugin {
     pname = "gv.vim";
     version = "2019-04-2";
@@ -255,6 +242,45 @@ with vimUtils;
       repo = "vim-javascript";
       rev = "b6c8c8419240bdd29b5eb51a47d488fd390deed5";
       sha256 = "0p56av0zmig4rpsq4w4armnccyd713xdm5lwrck3cip55c39382f";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  vim-parenmatch = buildVimPlugin {
+    pname = "vim-parenmatch";
+    version = "2017-10-07";
+    src = fetchFromGitHub {
+      owner = "itchyny";
+      repo = "vim-parenmatch";
+      rev = "1a00e366a24f37ceaf8df87b5ff8bbd9f90e3758";
+      sha256 = "00vkkq473qxzc6k1gmkbd91nqs81h0yszixpby3djwblg16fch75";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  vim-submode = buildVimPlugin {
+    pname = "vim-submode";
+    version = "2017-10-07";
+    src = fetchFromGitHub {
+      owner = "kana";
+      repo = "vim-submode";
+      rev = "d29de4f55c40a7a03af1d8134453a703d6affbd2";
+      sha256 = "1qf0ryyjbv3yw916dnvqlzqvpskg2sbkwn46a2zph71p16sg6cp7";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  vim-merginal = buildVimPlugin {
+    pname = "vim-merginal";
+    version = "2019-9-06";
+    src = fetchFromGitHub {
+      owner = "idanarye";
+      repo = "vim-merginal";
+      rev = "b534737cbbcec1992e3465d5508857bef91b37fc";
+      sha256 = "0ybi150pvb23279y6x8y0zrjyh4pfilxnw8cxdp8n41iynziv8yg";
     };
     buildPhase = ":";
     configurePhase = ":";

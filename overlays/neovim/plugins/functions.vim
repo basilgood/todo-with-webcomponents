@@ -47,6 +47,65 @@ function! functions#hl() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
 
+" search highlight
+function! functions#hlnext() abort
+  let l:higroup = matchend(getline('.'), '\c'.@/, col('.')-1) == col('.')
+        \ ? 'SpellRare' : 'IncSearch'
+  let b:cur_match = matchadd(l:higroup, '\c\%#'.@/, 101)
+  redraw
+  augroup HLNext
+    autocmd CursorMoved <buffer>
+          \   execute 'silent! call matchdelete('.b:cur_match.')'
+          \ | redraw
+          \ | autocmd! HLNext
+  augroup END
+endfunction
+
+function! s:StartHL()
+  silent! if v:hlsearch && !search('\%#\zs'.@/,'cnW')
+  call <SID>StopHL()
+endif
+endfunction
+
+function! s:StopHL()
+  if ! v:hlsearch || mode() !=? 'n'
+    return
+  else
+    silent call feedkeys("\<Plug>(StopHL)", 'm')
+  endif
+endfunction
+
+function! Toggle(old, new)
+  if a:old == 0 && a:new == 1
+    " nohls --> hls
+    "   set up
+    noremap  <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
+    noremap! <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
+
+    autocmd hlsearch CursorMoved * call <SID>StartHL()
+    autocmd hlsearch InsertEnter * call <SID>StopHL()
+  elseif a:old == 1 && a:new == 0
+    " hls --> nohls
+    "   tear down
+    nunmap <expr> <Plug>(StopHL)
+    unmap! <expr> <Plug>(StopHL)
+
+    autocmd! hlsearch CursorMoved
+    autocmd! hlsearch InsertEnter
+  else
+    " nohls --> nohls
+    "   do nothing
+    return
+  endif
+endfunction
+
+augroup hlsearch
+  autocmd!
+  autocmd OptionSet hlsearch call Toggle(v:option_old, v:option_new)
+augroup END
+
+call Toggle(0, &hlsearch)
+
 """" mkdir if not exists
 function! functions#mkdirifnotexist() abort
   let dir = expand('%:p:h')
@@ -104,16 +163,6 @@ function! functions#innetrw() abort
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
   nmap <buffer> D !rm -rf
-endfunction
-
-" completion
-function! functions#inserttabwrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~# '\k'
-    return "\<tab>"
-  else
-    return "\<c-n>"
-  endif
 endfunction
 
 """" visual select
@@ -213,6 +262,41 @@ function! functions#grep(cmd, args) abort
 
 endfunction
 
+function! s:mycommand_sink(cmd)
+  let cmd = substitute(a:cmd, '\d..', '', 'g')
+  execute cmd
+endfunction
+
+function! functions#fzfcommands(bang)
+  redir => history
+  silent history
+  redir END
+  let list = split(history, '\n')
+  call fzf#run(fzf#wrap({
+        \ 'sink':    function('s:mycommand_sink')}))
+endfunction
+
+" submode
+function! SubMode()
+  call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
+  call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
+  call submode#map('resize', 'n', '', '.', '<C-W>>')
+  call submode#map('resize', 'n', '', ',', '<C-W><')
+  call submode#enter_with('resize', 'n', '', '<C-W>-', '<C-W>-')
+  call submode#enter_with('resize', 'n', '', '<C-W>+', '<C-W>+')
+  call submode#map('resize', 'n', '', '-', '<C-W>-')
+  call submode#map('resize', 'n', '', '=', '<C-W>+')
+  call submode#leave_with('resize', 'n', '', '<Esc>')
+  call submode#enter_with('scroll-h', 'n', '', 'zl', 'zl')
+  call submode#enter_with('scroll-h', 'n', '', 'zh', 'zh')
+  call submode#enter_with('scroll-h', 'n', '', 'zL', 'zL')
+  call submode#enter_with('scroll-h', 'n', '', 'zH', 'zH')
+  call submode#map('scroll-h', 'n', '', 'l', 'zl')
+  call submode#map('scroll-h', 'n', '', 'h', 'zh')
+  call submode#map('scroll-h', 'n', '', 'L', 'zL')
+  call submode#map('scroll-h', 'n', '', 'H', 'zH')
+endfunction
+
 " lazy load plugins
 function! functions#packaddhandler(timer)
   execute 'packadd coc-nvim'
@@ -247,8 +331,11 @@ function! functions#packaddhandler(timer)
   execute 'packadd wildfire.vim'
   execute 'packadd vim-edgemotion'
   execute 'packadd vim-ags'
+  execute 'packadd vim-parenmatch'
+  execute 'packadd vim-submode'
+  execute 'packadd vim-merginal'
   execute 'packadd cmdline-completion'
-
-  doautocmd FileType
+  execute 'doautocmd FileType'
   doautocmd fugitive BufReadPost
+  call SubMode()
 endfunction

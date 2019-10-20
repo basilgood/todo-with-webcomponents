@@ -41,6 +41,7 @@ in {
           autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
         endif
 
+        ${callPackage ./coc.nix { }}
         ${callPackage ./configs.nix { }}
         ${callPackage ./options.nix { }}
         ${callPackage ./mappings.nix { }}
@@ -49,9 +50,13 @@ in {
         ${callPackage ./commands.nix { }}
 
         colorscheme apprentice
+        hi! Comment      guifg=#5c6370 guibg=NONE gui=italic cterm=italic
+        hi! ParenMatch   guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
+        set secure
       '';
+
       packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ ] ++ (with plugins; [ vim-startify all-func]);
+        start = [ ] ++ (with plugins; [ vim-startify all-func ]);
         opt = [
           fugitive
           vinegar
@@ -59,6 +64,7 @@ in {
           surround
           repeat
           vim-nix
+          vim-javascript
           vim-coffee-script
           vim-jinja
           vim-markdown
@@ -76,10 +82,13 @@ in {
           targets
           wildfire
           gv
+          ags
           vim-edgemotion
           vim-editorconfig
+          vim-parenmatch
+          vim-submode
+          vim-merginal
           cmdline
-          vim-javascript
           vim-jsx-pretty
           jsonc
           yats

@@ -33,13 +33,11 @@ pkgs:
   """" remember_position
   autocmd vimRc BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-  """" syntax_sync
-  autocmd vimRc CursorHold * syntax sync minlines=300
-
   """" filetype
-  autocmd vimRc BufNewFile,BufRead *.nix set filetype=nix
-  autocmd vimRc BufNewFile,BufRead *.twig set filetype=html.twig
-  autocmd vimRc BufNewFile,BufRead *.svelte set filetype=svelte
+  autocmd vimRc BufNewFile,BufRead *.nix setlocal filetype=nix
+  autocmd vimRc BufNewFile,BufRead *.js,.jsx packadd setlocal filetype=javascript
+  autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig
+  autocmd vimRc BufNewFile,BufRead *.svelte setlocal filetype=svelte
   autocmd vimRc BufRead,BufNewFile *.gitignore  setlocal filetype=gitignore
   autocmd vimRc BufNewFile,BufRead *.vim setlocal filetype=vim
   autocmd vimRc BufNewFile,BufRead *.html setlocal filetype=html
@@ -55,4 +53,5 @@ pkgs:
   autocmd vimRc BufReadPre *.json setlocal formatoptions=a2tq
   autocmd vimRc FileType json syntax match Comment +\/\/.\+$+
   autocmd vimRc FileType jsonc setlocal commentstring=//\ %s
+  autocmd vimRc BufReadPre    * doautocmd FileType
 ''

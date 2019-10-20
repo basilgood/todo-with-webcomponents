@@ -13,8 +13,8 @@ pkgs:
   cnoremap <c-e> <End>
   inoremap <c-a> <Home>
   inoremap <c-e> <End>
-  nnoremap }   }zz
-  nnoremap {   {zz
+  nnoremap } }zz
+  nnoremap { {zz
 
   " windows
   nnoremap <silent> <Tab> :call functions#nextwindow()<CR>
@@ -66,7 +66,7 @@ pkgs:
   nnoremap <leader><leader> q:i
 
   " grep
-  nnoremap gs :<C-u>Grep<Space>
+  nnoremap gw :<C-u>Grp<Space>
 
   " commands history
   nnoremap <leader>] :CmdHist<cr>
@@ -119,4 +119,16 @@ pkgs:
   nnoremap [Substitute]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
   nnoremap [Substitute]p vip :s/
   nnoremap [Substitute]w :%s/\<<c-r><c-w>\>/
+
+  " zoom
+  nnoremap <C-w>t :tabedit %<cr>
+  nnoremap <C-w>z :tabclose<cr>
+
+  " git commands
+  nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
+
+  " hlsearch hlnext
+  nnoremap <silent> n nzz:call functions#hlnext()<cr>
+  nnoremap <silent> N Nzz:call functions#hlnext()<cr>
+  nnoremap <silent> [Space]n :nohlsearch<CR>
 ''
