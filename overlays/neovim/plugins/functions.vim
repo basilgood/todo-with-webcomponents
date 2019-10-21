@@ -262,20 +262,6 @@ function! functions#grep(cmd, args) abort
 
 endfunction
 
-function! s:mycommand_sink(cmd)
-  let cmd = substitute(a:cmd, '\d..', '', 'g')
-  execute cmd
-endfunction
-
-function! functions#fzfcommands(bang)
-  redir => history
-  silent history
-  redir END
-  let list = split(history, '\n')
-  call fzf#run(fzf#wrap({
-        \ 'sink':    function('s:mycommand_sink')}))
-endfunction
-
 " submode
 function! SubMode()
   call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')

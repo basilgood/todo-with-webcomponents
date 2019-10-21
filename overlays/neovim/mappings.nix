@@ -68,9 +68,6 @@ pkgs:
   " grep
   nnoremap gw :<C-u>Grp<Space>
 
-  " commands history
-  nnoremap <leader>] :CmdHist<cr>
-
   " smart space mapping
   nmap <Space> [Space]
   nnoremap  [Space] <Nop>
@@ -100,7 +97,6 @@ pkgs:
   " switch buffers
   nnoremap [Space]1 1<c-w>w
   nnoremap [Space]2 2<c-w>w
-
   nnoremap [Space]3 3<c-w>w
   nnoremap [Space]4 4<c-w>w
   nnoremap [Space]5 5<c-w>w

@@ -154,6 +154,7 @@
       \ 'sink*':  function('BufferSink'),
       \ 'options': '-m --expect='.join(keys(buffer_action), ',')
       \ }))<CR>
+    nnoremap <silent> <leader>] :History:<cr>
 
     " markdown
     let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
