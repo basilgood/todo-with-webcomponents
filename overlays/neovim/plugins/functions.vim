@@ -299,6 +299,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-nix'
   execute 'packadd vim-javascript'
   execute 'packadd vim-jsx-pretty'
+  execute 'packadd vim-html-template-literals'
   execute 'packadd vim-coffee-script'
   execute 'packadd vim-jinja'
   execute 'packadd vim-markdown'

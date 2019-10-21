@@ -65,6 +65,7 @@ in {
           repeat
           vim-nix
           vim-javascript
+          vim-html-template-literals
           vim-coffee-script
           vim-jinja
           vim-markdown
