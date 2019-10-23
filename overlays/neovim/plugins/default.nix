@@ -286,6 +286,32 @@ with vimUtils;
     configurePhase = ":";
   };
 
+  vcs-jump = buildVimPlugin {
+    pname = "vcs-jump";
+    version = "2019-10-12";
+    src = fetchFromGitHub {
+      owner = "wincent";
+      repo = "vcs-jump";
+      rev = "a83cd2a6bfbf9356ee439a0e6aa29f8eaea4bb38";
+      sha256 = "1n6g49pkf0qb2p5d845qgyndw3xh2ijzz8vm7lblsi9kb452bn7w";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  conflict3 = buildVimPlugin {
+    pname = "conflict3";
+    version = "2019-9-06";
+    src = fetchFromGitHub {
+      owner = "mkotha";
+      repo = "conflict3";
+      rev = "180e387fa464f27346db6a9c577ae6c1a26cd39a";
+      sha256 = "027p8qd897q5p80cq95wwb3gln9jjjnzibsj8cd6bdsizy0cxcq7";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
   all-func = buildVimPlugin {
     pname = "all-func";
     version = "0.0.1";

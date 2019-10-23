@@ -75,6 +75,7 @@ in {
           vim-indent-object
           quickfix-reflector-vim
           vim-easy-align
+          auto-git-diff
         ] ++ (with plugins; [
           fzf-vim
           vim-dispatch
@@ -83,6 +84,8 @@ in {
           targets
           wildfire
           gv
+          conflict3
+          vcs-jump
           ags
           vim-edgemotion
           vim-editorconfig
