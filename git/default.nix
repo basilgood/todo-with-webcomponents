@@ -40,22 +40,22 @@ in {
       };
 
       name = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
       };
 
       email = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
       };
 
       editor = mkOption {
-        type = types.string;
+        type = types.str;
         default = "${pkgs.nvim}/bin/nvim";
       };
 
       pager = mkOption {
-        type = types.string;
+        type = types.str;
         default = "${pkgs.less}/bin/less";
       };
 
