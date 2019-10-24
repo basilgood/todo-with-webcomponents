@@ -199,10 +199,6 @@
     let g:wildfire_water_map = '-'
     nmap <leader>s <Plug>(wildfire-quick-select)
 
-    " ags
-    let g:ags_winplace = 'right'
-    let g:ags_enable_async = 1
-
     " edgemotion
     map <C-j> <Plug>(edgemotion-j)
     map <C-k> <Plug>(edgemotion-k)

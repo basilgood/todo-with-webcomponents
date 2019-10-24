@@ -75,7 +75,7 @@ function! s:StopHL()
   endif
 endfunction
 
-function! Toggle(old, new)
+function! functions#togglehl(old, new)
   if a:old == 0 && a:new == 1
     " nohls --> hls
     "   set up
@@ -98,13 +98,6 @@ function! Toggle(old, new)
     return
   endif
 endfunction
-
-augroup hlsearch
-  autocmd!
-  autocmd OptionSet hlsearch call Toggle(v:option_old, v:option_new)
-augroup END
-
-call Toggle(0, &hlsearch)
 
 """" mkdir if not exists
 function! functions#mkdirifnotexist() abort
@@ -182,20 +175,6 @@ function! functions#get_search_pat() abort
   return functions#plain_text_pattern(functions#get_selected_text())
 endfunction
 
-" search highlight
-function! functions#hlnext() abort
-  let l:higroup = matchend(getline('.'), '\c'.@/, col('.')-1) == col('.')
-        \ ? 'SpellRare' : 'IncSearch'
-  let b:cur_match = matchadd(l:higroup, '\c\%#'.@/, 101)
-  redraw
-  augroup HLNext
-    autocmd CursorMoved <buffer>
-          \   execute 'silent! call matchdelete('.b:cur_match.')'
-          \ | redraw
-          \ | autocmd! HLNext
-  augroup END
-endfunction
-
 " windows
 function! functions#nextwindow() abort
   if winnr('$') == 1
@@ -251,7 +230,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-editorconfig'
   execute 'packadd vim-surround'
   execute 'packadd vim-repeat'
-  execute 'packadd tcomment'
+  execute 'packadd vim-commentary'
   execute 'packadd vim-easy-align'
   execute 'packadd gv.vim'
   execute 'packadd conflict3'
@@ -279,7 +258,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-edgemotion'
   execute 'packadd vim-parenmatch'
   execute 'packadd vim-submode'
-  execute 'packadd vim-merginal'
+  execute 'packadd vim-twiggy'
   execute 'packadd cmdline-completion'
   execute 'packadd ferret'
   execute 'doautocmd FileType'

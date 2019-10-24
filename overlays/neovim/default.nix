@@ -58,11 +58,11 @@ in {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ ] ++ (with plugins; [ vim-startify all-func ]);
         opt = [
-          fugitive
           vinegar
           coc-nvim
           surround
           repeat
+          commentary
           vim-nix
           vim-javascript
           vim-html-template-literals
@@ -78,9 +78,9 @@ in {
           auto-git-diff
           ferret
         ] ++ (with plugins; [
+          vim-fugitive
           fzf-vim
           vim-dispatch
-          tcomment
           targets
           wildfire
           gv
@@ -90,7 +90,7 @@ in {
           vim-editorconfig
           vim-parenmatch
           vim-submode
-          vim-merginal
+          vim-twiggy
           cmdline
           vim-jsx-pretty
           jsonc

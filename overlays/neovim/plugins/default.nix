@@ -13,14 +13,14 @@ with vimUtils;
   #   };
   # };
 
-  tcomment = buildVimPlugin {
-    pname = "tcomment";
+  vim-fugitive = buildVimPlugin {
+    pname = "vim-fugitive";
     version = "0.1";
     src = fetchFromGitHub {
-      owner = "tomtom";
-      repo = "tcomment_vim";
-      rev = "c9cecefc639b6019e0f12b7e9fb5a2375cd550c1";
-      sha256 = "0xb61wchvj1iqzwxzscv3zwbsx1qjh8qhkmijsrjz92566g12xhy";
+      owner = "tpope";
+      repo = "vim-fugitive";
+      rev = "b09c5d2523f9964add241a04862c2f8bbd7d428f";
+      sha256 = "0x6j4z85z23wk1j7ni1558iyssiimixv26rhbsp9n26a4g8mm042";
     };
     buildPhase = ":";
     configurePhase = ":";
@@ -247,14 +247,14 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  vim-merginal = buildVimPlugin {
-    pname = "vim-merginal";
+  vim-twiggy = buildVimPlugin {
+    pname = "vim-twiggy";
     version = "2019-9-06";
     src = fetchFromGitHub {
-      owner = "idanarye";
-      repo = "vim-merginal";
-      rev = "b534737cbbcec1992e3465d5508857bef91b37fc";
-      sha256 = "0ybi150pvb23279y6x8y0zrjyh4pfilxnw8cxdp8n41iynziv8yg";
+      owner = "sodapopcan";
+      repo = "vim-twiggy";
+      rev = "962b181f402f05b66641308fe1b3538d5f863ab8";
+      sha256 = "0cqarsvdw9gr8pqp1gjy4rb6aaifjyb7iaaa2g8msr1ps0ihs3gd";
     };
     buildPhase = ":";
     configurePhase = ":";
