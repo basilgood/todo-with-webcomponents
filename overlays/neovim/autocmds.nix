@@ -33,6 +33,10 @@ pkgs:
   """" remember_position
   autocmd vimRc BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
+  """" cursorline
+   autocmd InsertLeave,WinEnter * setlocal cursorline
+   autocmd InsertEnter,WinLeave * setlocal nocursorline
+
   """" filetype
   autocmd vimRc BufNewFile,BufRead *.nix setlocal filetype=nix
   autocmd vimRc BufNewFile,BufRead *.js,.jsx packadd setlocal filetype=javascript

@@ -182,19 +182,6 @@ with vimUtils;
     configurePhase = ":";
   };
 
-  ags = buildVimPlugin {
-    pname = "vim-ags";
-    version = "2019-5-22";
-    src = fetchFromGitHub {
-      owner = "gabesoft";
-      repo = "vim-ags";
-      rev = "7daf3e22a97eccd95e7ba4414a2a04888bf57c7b";
-      sha256 = "1sfzgyjl7419j3skb76wyvv892lxh2zajq8qi6b98blbv31vwnd0";
-    };
-    buildPhase = ":";
-    configurePhase = ":";
-  };
-
   targets = buildVimPlugin {
     pname = "targets.vim";
     version = "2019-5-22";
@@ -203,19 +190,6 @@ with vimUtils;
       repo = "targets.vim";
       rev = "a79447f261e4b8b4327557aa03726f3849334b84";
       sha256 = "0x6a9rmv220kncjgak6aw3gbf3sidnj6nijphnsm5360lvi3ck4w";
-    };
-    buildPhase = ":";
-    configurePhase = ":";
-  };
-
-  vim-auto-cursorline = buildVimPlugin {
-    pname = "vim-auto-cursorline";
-    version = "2019-5-15";
-    src = fetchFromGitHub {
-      owner = "delphinus";
-      repo = "vim-auto-cursorline";
-      rev = "dbbe42c3a367f43c2091c481206c802e8c7d2f80";
-      sha256 = "1bq1zszx1k2y3wsl46acpbi1iii35l9c2yg0vsrdj1qq4i6a14p1";
     };
     buildPhase = ":";
     configurePhase = ":";

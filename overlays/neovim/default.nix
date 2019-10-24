@@ -76,17 +76,16 @@ in {
           quickfix-reflector-vim
           vim-easy-align
           auto-git-diff
+          ferret
         ] ++ (with plugins; [
           fzf-vim
           vim-dispatch
           tcomment
-          vim-auto-cursorline
           targets
           wildfire
           gv
           conflict3
           vcs-jump
-          ags
           vim-edgemotion
           vim-editorconfig
           vim-parenmatch

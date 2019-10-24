@@ -220,48 +220,6 @@ function! functions#check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-" grep
-function! IsGitWorkTree() abort
-  let l:git=1
-  let l:stdout = system('git rev-parse --git-dir 2> /dev/null')
-  if l:stdout =~# '\.git'
-    let l:git=0
-  endif
-  return l:git
-endfunction
-
-function! functions#grep(cmd, args) abort
-  if IsGitWorkTree() == 0
-    let g:grepprg = 'git  --no-pager grep --exclude-standard --untracked -n'
-  else
-    let g:grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack,bower_components} --exclude="*.min.js" --exclude="*.js.map" -nHIR'
-  endif
-
-  let g:grepformat = '%f:%l:%c:%m,%f:%l:%m'
-
-  if empty(a:args)
-    let l:grepargs = expand("<cword>")
-  else
-    let l:grepargs = a:args . join(a:000, ' ')
-  end
-
-  let grepprg_bak=&grepprg
-  let grepformat_bak=&grepformat
-
-  try
-    let &grepprg=g:grepprg
-    let &grepformat=g:grepformat
-    silent execute a:cmd . " " . escape(l:grepargs, '|')
-  finally
-    let &grepprg=grepprg_bak
-    let &grepformat=grepformat_bak
-  endtry
-
-  let @/ = a:args
-  setlocal hlsearch
-
-endfunction
-
 " submode
 function! SubMode()
   call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
@@ -316,15 +274,14 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-indent-object'
   execute 'packadd quickfix-reflector-vim'
   execute 'packadd vim-startify'
-  execute 'packadd vim-auto-cursorline'
   execute 'packadd targets.vim'
   execute 'packadd wildfire.vim'
   execute 'packadd vim-edgemotion'
-  execute 'packadd vim-ags'
   execute 'packadd vim-parenmatch'
   execute 'packadd vim-submode'
   execute 'packadd vim-merginal'
   execute 'packadd cmdline-completion'
+  execute 'packadd ferret'
   execute 'doautocmd FileType'
   doautocmd fugitive BufReadPost
   call SubMode()
