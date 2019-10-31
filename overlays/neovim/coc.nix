@@ -11,8 +11,6 @@ pkgs:
     \ 'coc-lit-html',
     \ 'coc-json',
     \ 'coc-go',
-    \ 'coc-prettier',
-    \ 'coc-highlight',
     \ 'coc-git',
     \ 'coc-eslint',
     \ 'coc-yaml',
@@ -32,6 +30,7 @@ pkgs:
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> <space>Y  :<C-u>CocList -A --normal yank<cr>
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -42,9 +41,9 @@ pkgs:
   endfunction
 
   nmap <leader>rn <Plug>(coc-rename)
+
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f  <Plug>(coc-format-selected)
-
   augroup coc_group
     autocmd!
     " Setup formatexpr specified filetype(s).

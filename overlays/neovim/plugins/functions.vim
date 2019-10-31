@@ -261,7 +261,6 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-twiggy'
   execute 'packadd cmdline-completion'
   execute 'packadd ferret'
-  execute 'doautocmd FileType'
   doautocmd fugitive BufReadPost
   call SubMode()
 endfunction

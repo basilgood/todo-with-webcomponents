@@ -46,7 +46,6 @@ in {
         ${callPackage ./options.nix { }}
         ${callPackage ./mappings.nix { }}
         ${callPackage ./autocmds.nix { }}
-        ${callPackage ./hlsearch.nix { }}
         ${callPackage ./commands.nix { }}
 
         colorscheme apprentice

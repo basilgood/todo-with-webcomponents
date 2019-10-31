@@ -15,7 +15,7 @@ hi Normal ctermbg=235 ctermfg=250 cterm=NONE guibg=#191919 guifg=#bcbcbc gui=NON
 
 set background=dark
 
-hi NonText ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
+hi NonText ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#3f4245 gui=NONE
 hi EndOfBuffer ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
 hi LineNr ctermbg=234 ctermfg=242 cterm=NONE guibg=#191919 guifg=#484848 gui=NONE
 hi FoldColumn ctermbg=234 ctermfg=242 cterm=NONE guibg=#191919 guifg=#484848 gui=NONE
@@ -59,12 +59,12 @@ hi StatusLine ctermbg=101 ctermfg=235 cterm=NONE guibg=#5f7a87 guifg=#17171b gui
 hi StatusLineNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#5f7a87 gui=NONE
 hi StatusLineTerm ctermbg=101 ctermfg=235 cterm=NONE guibg=#87875f guifg=#191919 gui=NONE
 hi StatusLineTermNC ctermbg=238 ctermfg=101 cterm=NONE guibg=#444444 guifg=#87875f gui=NONE
-hi Visual guifg=#8c98a7  guibg=NONE gui=reverse ctermfg=7 ctermbg=NONE cterm=reverse
-hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=underline guibg=NONE guifg=NONE gui=underline
+hi Visual ctermbg=236 ctermfg=NONE cterm=NONE guibg=#405260 guifg=NONE gui=NONE
+hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=NONE guibg=#4d6b67 guifg=NONE gui=NONE
 hi VertSplit ctermbg=238 ctermfg=238 cterm=NONE guibg=#444444 guifg=#444444 gui=NONE
 hi WildMenu ctermbg=110 ctermfg=235 cterm=NONE guibg=#8fafd7 guifg=#191919 gui=NONE
 hi Function ctermbg=NONE ctermfg=229 cterm=NONE guibg=NONE guifg=#ffffaf gui=NONE
-hi SpecialKey ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#585858 gui=NONE
+hi SpecialKey ctermbg=NONE ctermfg=240 cterm=NONE guibg=NONE guifg=#3f4245 gui=NONE
 hi Title ctermbg=NONE ctermfg=231 cterm=NONE guibg=NONE guifg=#ffffff gui=NONE
 hi diffAdded                      guifg=#a9b665  gui=NONE                      ctermfg=46    cterm=NONE
 hi diffRemoved                    guifg=#ea6962  gui=NONE                      ctermfg=203   cterm=NONE

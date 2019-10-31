@@ -14,7 +14,7 @@
     nnoremap <silent> [fugitive]P :<C-u>Dispatch! git push -f<CR>
     nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
     nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
-    nnoremap <silent> [fugitive]m :<C-u>MerginalToggle<CR>
+    nnoremap <silent> [fugitive]m :<C-u>Twiggy<CR>
 
     function! InFugitive() abort
       nmap <buffer> zp :<c-u>Dispatch! git push<CR>

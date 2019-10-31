@@ -34,12 +34,20 @@ pkgs:
   autocmd vimRc BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
   """" cursorline
-   autocmd vimRc InsertLeave,WinEnter * setlocal cursorline
-   autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
+  autocmd vimRc InsertLeave,WinEnter * setlocal cursorline
+  autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
+
+  """" hlsearch
+  augroup hlsearch
+    autocmd!
+  autocmd OptionSet hlsearch call functions#togglehl(v:option_old, v:option_new)
+  augroup END
+  autocmd vimRc BufRead * call functions#togglehl(0, &hlsearch)
 
   """" filetype
   autocmd vimRc BufNewFile,BufRead *.nix setlocal filetype=nix
-  autocmd vimRc BufNewFile,BufRead *.js,.jsx packadd setlocal filetype=javascript
+  autocmd vimRc BufNewFile,BufRead *.js setlocal filetype=javascript
+  autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
   autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig
   autocmd vimRc BufNewFile,BufRead *.svelte setlocal filetype=svelte
   autocmd vimRc BufRead,BufNewFile *.gitignore  setlocal filetype=gitignore
@@ -57,5 +65,4 @@ pkgs:
   autocmd vimRc BufReadPre *.json setlocal formatoptions=a2tq
   autocmd vimRc FileType json syntax match Comment +\/\/.\+$+
   autocmd vimRc FileType jsonc setlocal commentstring=//\ %s
-  autocmd vimRc BufReadPre    * doautocmd FileType
 ''
