@@ -34,6 +34,7 @@ self: super: {
         nodePackages.typescript-language-server
         nodePackages.dockerfile-language-server-nodejs
 
+        nix-npm-install
         chromium
         firefox
 
