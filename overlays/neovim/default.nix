@@ -1,15 +1,13 @@
 self: super:
 with super;
 
-let plugins = callPackage ./plugins/default.nix { };
+let plugins = callPackage ./plugins.nix { };
+
 in {
   neovim = neovim.override {
     withNodeJs = true;
     configure = {
       customRC = ''
-        set encoding=utf-8
-        scriptencoding utf-8
-
         augroup vimRc
           autocmd!
         augroup END
@@ -36,68 +34,191 @@ in {
         let $CACHE      = expand('$HOME/.cache/')
         let $CACHE_NVIM = expand('$CACHE/nvim')
 
-        """" lazy load plugins
-        if has('vim_starting') && has('timers')
-          autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
-        endif
-
-        ${callPackage ./coc.nix { }}
-        ${callPackage ./configs.nix { }}
         ${callPackage ./options.nix { }}
         ${callPackage ./mappings.nix { }}
         ${callPackage ./autocmds.nix { }}
         ${callPackage ./commands.nix { }}
+        ${callPackage ./configs.nix { }}
 
-        colorscheme apprentice
+        colorscheme reki
         hi! Comment      guifg=#5c6370 guibg=NONE gui=italic cterm=italic
         hi! ParenMatch   guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
         set secure
       '';
 
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ ] ++ (with plugins; [ vim-startify all-func ]);
-        opt = [
-          vinegar
-          coc-nvim
-          surround
-          repeat
-          commentary
-          vim-nix
-          vim-javascript
-          vim-html-template-literals
-          vim-coffee-script
-          vim-jinja
-          vim-markdown
-          vim-json
-          vim-go
-          undotree
-          vim-indent-object
-          quickfix-reflector-vim
-          vim-easy-align
-          auto-git-diff
-          ferret
-        ] ++ (with plugins; [
-          vim-fugitive
-          fzf-vim
-          vim-dispatch
-          targets
-          wildfire
-          gv
-          conflict3
-          vcs-jump
-          vim-edgemotion
-          vim-editorconfig
-          vim-parenmatch
-          vim-submode
-          vim-twiggy
-          cmdline
-          vim-jsx-pretty
-          jsonc
-          yats
-          twig
-          apprentice
-        ]);
-      };
+      vam.knownPlugins = vimPlugins // plugins;
+      vam.pluginDictionaries = [
+        {
+          name = "vim-fugitive";
+          tag = "lazy";
+        }
+        {
+          name = "ale";
+          tag = "lazy";
+        }
+        {
+          name = "LanguageClient-neovim";
+          tag = "lazy";
+        }
+        {
+          name = "deoplete-nvim";
+          tag = "lazy";
+        }
+        {
+          name = "vinegar";
+          tag = "lazy";
+        }
+        {
+          name = "fzfWrapper";
+          tag = "lazy";
+        }
+        {
+          name = "fzf-vim";
+          tag = "lazy";
+        }
+        {
+          name = "gitgutter";
+          tag = "lazy";
+        }
+        {
+          name = "vim-startify";
+          tag = "lazy";
+        }
+        {
+          name = "gv";
+          tag = "lazy";
+        }
+        {
+          name = "conflict3";
+          tag = "lazy";
+        }
+        {
+          name = "vcs-jump";
+          tag = "lazy";
+        }
+        {
+          name = "editorconfig-vim";
+          tag = "lazy";
+        }
+        {
+          name = "ferret";
+          tag = "lazy";
+        }
+        {
+          name = "commentary";
+          tag = "lazy";
+        }
+        {
+          name = "surround";
+          tag = "lazy";
+        }
+        {
+          name = "repeat";
+          tag = "lazy";
+        }
+        {
+          name = "undotree";
+          tag = "lazy";
+        }
+        {
+          name = "wildfire";
+          tag = "lazy";
+        }
+        {
+          name = "vim-dispatch";
+          tag = "lazy";
+        }
+        {
+          name = "cmdline";
+          tag = "lazy";
+        }
+        {
+          name = "vim-edgemotion";
+          tag = "lazy";
+        }
+        {
+          name = "targets";
+          tag = "lazy";
+        }
+        {
+          name = "vim-submode";
+          tag = "lazy";
+        }
+        {
+          name = "vim-parenmatch";
+          tag = "lazy";
+        }
+        {
+          name = "quickfix-reflector-vim";
+          tag = "lazy";
+        }
+        {
+          name = "vim-easy-align";
+          tag = "lazy";
+        }
+        {
+          name = "auto-git-diff";
+          tag = "lazy";
+        }
+        {
+          name = "vim-indent-object";
+          tag = "lazy";
+        }
+        {
+          name = "apprentice";
+          tag = "lazy";
+        }
+        {
+          name = "reki";
+          tag = "lazy";
+        }
+        {
+          name = "all-func";
+          tag = "lazy";
+        }
+        {
+          name = "vim-nix";
+          ft_regex = "^nix$";
+          filename_regex = "^.nix$";
+        }
+        {
+          name = "vim-javascript";
+          ft_regex = "^javascript$";
+          filename_regex = "^.js$";
+        }
+        {
+          name = "yats";
+          ft_regex = "^typescript$";
+          filename_regex = "^.ts$";
+        }
+        {
+          name = "vim-coffee-script";
+          ft_regex = "^coffee$";
+        }
+        {
+          name = "vim-html-template-literals";
+          ft_regex = "^javascript$";
+        }
+        {
+          name = "twig";
+          ft_regex = "^twig$";
+        }
+        {
+          name = "vim-json";
+          ft_regex = "^json$";
+          filename_regex = "^.json$";
+        }
+        {
+          name = "vim-jinja";
+          ft_regex = "^jinja$";
+          filename_regex = "^.jinja$";
+        }
+        {
+          name = "vim-markdown";
+          ft_regex = "^markdown$";
+          filename_regex = "^.md$";
+        }
+      ];
     };
   };
 }

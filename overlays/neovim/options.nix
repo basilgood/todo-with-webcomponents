@@ -10,18 +10,14 @@ pkgs:
   set termguicolors
   set number
   set mouse=a
-  set cursorline
-  set lazyredraw
   set noswapfile
-  set shortmess+=Icm
+  set shortmess+=IFcm
   set nowrap
   set splitbelow
   set splitright
   set switchbuf=useopen,usetab
   set signcolumn=yes
   set tabline=%!functions#tabline()
-  set omnifunc=syntaxcomplete#Complete
-  set completefunc=syntaxcomplete#Complete
   set completeopt+=menuone,noselect
   set completeopt-=preview
   set complete=.,w,b,u,U,t,i,d,k
@@ -39,7 +35,7 @@ pkgs:
   set diffopt+=context:3,indent-heuristic,algorithm:patience
   set inccommand=nosplit
   set timeoutlen=3000
-  set updatetime=300
+  set updatetime=100
   set wildmode=longest:full,full
   set helplang=en
   set nospell
