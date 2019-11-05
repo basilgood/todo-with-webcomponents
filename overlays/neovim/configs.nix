@@ -25,32 +25,6 @@
 
     autocmd vimRc FileType fugitive call InFugitive()
 
-    " lsp
-    let g:LanguageClient_serverCommands = {
-      \ 'python': ['pyls'],
-      \ 'typescript': ['npx', 'typescript-language-server', '--stdio'],
-      \ 'javascript': ['npx', 'typescript-language-server', '--stdio'],
-      \ 'html': ['npx', 'html-languageserver',  '--stdio'],
-      \ 'css': ['npx', 'css-languageserver',  '--stdio'],
-      \ 'scss': ['npx', 'css-languageserver',  '--stdio'],
-      \ 'sh': ['npx', 'bash-language-server',  'start'],
-      \ 'vim': ['npx', 'vim-language-server',  '--stdio'],
-      \ }
-    let g:LanguageClient_autoStart = 1
-    let g:LanguageClient_signColumnAlwaysOn = 1
-
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-    nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-
-    " deoplete
-    let g:deoplete#enable_at_startup = 1
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    imap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-
     " undotree.
     let g:undotree_WindowLayout = 4
     let g:undotree_SetFocusWhenToggle = 1

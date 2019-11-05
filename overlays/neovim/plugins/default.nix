@@ -299,6 +299,19 @@ with vimUtils;
     configurePhase = ":";
   };
 
+  theonlyone = buildVimPlugin {
+    pname = "theonlyone";
+    version = "0.0.1";
+    src = ./theonlyone.vim;
+    unpackCmd = ''
+      mkdir -p out/colors;
+      ln -s $curSrc out/colors/theonlyone.vim
+      ls -al $curSrc
+    '';
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
   apprentice = buildVimPlugin {
     pname = "apprentice-vim";
     version = "0.0.1";

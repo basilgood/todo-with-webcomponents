@@ -226,6 +226,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-fugitive'
   execute 'packadd vim-vinegar'
   execute 'packadd vim-dispatch'
+  execute 'packadd fzf'
   execute 'packadd fzf-vim'
   execute 'packadd vim-editorconfig'
   execute 'packadd vim-surround'
