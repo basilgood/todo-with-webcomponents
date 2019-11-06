@@ -1,82 +1,39 @@
 self: super:
 with super;
+let
+  customPlugins = import ./plugins.nix { inherit self super; };
+  allPlugins = vimPlugins // customPlugins;
+in
+  {
+    neovim = neovim.override {
+      withNodeJs = true;
 
-let plugins = callPackage ./plugins/default.nix { };
-in {
-  neovim = neovim.override {
-    withNodeJs = true;
-    configure = {
-      customRC = ''
-        set encoding=utf-8
-        scriptencoding utf-8
+      configure = {
+        customRC = builtins.readFile ./initvim;
+        packages.myVimPackage = with allPlugins; {
 
-        augroup vimRc
-          autocmd!
-        augroup END
+          start = [
+            allfunc
+          ];
 
-        if has('vim_starting')
-          let g:startuptime = reltime()
-          autocmd vimRc VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
-            \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
-        endif
-
-        let g:loaded_matchparen         = 1
-        let g:loaded_rrhelper           = 1
-        let g:did_install_default_menus = 1
-        let g:is_bash                   = 1
-        let g:sh_noisk                  = 1
-        let g:loaded_vimball            = 1
-        let g:loaded_vimballPlugin      = 1
-        let g:loaded_getscript          = 1
-        let g:loaded_getscriptPlugin    = 1
-        let g:loaded_logipat            = 1
-        let g:loaded_man                = 1
-
-        let s:mkdir = function('mkdir')
-        let $CACHE      = expand('$HOME/.cache/')
-        let $CACHE_NVIM = expand('$CACHE/nvim')
-
-        """" lazy load plugins
-        if has('vim_starting') && has('timers')
-          autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
-        endif
-
-        ${callPackage ./coc.nix { }}
-        ${callPackage ./configs.nix { }}
-        ${callPackage ./options.nix { }}
-        ${callPackage ./mappings.nix { }}
-        ${callPackage ./autocmds.nix { }}
-        ${callPackage ./commands.nix { }}
-
-        colorscheme theonlyone
-        hi! Comment      guifg=#5c6370 guibg=NONE gui=italic cterm=italic
-        hi! ParenMatch   guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
-        set secure
-      '';
-
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ ] ++ (with plugins; [ vim-startify all-func ]);
-        opt = [
+          opt = [
           vinegar
           coc-nvim
           surround
           repeat
           commentary
           vim-nix
-          vim-javascript
+          polyglot
           vim-html-template-literals
-          vim-coffee-script
-          vim-jinja
-          vim-markdown
-          vim-json
-          vim-go
+          jsonc
           undotree
           vim-indent-object
           quickfix-reflector-vim
           vim-easy-align
           auto-git-diff
           ferret
-        ] ++ (with plugins; [
+          fzfWrapper
+          vim-startify
           vim-fugitive
           fzf-vim
           vim-dispatch
@@ -89,16 +46,11 @@ in {
           vim-editorconfig
           vim-parenmatch
           vim-submode
-          vim-twiggy
           cmdline
-          vim-jsx-pretty
-          jsonc
-          yats
-          twig
-          apprentice
           theonlyone
-        ]);
+          ];
+        };
+
       };
     };
-  };
-}
+  }

@@ -48,14 +48,14 @@ in {
         ${callPackage ./autocmds.nix { }}
         ${callPackage ./commands.nix { }}
 
-        colorscheme apprentice
+        colorscheme theonlyone
         hi! Comment      guifg=#5c6370 guibg=NONE gui=italic cterm=italic
         hi! ParenMatch   guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
         set secure
       '';
 
       packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ ] ++ (with plugins; [ vim-startify all-func ]);
+        start = [] ++ (with plugins; [ all-func ]);
         opt = [
           vinegar
           coc-nvim
@@ -76,7 +76,9 @@ in {
           vim-easy-align
           auto-git-diff
           ferret
+          fzfWrapper
         ] ++ (with plugins; [
+          vim-startify
           vim-fugitive
           fzf-vim
           vim-dispatch
@@ -95,7 +97,7 @@ in {
           jsonc
           yats
           twig
-          apprentice
+          theonlyone
         ]);
       };
     };
