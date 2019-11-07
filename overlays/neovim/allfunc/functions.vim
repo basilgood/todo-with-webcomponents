@@ -140,11 +140,9 @@ endfunction
 " lazy load plugins
 function! functions#packaddhandler(timer)
   execute 'packadd coc-nvim'
-  execute 'packadd coc-eslint'
-  execute 'packadd coc-tslint'
-  execute 'packadd coc-html'
-  execute 'packadd coc-git'
+  execute 'packadd neomake'
   execute 'packadd vim-fugitive'
+  execute 'packadd gv.vim'
   execute 'packadd vim-vinegar'
   execute 'packadd vim-dispatch'
   execute 'packadd fzf'
@@ -154,7 +152,6 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-repeat'
   execute 'packadd vim-commentary'
   execute 'packadd vim-easy-align'
-  execute 'packadd gv.vim'
   execute 'packadd conflict3'
   execute 'packadd vcs-jump'
   execute 'packadd auto-git-diff'

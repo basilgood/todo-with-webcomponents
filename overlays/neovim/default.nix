@@ -3,28 +3,34 @@ with super;
 let
   customPlugins = import ./plugins.nix { inherit self super; };
   allPlugins = vimPlugins // customPlugins;
-in
-  {
-    neovim = neovim.override {
-      withNodeJs = true;
+in {
+  neovim = neovim.override {
+    withNodeJs = true;
 
-      configure = {
-        customRC = builtins.readFile ./initvim;
-        packages.myVimPackage = with allPlugins; {
+    configure = {
+      customRC = callPackage ./initvim.nix { };
+      packages.myVimPackage = with allPlugins; {
 
-          start = [
-            allfunc
-          ];
+        start = [ allfunc ];
 
-          opt = [
+        opt = [
           vinegar
           coc-nvim
+          neomake
           surround
           repeat
           commentary
           vim-nix
-          polyglot
+          vim-javascript
           vim-html-template-literals
+          vim-coffee-script
+          vim-jinja
+          vim-markdown
+          vim-json
+          vim-go
+          yats
+          twig
+          jsx
           jsonc
           undotree
           vim-indent-object
@@ -33,9 +39,9 @@ in
           auto-git-diff
           ferret
           fzfWrapper
+          fzf-vim
           vim-startify
           vim-fugitive
-          fzf-vim
           vim-dispatch
           targets
           wildfire
@@ -48,9 +54,9 @@ in
           vim-submode
           cmdline
           theonlyone
-          ];
-        };
-
+        ];
       };
+
     };
-  }
+  };
+}

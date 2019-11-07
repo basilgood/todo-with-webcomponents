@@ -13,6 +13,59 @@ with super;
     };
   };
 
+  gv = pkgs.vimUtils.buildVimPlugin {
+    name = "gv.vim";
+    src = fetchFromGitHub {
+      owner = "junegunn";
+      repo = "gv.vim";
+      rev = "7a84f6342cc79444e3fa873bf1d08fb6c53b097e";
+      sha256 = "0q5xz8iw3jg42kbaspmgd8mlcgl3xglcqh3fyd2jmmwhnfzp3f7r";
+    };
+  };
+
+  vim-javascript = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-javascript";
+    src = fetchFromGitHub {
+      owner = "pangloss";
+      repo = "vim-javascript";
+      rev = "b6c8c8419240bdd29b5eb51a47d488fd390deed5";
+      sha256 = "0p56av0zmig4rpsq4w4armnccyd713xdm5lwrck3cip55c39382f";
+    };
+  };
+
+  yats = pkgs.vimUtils.buildVimPlugin {
+    pname = "yats-vim";
+    version = "0.1";
+    src = fetchFromGitHub {
+      owner = "HerringtonDarkholme";
+      repo = "yats.vim";
+      rev = "d9af5fc9fd7f11fa1219a9acb6f4243105e60b38";
+      sha256 = "0dqd9s0s8xvr9yh33ycncfd0y1nlsfh64azb8f92bggx5plkji2r";
+    };
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  twig = pkgs.vimUtils.buildVimPlugin {
+    name = "twig-vim";
+    src = fetchFromGitHub {
+      owner = "lumiliet";
+      repo = "vim-twig";
+      rev = "ad115512725bcc156f7f89b72ff563b9fa44933b";
+      sha256 = "1p7sfhk0mwx4xk88b29ijb9nfbjwsf6hf3nab2ybcw291qaa75nj";
+    };
+  };
+
+  jsx = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-jsx-pretty";
+    src = fetchFromGitHub {
+      owner = "MaxMEllon";
+      repo = "vim-jsx-pretty";
+      rev = "89c30c0defe8ddb31bc0d3cfa5f22f3f6d8eb24f";
+      sha256 = "1l5cwlbmihzxldpxlvn5gc47s0awqs908skzq43cy44iql829hir";
+    };
+  };
+
   targets = pkgs.vimUtils.buildVimPlugin {
     name = "targets.vim";
     src = fetchFromGitHub {
@@ -138,6 +191,4 @@ with super;
     buildPhase = ":";
     configurePhase = ":";
   };
-
-
 }

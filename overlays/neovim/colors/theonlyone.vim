@@ -75,13 +75,13 @@ hi Function         guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 hi SpecialKey       guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 hi Title            guifg=#98c379 guibg=NONE    gui=NONE cterm=NONE
 
-hi diffAdded             guifg=#a9b665 gui=NONE ctermfg=46  cterm=NONE
-hi diffRemoved           guifg=#ea6962 gui=NONE ctermfg=203 cterm=NONE
+hi diffAdded             guifg=#a9b665 guibg=#282c34 gui=NONE ctermfg=46  cterm=NONE
+hi diffRemoved           guifg=#ea6962 guibg=#282c34 gui=NONE ctermfg=203 cterm=NONE
 hi link diffSubname Normal
-hi DiffAdd               guifg=#8ec07c guibg=#1d2021 cterm=NONE
+hi DiffAdd               guifg=#8ec07c guibg=#282c34 cterm=NONE
 hi link DiffChange NONE
 hi clear DiffChange
-hi DiffDelete            guifg=#f93d3d guibg=#1d2021 cterm=NONE
+hi DiffDelete            guifg=#f93d3d guibg=#282c34 cterm=NONE
 hi DiffText              guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
 hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=NONE
