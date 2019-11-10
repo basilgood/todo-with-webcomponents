@@ -157,12 +157,42 @@
     let $SKIM_DEFAULT_OPTS = '--bind ctrl-f:toggle'
 
     nnoremap <C-p> :Files<CR>
-    nnoremap <BS> :Buffers<CR>
+    nnoremap <C-a> :Files %:h<CR>
     nnoremap <silent> <leader>] :History:<cr>
+
+    function! s:buflist()
+      redir => ls
+      silent ls
+      redir END
+      return split(ls, '\n')
+    endfunction
+
+    let g:buffer_action = {
+      \ 'ctrl-x': 'sb',
+      \ 'ctrl-v': 'vsp|b',
+      \ 'ctrl-w': 'bdelete'
+      \}
+
+    function! BufferSink(lines)
+      if len(a:lines)<2
+        return
+      endif
+      let key = remove(a:lines, 0)
+      let Cmd = get(g:buffer_action, key,'buffer')
+      for line in a:lines
+        let bid = matchstr(line, '^[ 0-9]*')
+        execute Cmd bid
+      endfor
+    endfunction
+
+    noremap <silent> <Bs> :call skim#run(skim#wrap({
+      \ 'source':  reverse(<sid>buflist()),
+      \ 'sink*':  function('BufferSink'),
+      \ 'options': '-m --expect='.join(keys(buffer_action), ',')
+      \ }))<CR>
 
     command! -bang -nargs=* Ag call fzf#vim#ag_interactive(<q-args>, fzf#vim#with_preview('down:50%', 'alt-h'))
 
-    " make use of neovim's floating window
     function! FloatingFZF()
       let buf = nvim_create_buf(v:false, v:true)
       call setbufvar(buf, '&signcolumn', 'no')
@@ -175,12 +205,12 @@
       " vertical position (one line down of the top)
       let vertical = 1
       let opts = {
-            \ 'relative': 'editor',
-            \ 'row': 1,
-            \ 'col': col,
-            \ 'width': width,
-            \ 'height': height
-            \ }
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
 
       call nvim_open_win(buf, v:true, opts)
     endfunction
