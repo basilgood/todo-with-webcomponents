@@ -13,7 +13,8 @@ with super; {
       ./st-scrollback-0.8.2.diff
       ./st-scrollback-mouse-0.8.2.diff
       ./st-clipboard-20180309-c5ba9c0.diff
-      ./onedark.diff
+      # ./onedark.diff
+      ./st-nordtheme-0.8.2.diff
       ./st-vertcenter-20180320-6ac8c8a.diff
       ./st-anysize-0.8.1.diff
       ./st-bold-is-not-bright-20190127-3be4cf1.diff
