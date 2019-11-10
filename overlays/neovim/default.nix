@@ -38,8 +38,8 @@ in {
           vim-easy-align
           auto-git-diff
           ferret
-          fzfWrapper
-          fzf-vim
+          skim
+          skim-vim
           vim-startify
           vim-fugitive
           vim-dispatch
@@ -54,6 +54,7 @@ in {
           vim-submode
           cmdline
           theonlyone
+          nordish
         ];
       };
 

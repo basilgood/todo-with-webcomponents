@@ -23,6 +23,16 @@ with super;
     };
   };
 
+  skim-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "skim-vim";
+    src = fetchFromGitHub {
+      owner = "lotabout";
+      repo = "skim.vim";
+      rev = "4e9d9a3deb2060e2e79fede1c213f13ac7866eb5";
+      sha256 = "0vpfn2zivk8cf2l841jbd78zl1vzdw1wjf9p0dm6pgr84kj9pkx4";
+    };
+  };
+
   vim-javascript = pkgs.vimUtils.buildVimPlugin {
     name = "vim-javascript";
     src = fetchFromGitHub {
