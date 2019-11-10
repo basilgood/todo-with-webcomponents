@@ -166,6 +166,19 @@ with super;
     };
   };
 
+  nordish = pkgs.vimUtils.buildVimPlugin {
+    pname = "nordish";
+    version = "0.0.1";
+    src = ./colors/nordish.vim;
+    unpackCmd = ''
+      mkdir -p out/colors;
+      ln -s $curSrc out/colors/nordish.vim
+      ls -al $curSrc
+    '';
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
   theonlyone = pkgs.vimUtils.buildVimPlugin {
     pname = "theonlyone";
     version = "0.0.1";
