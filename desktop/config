@@ -172,8 +172,14 @@ client.focused_inactive $base01 $base01 $base05 $base03 $base01
 client.unfocused        $base01 $base00 $base05 $base01 $base01
 client.urgent           $base08 $base08 $base00 $base08 $base08
 
-bindsym $mod+Control+l exec $grim /tmp/lock.png && $mogrify -scale 10% -scale 1000% /tmp/lock.png && $swaylock -i /tmp/lock.png
-bindsym Print exec $slurp | $grim -g - /tmp/screenshot.png && cat /tmp/screenshot.png | $xclip -selection clipboard -target image/png -i
+bindsym --release $mod+Control+l exec loginctl lock-session
+exec $idle -w \
+  timeout 300 '$lock' \
+  timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+  before-sleep '$lock' \
+  lock '$lock'
+bindsym Print exec $slurp | $grim -g - - | wl-copy
 
 # windows
 no_focus [title="^mpv-preview$"]

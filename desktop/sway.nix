@@ -10,7 +10,17 @@ in {
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle,caps:escape
     '';
-    extraPackages = with pkgs; [ swayidle swaylock grim slurp mako xwayland ];
+    extraPackages = with pkgs; [
+      glib
+      swayidle
+      swaylock
+      grim
+      slurp
+      mako
+      xwayland
+      xdg_utils
+      wl-clipboard
+    ];
   };
 
   environment.etc."sway/config".text = with pkgs; ''
