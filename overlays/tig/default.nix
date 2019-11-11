@@ -14,8 +14,8 @@ with super; {
           src = fetchFromGitHub {
             owner = "jonas";
             repo = pname;
-            rev = "36ced9aff39fcbe13e08cc4b63ab2afc84f5bc6f";
-            sha256 = "1dg0a37xr61d7myc5pci3ag8h54wdv3vwqwhlakxg1y137acfc28";
+            rev = "2f38ea6239c996454e923c13d250a9bb43908779";
+            sha256 = "03c2vpwj268nnaziqpkcllj52rfvy1dm00b47cg2bykby5j7syp7";
           };
         }))
       ];
