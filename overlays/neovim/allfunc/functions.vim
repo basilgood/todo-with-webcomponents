@@ -152,7 +152,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd vim-repeat'
   execute 'packadd vim-commentary'
   execute 'packadd vim-easy-align'
-  execute 'packadd conflict3'
+  execute 'packadd vim-mergetool'
   execute 'packadd vcs-jump'
   execute 'packadd auto-git-diff'
   execute 'packadd vim-nix'

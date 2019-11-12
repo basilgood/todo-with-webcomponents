@@ -96,16 +96,6 @@ with super;
     };
   };
 
-  conflict3 = pkgs.vimUtils.buildVimPlugin {
-    name = "conflict3";
-    src = fetchFromGitHub {
-      owner = "mkotha";
-      repo = "conflict3";
-      rev = "180e387fa464f27346db6a9c577ae6c1a26cd39a";
-      sha256 = "027p8qd897q5p80cq95wwb3gln9jjjnzibsj8cd6bdsizy0cxcq7";
-    };
-  };
-
   vcs-jump = pkgs.vimUtils.buildVimPlugin {
     name = "vcs-jump";
     src = fetchFromGitHub {
