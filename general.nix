@@ -101,6 +101,7 @@
     (import ./overlays/emacs)
     (import ./overlays/vim)
     (import ./overlays/neovim)
+    (import ./overlays/lazygit)
     # (import ./overlays/lsp)
     (import ./overlays/chromium)
     (import ./overlays/st)

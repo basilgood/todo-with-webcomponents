@@ -39,6 +39,7 @@ self: super: {
         firefox
 
         j4-dmenu-desktop
+        lazygit
 
         st
 
