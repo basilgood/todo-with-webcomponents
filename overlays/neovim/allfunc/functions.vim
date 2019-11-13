@@ -141,6 +141,7 @@ endfunction
 function! functions#packaddhandler(timer)
   execute 'packadd coc-nvim'
   execute 'packadd neomake'
+  execute 'packadd actionmenu.nvim'
   execute 'packadd vim-fugitive'
   execute 'packadd gv.vim'
   execute 'packadd vim-vinegar'

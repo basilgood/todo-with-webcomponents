@@ -33,6 +33,16 @@ with super;
     };
   };
 
+  actionmenu = pkgs.vimUtils.buildVimPlugin {
+    name = "actionmenu.nvim";
+    src = fetchFromGitHub {
+      owner = "kizza";
+      repo = "actionmenu.nvim";
+      rev = "167829ee307c831db6927b931a56eadec8b96e97";
+      sha256 = "0cp63wkixfw2xsn4pi4q0wx0wxb0pms5f0xjlkv2j172g6xyamff";
+    };
+  };
+
   vim-javascript = pkgs.vimUtils.buildVimPlugin {
     name = "vim-javascript";
     src = fetchFromGitHub {

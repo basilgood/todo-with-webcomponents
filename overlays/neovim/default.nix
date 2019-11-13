@@ -17,6 +17,7 @@ in {
           vinegar
           coc-nvim
           neomake
+          actionmenu
           surround
           repeat
           commentary

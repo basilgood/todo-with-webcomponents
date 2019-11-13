@@ -103,10 +103,27 @@
     let g:neomake_error_sign = {
       \ 'text': '_e',
       \ }
-  augroup my_neomake
-    au!
-    autocmd FileType nix call neomake#configure#automake_for_buffer('nw', 1000)
-  augroup END
+    augroup my_neomake
+      au!
+      autocmd FileType nix call neomake#configure#automake_for_buffer('nw', 1000)
+    augroup END
+
+    """" actionmenu
+    let s:code_actions = []
+
+    func! ActionMenuCodeActions() abort
+      let s:code_actions = CocAction('codeActions')
+      let l:menu_items = map(copy(s:code_actions), { index, item -> item['title'] })
+      call actionmenu#open(l:menu_items, 'ActionMenuCodeActionsCallback')
+    endfunc
+
+    func! ActionMenuCodeActionsCallback(index, item) abort
+      if a:index >= 0
+        let l:selected_code_action = s:code_actions[a:index]
+        let l:response = CocAction('doCodeAction', l:selected_code_action)
+      endif
+    endfunc
+    nnoremap <silent> <Leader>z :call ActionMenuCodeActions()<CR>
 
     """" git.
     nnoremap [fugitive]  <Nop>
@@ -343,6 +360,8 @@
     """" mappings
     nnoremap j gj
     nnoremap k gk
+    nnoremap > >>
+    nnoremap < <<
     vnoremap > >gv
     vnoremap < <gv
     nnoremap <C-s> :<c-u>update<cr>
@@ -472,6 +491,9 @@
     command! -nargs=0 HL call functions#hl()
     command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
     command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+    command! -nargs=0 Prettier :CocCommand prettier.formatFile
+    command! -nargs=0 OrganiseImports :CocCommand tsserver.organizeImports
+    command! -nargs=0 FixAllImports :CocCommand tsserver.executeAutoFix
 
     """" autocmds
     """" If a file is large, disable syntax highlighting, filetype etc
