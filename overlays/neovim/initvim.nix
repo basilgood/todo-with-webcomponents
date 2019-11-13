@@ -342,7 +342,7 @@
     call s:mkdir(&undodir, 'p')
     set undofile
     set list
-    let &g:listchars = 'tab:┆ ,trail:•,extends:❯,precedes:❮,nbsp:⦸'
+    set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮,nbsp:⦸
     autocmd vimRc InsertEnter * set listchars-=trail:•
     autocmd vimRc InsertLeave * set listchars+=trail:•
 
