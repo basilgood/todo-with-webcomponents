@@ -29,7 +29,6 @@
     networkmanager = {
       enable = true;
       dns = "dnsmasq";
-      dynamicHosts = { enable = true; };
     };
   };
 
