@@ -530,6 +530,9 @@
     autocmd vimRc InsertLeave,WinEnter * setlocal cursorline
     autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
 
+    """" fugitive files
+    autocmd vimRc FileType git setlocal nofoldenable
+
     """" hlsearch
     augroup hlsearch
       autocmd!
