@@ -306,6 +306,7 @@
     set termguicolors
     set number
     set mouse=a
+    set tabline=%!functions#tabline()
     set cursorline
     set noswapfile
     set shortmess+=IFcm
