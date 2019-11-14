@@ -13,6 +13,16 @@ with super;
     };
   };
 
+  conflicted = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-conflicted";
+    src = fetchFromGitHub {
+      owner = "christoomey";
+      repo = "vim-conflicted";
+      rev = "4762e1a85e24f43a40fb218c1e906554ce4c63c3";
+      sha256 = "1m0lv0wxg72bg0nzlim2jcnqn8gzancgzwrxf2i6gx7jb2dckzv9";
+    };
+  };
+
   gv = pkgs.vimUtils.buildVimPlugin {
     name = "gv.vim";
     src = fetchFromGitHub {

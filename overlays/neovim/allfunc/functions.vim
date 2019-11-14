@@ -170,6 +170,7 @@ function! functions#packaddhandler(timer)
   execute 'packadd actionmenu.nvim'
   execute 'packadd vim-fugitive'
   execute 'packadd gv.vim'
+  execute 'packadd vim-conflicted'
   execute 'packadd vim-vinegar'
   execute 'packadd vim-dispatch'
   execute 'packadd skim'

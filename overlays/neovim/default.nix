@@ -47,6 +47,7 @@ in {
           targets
           wildfire
           gv
+          conflicted
           vim-mergetool
           vcs-jump
           vim-edgemotion

@@ -355,6 +355,7 @@
     let &g:statusline.=' %#incsearch#%{&mod?" ✚✚✚ ":""}'
     let &g:statusline.='%*'
     let &g:statusline.='%='
+    let &g:statusline.='%{exists("g:loaded_conflicted")?ConflictedVersion():""} '
     let &g:statusline.='%{exists("g:loaded_fugitive")?fugitive#head(5):""} '
     let &g:statusline.='[%{&filetype!=#""?&filetype:""}]'
 
