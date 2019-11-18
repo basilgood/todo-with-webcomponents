@@ -24,7 +24,7 @@ in {
   };
 
   environment.etc."sway/config".text = with pkgs; ''
-    set $term ${st}/bin/st
+    set $term ${kitty}/bin/kitty
     set $menu ${j4-dmenu-desktop}/bin/j4-dmenu-desktop
     set $brightness ${brightnessctl}/bin/brightnessctl
     set $grim ${grim}/bin/grim
