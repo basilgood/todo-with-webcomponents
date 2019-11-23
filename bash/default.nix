@@ -65,6 +65,7 @@
       HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:?:??"
 
       eval `${pkgs.coreutils}/bin/dircolors "${./dircolors}"`
+      eval "$(${pkgs.fasd}/bin/fasd --init auto)"
       source ${pkgs.fzf}/share/fzf/completion.bash
       source ${pkgs.fzf}/share/fzf/key-bindings.bash
       FZF_CTRL_T_OPTS="--preview '${pkgs.bat}/bin/bat --color=always --line-range :500 {}'"
