@@ -104,56 +104,46 @@ in {
         font-size: 12px;
         min-height: 0;
       }
-
       window#waybar {
-        background: #282c34;
+        background: #2E3440;
         color: #bcd1d6;
       }
-
       #workspaces button {
         padding: 0 8px;
         color: #ffffff;
       }
-
       #workspaces button:hover {
         box-shadow: inherit;
         text-shadow: inherit;
-        background: #282c34;
-        border: #282c34;
+        background: #2E3440;
+        border: #2E3440;
         padding: 0 8px;
       }
-
       #workspaces button.focused {
         background: #00427a;
         color: #ffffff;
       }
-
       #mode, #pulseaudio, #cpu, #temperature.cpu, #temperature.gpu, #memory, #network, #tray {
         color: #dce5d0;
         padding: 0 5px;
         margin: 0 0 0 5px;
       }
-
       #battery {
         color: #e5c07b;
       }
-
       #battery.charging {
         color: #26A65B;
       }
-
       #battery.warning,
       #batter.critical
       {
         color: #f53c3c;
       }
-
       @keyframes blink {
         to {
-          color: #282c34;
+          color: #2E3440;
         }
       }
-
       #battery.critical:not(.charging) {
         color: #f53c3c;
         animation-name: blink;
@@ -162,7 +152,6 @@ in {
         animation-iteration-count: infinite;
         animation-direction: alternate;
       }
-
       #tray {
         background: #00427a;
       }
