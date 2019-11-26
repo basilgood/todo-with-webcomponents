@@ -15,6 +15,7 @@ in {
 
         opt = [
           vinegar
+          renamer
           coc-nvim
           neomake
           actionmenu
@@ -50,7 +51,9 @@ in {
           conflicted
           vim-mergetool
           vcs-jump
+          conflict-marker
           vim-edgemotion
+          cool
           vim-editorconfig
           vim-parenmatch
           vim-submode

@@ -57,7 +57,7 @@ hi WildMenu guifg=#88C0D0 guibg=#3B4252
 
 "+--- Search ---+
 hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=NONE
-hi Search guifg=fg guibg=NONE ctermbg=NONE gui=underline,Bold cterm=underline,Bold
+hi Search guifg=fg guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
 
 "+--- Tabs ---+
 hi TabLine guifg=#D8DEE9 guibg=#3B4252 gui=NONE cterm=NONE
@@ -66,7 +66,7 @@ hi TabLineSel guifg=#88C0D0 guibg=NONE gui=NONE cterm=NONE
 
 "+--- Window ---+
 hi Title guifg=#D8DEE9 guibg=NONE
-hi VertSplit guifg=#434C5E guibg=#2E3440 ctermfg=8 ctermbg=0 cterm=NONE
+hi VertSplit guifg=#2E3440 guibg=#434C5E ctermfg=8 ctermbg=0 cterm=NONE
 
 "+ Language Base Groups +
 hi Boolean guifg=#5E81AC guibg=NONE

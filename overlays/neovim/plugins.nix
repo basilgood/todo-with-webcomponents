@@ -126,6 +126,16 @@ with super;
     };
   };
 
+  conflict-marker = pkgs.vimUtils.buildVimPlugin {
+    name = "conflict-marker.vim";
+    src = fetchFromGitHub {
+      owner = "da-x";
+      repo = "conflict-marker.vim";
+      rev = "9b7c67715d13a18ba0abd2d81b393dc8d458a3fb";
+      sha256 = "03sfhb182bwz0gy3ksn4i6850cncc9l3b0cmfpfl6a642fl7xi3v";
+    };
+  };
+
   vim-edgemotion = pkgs.vimUtils.buildVimPlugin {
     name = "vim-edgemotion";
     src = fetchFromGitHub {
@@ -133,6 +143,26 @@ with super;
       repo = "vim-edgemotion";
       rev = "8d16bd92f6203dfe44157d43be7880f34fd5c060";
       sha256 = "1w3nqkw7k2ryrw1rckj27a0jbjnvgc6fb7871fhb4ba2mpxd8l08";
+    };
+  };
+
+  cool = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-cool";
+    src = fetchFromGitHub {
+      owner = "romainl";
+      repo = "vim-cool";
+      rev = "06918c36b3396af0bec1e87e748a5dba55be87b9";
+      sha256 = "099sbjdk944bnivqgqgbjplczfm3k84583ryrmpqf3lgrq6pl8wr";
+    };
+  };
+
+  renamer = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-renamer";
+    src = fetchFromGitHub {
+      owner = "qpkorr";
+      repo = "vim-renamer";
+      rev = "9c6346eb4556cf2d8ca55de6969247ab14fe2383";
+      sha256 = "0gwyn9ff3f9pn5mkk31sxrs230p7fy66399p2yqy43xfqv36mzwl";
     };
   };
 
