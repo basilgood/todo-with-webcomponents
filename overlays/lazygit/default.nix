@@ -6,8 +6,8 @@ with super;
     src = fetchFromGitHub {
       owner = "jesseduffield";
       repo = "lazygit";
-      rev = "963c034b481e6676656e981cbc8e2f923cc1ac41";
-      sha256 = "1xh564h7hb8bi8w1sn65vb6hkr0f88vaz7qsdg2aay5l72709j9p";
+      rev = "710abded6416c51f72285854c332881efab3e810";
+      sha256 = "06d7dz79gbd42ymqv48xlpxnhrri8mp4s0721ia410n0jxc56rsg";
     };
   });
 }
