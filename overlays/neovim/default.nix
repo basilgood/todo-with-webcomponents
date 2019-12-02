@@ -3,6 +3,31 @@ with super;
 let
   customPlugins = import ./plugins.nix { inherit self super; };
   allPlugins = vimPlugins // customPlugins;
+
+  loadPlugin = p: ''
+    set rtp^=${p.rtp}
+    set rtp+=${p.rtp}/after
+  '';
+
+  ftplugins = ''
+    filetype off | syn off
+    ${super.lib.concatStrings (map loadPlugin startPackages)}
+    filetype indent plugin on | syn on
+  '';
+
+  startPackages = with super.vimPlugins; [
+    vim-javascript
+    vim-coffee-script
+    vim-jinja
+    vim-markdown
+    vim-json
+    vim-nix
+    customPlugins.yats
+    customPlugins.twig
+    customPlugins.jsx
+    customPlugins.jsonc
+  ];
+
   init = builtins.readFile ./config/init.vim;
   coc = builtins.readFile ./config/coc.vim;
   plugins = builtins.readFile ./config/plugins.vim;
@@ -10,42 +35,20 @@ let
   mappings = builtins.readFile ./config/mappings.vim;
   commands = builtins.readFile ./config/commands.vim;
   autocmds = builtins.readFile ./config/autocmds.vim;
+
 in {
-  neovim-unwrapped = (neovim-unwrapped).overrideAttrs (old: rec {
-    name = "neovim-unwrapped-${version}";
-    version = "0.4.3-dev";
-    src = fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "b99dad7b4c6418978a21977262809021fab8d356";
-      sha256 = "03p7pic7hw9yxxv7fbgls1f42apx3lik2k6mpaz1a109ngyc5kaj";
-    };
-    NIX_CFLAGS_COMPILE = "-O3 -march=native";
-  });
+
   neovim = neovim.override {
     withNodeJs = true;
 
     configure = {
       packages.myVimPackage = with allPlugins; {
 
-        start = [
-          allfunc
-          vim-javascript
-          yats
-          vim-coffee-script
-          vim-jinja
-          vim-markdown
-          vim-json
-          twig
-          jsx
-          jsonc
-          vim-nix
-          neomake
-        ];
+        start = startPackages ++ [ allfunc neomake ];
 
         opt = [
           vinegar
-          renamer
+          ags
           coc-nvim
           actionmenu
           surround
@@ -58,7 +61,6 @@ in {
           vim-easy-align
           multiple-cursors
           auto-git-diff
-          ferret
           skim
           skim-vim
           vim-fugitive
@@ -79,6 +81,7 @@ in {
       };
 
       customRC = ''
+        ${ftplugins}
         ${init}
         ${coc}
         ${plugins}

@@ -116,7 +116,10 @@ noremap <silent> <Bs> :call skim#run(skim#wrap({
       \ 'options': '-m --expect='.join(keys(buffer_action), ',')
       \ }))<CR>
 
-command! -bang -nargs=* Ag call fzf#vim#ag_interactive(<q-args>, fzf#vim#with_preview('down:50%', 'alt-h'))
+
+"""" ags
+let g:ags_enable_async = 1
+let g:ags_winplace = 'right'
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
