@@ -18,10 +18,9 @@ window:
 scrolling:
   history: 100000
   multiplier: 2
-  faux_multiplier: 3
   auto_scroll: false
 
-tabspaces: 8
+tabspaces: 2
 
 font:
   normal:
@@ -31,7 +30,7 @@ font:
     family: DejaVuSansMono Nerd Font
     style: Bold
   italic:
-    family: DejaVuSansMono Nerd Font
+    family: Liberation Mono
     style: Italic
   size: 11.0
   offset:
@@ -41,38 +40,37 @@ font:
     x: 0
     y: 0
 
-render_timer: false
-persistent_logging: false
+debug:
+  render_timer: false
+  persistent_logging: false
+
 draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: '0x282c34'
-    foreground: '0xdcdfe4'
+    background: '0x2E3440'
+    foreground: '0xD8DEE9'
   cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
-  selection:
-    text: '0xeaeaea'
-    background: '0x404040'
+    text: '0x2E3440'
+    cursor: '0xD8DEE9'
   normal:
-    black: '0x282c34'
-    red: '0xe06c75'
-    green: '0x98c379'
-    yellow: '0xe5c07b'
-    blue: '0x61afef'
-    magenta: '0xc678dd'
-    cyan: '0x56b6c2'
-    white: '0xdcdfe4'
+    black: '0x3B4252'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x88C0D0'
+    white: '0xE5E9F0'
   bright:
-    black: '0x282c34'
-    red: '0xe06c75'
-    green: '0x98c379'
-    yellow: '0xe5c07b'
-    blue: '0x61afef'
-    magenta: '0xc678dd'
-    cyan: '0x56b6c2'
-    white: '0xdcdfe4'
+    black: '0x4C566A'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x8FBCBB'
+    white: '0xECEFF4'
   indexed_colors: []
 
 visual_bell:
@@ -80,7 +78,7 @@ visual_bell:
   duration: 0
   color: '0xffffff'
 
-background_opacity: 1.0
+background_opacity: 0.98
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
