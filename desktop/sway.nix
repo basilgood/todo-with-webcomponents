@@ -24,7 +24,7 @@ in {
   };
 
   environment.etc."sway/config".text = with pkgs; ''
-    set $term ${kitty}/bin/kitty
+    set $term ${alacritty}/bin/alacritty
     set $menu ${j4-dmenu-desktop}/bin/j4-dmenu-desktop
     set $brightness ${brightnessctl}/bin/brightnessctl
     set $grim ${grim}/bin/grim
@@ -34,7 +34,7 @@ in {
     set $mako ${mako}/bin/mako
     set $swaylock ${swaylock}/bin/swaylock
     set $status ${waybar.override { pulseSupport = true; }}/bin/waybar
-    output * bg ${./Mohave.jpg} fill
+    output * bg ${./catalina.jpg} fill
     ${builtins.readFile ./config}
   '';
 
