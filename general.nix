@@ -41,16 +41,44 @@
     '';
   };
 
-  environment.variables = let vim = "${pkgs.vim}/bin/vim";
-  in {
-    EDITOR = vim;
-    VISUAL = vim;
+  environment.variables = {
+    EDITOR = "vim";
+    VISUAL = "vim";
+    PATH   = "$PATH:~/.local/bin";
   };
 
   fonts = {
-    enableFontDir = true;
-    enableGhostscriptFonts = true;
-    fonts = with pkgs; [ corefonts nerdfonts ];
+    fontconfig = {
+      penultimate.enable = true;
+      defaultFonts = {
+        monospace = [ "IBM Plex Mono" ];
+        sansSerif = [ "IBM Plex Sans" ];
+        serif     = [ "IBM Plex Serif" ];
+      };
+      localConf = ''
+        <match target="font">
+          <edit name="hinting" mode="assign">
+            <bool>true</bool>
+          </edit>
+          <edit name="hintstyle" mode="assign">
+            <const>hintfull</const>
+          </edit>
+          <edit name="rgba" mode="assign">
+            <const>rgb</const>
+          </edit>
+          <edit name="lcdfilter" mode="assign">
+            <const>lcddefault</const>
+          </edit>
+          <test name="weight" compare="more">
+            <const>medium</const>
+          </test>
+          <edit name="autohint" mode="assign">
+            <bool>false</bool>
+          </edit>
+        </match>
+      '';
+    };
+    fonts = with pkgs; [ fira fira-code ibm-plex dejavu_fonts liberation_ttf ];
   };
 
   services.upower.enable = true;
@@ -97,14 +125,16 @@
     (import ./overlays/packages)
     (import ./overlays/tig)
     (import ./overlays/tmux)
-    (import ./overlays/emacs)
+    # (import ./overlays/emacs)
     (import ./overlays/vim)
-    (import ./overlays/neovim)
+    # (import ./overlays/neovim)
     (import ./overlays/lazygit)
-    # (import ./overlays/lsp)
+    (import ./overlays/lsp)
     (import ./overlays/chromium)
+    (import ./overlays/kakoune)
     # (import ./overlays/st)
-    (import ./overlays/kitty)
+    (import ./overlays/alacritty)
+    (import ./overlays/ueberzug)
     # (import ./overlays/nixfmt)
     # (import ./overlays/popcorn)
     # (import ./overlays/nodeEnv)
