@@ -33,12 +33,12 @@ in {
           },
           "network": {
             "format": "{icon}",
-            "format-alt": "{ipaddr}/{cidr} {icon}",
-            "format-alt-click": "click-right",
+            "format-wifi": "({signalStrength}%) {icon}",
+            "format-ethernet": "{icon}",
             "format-icons": {
-              "wifi": ["", "" ,""],
-              "ethernet": [""],
-              "disconnected": [""]
+              "wifi": [""],
+              "ethernet": [""],
+              "disconnected": ["⚠"]
             },
             "tooltip": false
           },
@@ -86,6 +86,7 @@ in {
           },
           "pulseaudio": {
             "format": "{volume}% {icon}",
+            "format-bluetooth": "{volume}% {icon}",
             "format-muted": "🔇",
             "format-icons": {
               "default": ["🔈", "🔊"]
