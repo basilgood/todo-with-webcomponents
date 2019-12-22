@@ -1,5 +1,7 @@
 [
   "vim-language-server",
-  "tradeship",
-  "import-js"
+  "@slonoed/jsref",
+  "stylelint",
+  "import-js",
+  "flow-bin"
 ]
