@@ -57,6 +57,9 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
+"""" ruler
+nnoremap <C-G> :<C-u>call functions#superruler(v:count)<CR>
+
 """" disable EX-mode
 nnoremap Q <Nop>
 

@@ -11,7 +11,6 @@ if has('vim_starting')
         \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
 endif
 
-let g:loaded_matchparen         = 1
 let g:loaded_rrhelper           = 1
 let g:did_install_default_menus = 1
 let g:is_bash                   = 1
@@ -28,7 +27,6 @@ if has('vim_starting') && has('timers')
   autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
 endif
 
-colorscheme nordish
-hi! Comment      guifg=#5c6370 guibg=NONE gui=italic cterm=italic
-hi! ParenMatch   guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
+colorscheme retro
+
 set secure

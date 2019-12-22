@@ -11,25 +11,25 @@ let
 
   ftplugins = ''
     filetype off | syn off
-    ${super.lib.concatStrings (map loadPlugin startPackages)}
+    ${super.lib.concatStrings (map loadPlugin ftPackages)}
     filetype indent plugin on | syn on
   '';
 
-  startPackages = with super.vimPlugins; [
-    vim-javascript
+  ftPackages = with super.vimPlugins; [
     vim-coffee-script
     vim-jinja
     vim-markdown
     vim-json
     vim-nix
+    customPlugins.vim-lsp
+    customPlugins.async.vim
+    customPlugins.vim-js
+    customPlugins.jsx
     customPlugins.yats
     customPlugins.twig
-    customPlugins.jsx
-    customPlugins.jsonc
   ];
 
   init = builtins.readFile ./config/init.vim;
-  coc = builtins.readFile ./config/coc.vim;
   plugins = builtins.readFile ./config/plugins.vim;
   options = builtins.readFile ./config/options.vim;
   mappings = builtins.readFile ./config/mappings.vim;
@@ -44,38 +44,31 @@ in {
     configure = {
       packages.myVimPackage = with allPlugins; {
 
-        start = startPackages ++ [ allfunc neomake ];
+        start = ftPackages ++ [ allfunc neomake repeat ];
 
         opt = [
-          vinegar
+          skim
+          skim-vim
+          deoplete-nvim
           ags
-          coc-nvim
-          actionmenu
           surround
-          repeat
           tcomment_vim
           vim-html-template-literals
-          undotree
           vim-indent-object
           quickfix-reflector-vim
           vim-easy-align
           multiple-cursors
-          auto-git-diff
-          skim
-          skim-vim
           vim-fugitive
-          vim-dispatch
+          vim-gitgutter
           targets
-          wildfire
-          conflicted
           vim-mergetool
-          vcs-jump
           conflict-marker
+          auto-git-diff
+          vim-dispatch
           vim-edgemotion
-          cool
           vim-editorconfig
-          vim-parenmatch
-          cmdline
+          cool
+          retro
           nordish
         ];
       };
@@ -83,7 +76,6 @@ in {
       customRC = ''
         ${ftplugins}
         ${init}
-        ${coc}
         ${plugins}
         ${options}
         ${mappings}

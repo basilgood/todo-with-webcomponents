@@ -12,6 +12,67 @@ augroup my_neomake
   autocmd FileType nix call neomake#configure#automake_for_buffer('nw', 1000)
 augroup END
 
+"""" deoplete
+let g:deoplete#enable_at_startup = 1
+
+"""" lsp
+let g:lsp_highlights_enabled = 0
+let g:lsp_textprop_enabled = 0
+if executable('typescript-language-server')
+  augroup LspTS
+    autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'ts',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+      \ 'whitelist': ['typescript', 'typescript.tsx']
+      \ })
+    autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'js',
+      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+      \ 'whitelist': ['javascript', 'javascript.jsx']
+      \ })
+    autocmd FileType javascript setlocal omnifunc=lsp#complete
+    autocmd FileType javascript.jsx setlocal omnifunc=lsp#complete
+    autocmd FileType typescript setlocal omnifunc=lsp#complete
+    autocmd FileType typescript.tsx setlocal omnifunc=lsp#complete
+  augroup END
+endif
+
+if executable('vim-language-server')
+  augroup LspVi
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'viml',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vim-language-server --stdio']},
+          \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+          \ 'whitelist': ['vim']
+          \ })
+    autocmd FileType vim setlocal omnifunc=lsp#complete
+  augroup END
+endif
+
+nnoremap [lsp] <Nop>
+nmap <space>l [lsp]
+vmap <space>l [lsp]
+nnoremap [lsp]a :<C-u>LspCodeAction<CR>
+nnoremap [lsp]D :<C-u>LspDeclaration<CR>
+nnoremap [lsp]d :<C-u>LspDefinition<CR>
+nnoremap [lsp]q :<C-u>LspDocumentDiagnostics<CR>
+nnoremap [lsp]r :<C-u>LspRename<CR>
+nnoremap [lsp]R :<C-u>LspReferences<CR>
+nnoremap [lsp]p :<C-u>LspPreviousError<CR>
+nnoremap [lsp]n :<C-u>LspNextError<CR>
+nnoremap [lsp]f :<C-u>LspDocumentFormat<CR>
+vnoremap [lsp]f :<C-u>LspDocumentRangeFormat<CR>
+nnoremap [lsp]t :<C-u>LspTypeDefinition<CR>
+nnoremap [lsp]h :<C-u>LspHover<CR>
+nnoremap [lsp]s :<C-u>LspDocumentSymbol<CR>
+nnoremap [lsp]S :<C-u>LspWorkspaceSymbol<CR>
+nnoremap [lsp]? :<C-u>LspStatus<CR>
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+
 """" git.
 nnoremap [git]  <Nop>
 nmap <space>g [git]
@@ -39,12 +100,6 @@ if &diff == 1
   nmap <silent> <buffer> dp V:diffput<CR>
 endif
 
-"""" undotree.
-let g:undotree_WindowLayout = 4
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-nnoremap <leader>u :UndotreeToggle<cr>
-
 """" surround.
 let surround_indent=1
 nmap S ysiw
@@ -57,25 +112,16 @@ let g:editorconfig_blacklist  = {
       \ 'pattern': ['\.un~$']}
 
 """" netrw
-let g:netrw_bufsettings         = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
-let g:netrw_sort_dotfiles_first = 1
+let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
 let g:netrw_altfile             = 1
+let g:netrw_sort_dotfiles_first = 1
 let g:netrw_dirhistmax          = 0
+let g:netrw_banner = 0
+let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_list_hide='^\./$,^\../$'
+setlocal bufhidden=delete
 
-function! s:innetrw() abort
-  nnoremap <buffer> D <Nop>
-  nmap <buffer> <right> <cr>
-  nmap <buffer> <left> -
-  nmap <buffer> J j<cr>
-  nmap <buffer> K k<cr>
-  nmap <buffer> qq :bn<bar>bd#<cr>
-  nmap <buffer> D !rm -rf
-endfunction
-
-augroup in_netrw
-  autocmd!
-  autocmd FileType netrw call s:innetrw()
-augroup END
+nmap <silent> - :call functions#opendir()<CR>
 
 """" skim(fzf)
 let $SKIM_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git'
@@ -127,12 +173,6 @@ let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=
 """" easy-align.
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
-
-"""" wildfire.
-let g:wildfire_objects = [ 'iw', 'il', "i'", "a'", 'i"', 'i)', 'a)', 'i]', 'a]', 'i}', 'a}', 'i<', 'a<', 'ip', 'it']
-let g:wildfire_fuel_map = '+'
-let g:wildfire_water_map = '-'
-nmap <leader>s <Plug>(wildfire-quick-select)
 
 """" edgemotion
 map <C-j> <Plug>(edgemotion-j)

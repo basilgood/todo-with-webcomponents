@@ -65,23 +65,14 @@ autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
 autocmd vimRc FileType git setlocal nofoldenable
 
 """" filetype
-autocmd vimRc BufNewFile,BufRead *.nix setlocal filetype=nix
-autocmd vimRc BufNewFile,BufRead *.js setlocal filetype=javascript
+autocmd vimRc FileType netrw call functions#innetrw()
+autocmd vimRc FileType defx call functions#indefx()
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
 autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig
-autocmd vimRc BufNewFile,BufRead *.svelte setlocal filetype=svelte
 autocmd vimRc BufRead,BufNewFile *.gitignore  setlocal filetype=gitignore
-autocmd vimRc BufNewFile,BufRead *.vim setlocal filetype=vim
-autocmd vimRc BufNewFile,BufRead *.html setlocal filetype=html
 autocmd vimRc BufNewFile,BufRead *.yamllint setlocal filetype=yaml
-autocmd vimRc BufNewFile,BufRead *.yml setlocal filetype=yaml
-autocmd vimRc BufRead,BufNewFile *.md,.markdown setlocal filetype=markdown
-autocmd vimRc BufReadPre,BufNewFile *.j2 setlocal filetype=jinja
 autocmd vimRc BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
-autocmd vimRc BufReadPre,BufNewFile *.coffee setlocal filetype=coffee
 autocmd vimRc BufReadPre,BufNewFile *.ts,*.tsx setlocal filetype=typescript
 autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json setlocal formatoptions=a2tq
-autocmd vimRc FileType json syntax match Comment +\/\/.\+$+
-autocmd vimRc FileType jsonc setlocal commentstring=//\ %s

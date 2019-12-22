@@ -13,16 +13,6 @@ with super;
     };
   };
 
-  conflicted = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-conflicted";
-    src = fetchFromGitHub {
-      owner = "christoomey";
-      repo = "vim-conflicted";
-      rev = "4762e1a85e24f43a40fb218c1e906554ce4c63c3";
-      sha256 = "1m0lv0wxg72bg0nzlim2jcnqn8gzancgzwrxf2i6gx7jb2dckzv9";
-    };
-  };
-
   skim-vim = pkgs.vimUtils.buildVimPlugin {
     name = "skim-vim";
     src = fetchFromGitHub {
@@ -33,23 +23,33 @@ with super;
     };
   };
 
-  actionmenu = pkgs.vimUtils.buildVimPlugin {
-    name = "actionmenu.nvim";
+  vim-js = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-js";
     src = fetchFromGitHub {
-      owner = "kizza";
-      repo = "actionmenu.nvim";
-      rev = "167829ee307c831db6927b931a56eadec8b96e97";
-      sha256 = "0cp63wkixfw2xsn4pi4q0wx0wxb0pms5f0xjlkv2j172g6xyamff";
+      owner = "yuezk";
+      repo = "vim-js";
+      rev = "48624983bf747624921075679d65533fa75a6174";
+      sha256 = "1vczqq1gflyy2g2ycsyrpvz6zsscnmhi08k3imh86snk9ivs4ipb";
     };
   };
 
-  vim-javascript = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-javascript";
+  vim-lsp = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-lsp";
     src = fetchFromGitHub {
-      owner = "pangloss";
-      repo = "vim-javascript";
-      rev = "2e4a8c485cdf601bb2f2761ea68c09750a0b82e0";
-      sha256 = "1zvqpk8qvkhglfdi6ma7ads54w0i8v8vy4k3gcrrjydmwwa2v34l";
+      owner = "prabirshrestha";
+      repo = "vim-lsp";
+      rev = "a38c46d59184e932c6394a65bb2b31b8b22ad00d";
+      sha256 = "1nw47jr273qzck43lzr8ksibgsgl4m6i0lpsv0m72mgwz03fmmx6";
+    };
+  };
+
+  async.vim = pkgs.vimUtils.buildVimPlugin {
+    name = "async.vim";
+    src = fetchFromGitHub {
+      owner = "prabirshrestha";
+      repo = "async.vim";
+      rev = "627a8c4092df24260d3dc2104bc1d944c78f91ca";
+      sha256 = "1hqrfk3wi82gq4qw71xcy1zyplwb8w7bnm6kybpn27hgpipygrvv";
     };
   };
 
@@ -83,16 +83,6 @@ with super;
       repo = "vim-jsx-pretty";
       rev = "89c30c0defe8ddb31bc0d3cfa5f22f3f6d8eb24f";
       sha256 = "1l5cwlbmihzxldpxlvn5gc47s0awqs908skzq43cy44iql829hir";
-    };
-  };
-
-  jsonc = pkgs.vimUtils.buildVimPlugin {
-    name = "jsonc.vim";
-    src = fetchFromGitHub {
-      owner = "neoclide";
-      repo = "jsonc.vim";
-      rev = "80da2a52db41b4c1ecf6f511422d3771e05622fa";
-      sha256 = "1yix6dq1fh5nhwh5c1gr6z9d05ir5a2d0advdsli7n1y0cmwa8hr";
     };
   };
 
@@ -186,24 +176,16 @@ with super;
     };
   };
 
-  vim-parenmatch = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-parenmatch";
-    src = fetchFromGitHub {
-      owner = "itchyny";
-      repo = "vim-parenmatch";
-      rev = "1a00e366a24f37ceaf8df87b5ff8bbd9f90e3758";
-      sha256 = "00vkkq473qxzc6k1gmkbd91nqs81h0yszixpby3djwblg16fch75";
-    };
-  };
-
-  cmdline = pkgs.vimUtils.buildVimPlugin {
-    name = "cmdline-completion";
-    src = fetchFromGitHub {
-      owner = "sgur";
-      repo = "cmdline-completion";
-      rev = "34d03039b838fddc36a8ac75e4760d8e2835a5fb";
-      sha256 = "0rjassl3l41ncdg2jyzawksinbp3pyf2g3vp8wvh0cxbmhabqjzg";
-    };
+  retro = pkgs.vimUtils.buildVimPlugin {
+    pname = "retro";
+    version = "0.0.1";
+    src = ./colors/retro.vim;
+    unpackCmd = ''
+      mkdir -p out/colors;
+      ln -s $curSrc out/colors/retro.vim
+    '';
+    buildPhase = ":";
+    configurePhase = ":";
   };
 
   nordish = pkgs.vimUtils.buildVimPlugin {
@@ -230,20 +212,4 @@ with super;
     configurePhase = ":";
   };
 
-  # allfunc = opt_plugins: pkgs.vimUtils.buildVimPlugin {
-  #   pname = "allfunc";
-  #   version = "0.0.1";
-  #   src = pkgs.writeText "functions.vim" ''
-  #     ${pkgs.readFile ./allfunc/functions.vim}
-  #     func packaddhandler
-  #     ${pkgs.lib.map opt_plugins ({name}: "execute 'packadd ${name}'") }
-  #     endfunc
-  #   '';
-  #   unpackCmd = ''
-  #     mkdir -p out/autoload;
-  #     ln -s $curSrc out/autoload/functions.vim
-  #   '';
-  #   buildPhase = ":";
-  #   configurePhase = ":";
-  # };
 }
