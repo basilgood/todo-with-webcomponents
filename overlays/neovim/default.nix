@@ -47,8 +47,7 @@ in {
         start = ftPackages ++ [ allfunc neomake repeat ];
 
         opt = [
-          skim
-          skim-vim
+          vim-picker
           deoplete-nvim
           ags
           surround

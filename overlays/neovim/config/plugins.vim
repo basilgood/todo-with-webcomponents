@@ -14,10 +14,11 @@ augroup END
 
 """" deoplete
 let g:deoplete#enable_at_startup = 1
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 """" lsp
-let g:lsp_highlights_enabled = 0
-let g:lsp_textprop_enabled = 0
 if executable('typescript-language-server')
   augroup LspTS
     autocmd User lsp_setup call lsp#register_server({
@@ -65,13 +66,22 @@ nnoremap [lsp]n :<C-u>LspNextError<CR>
 nnoremap [lsp]f :<C-u>LspDocumentFormat<CR>
 vnoremap [lsp]f :<C-u>LspDocumentRangeFormat<CR>
 nnoremap [lsp]t :<C-u>LspTypeDefinition<CR>
-nnoremap [lsp]h :<C-u>LspHover<CR>
 nnoremap [lsp]s :<C-u>LspDocumentSymbol<CR>
 nnoremap [lsp]S :<C-u>LspWorkspaceSymbol<CR>
 nnoremap [lsp]? :<C-u>LspStatus<CR>
+
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    LspHover
+  endif
+endfunction
 
 """" git.
 nnoremap [git]  <Nop>
@@ -123,49 +133,15 @@ setlocal bufhidden=delete
 
 nmap <silent> - :call functions#opendir()<CR>
 
-"""" skim(fzf)
-let $SKIM_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git'
-let $SKIM_DEFAULT_OPTS = '--bind ctrl-f:toggle'
-
-nnoremap <C-p> :Files<CR>
-nnoremap <C-t> :Files %:h<CR>
-nnoremap <silent> <leader>] :History:<cr>
-
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-let g:buffer_action = {
-      \ 'ctrl-x': 'sb',
-      \ 'ctrl-v': 'vsp|b',
-      \ 'ctrl-w': 'bdelete'
-      \}
-
-function! BufferSink(lines)
-  if len(a:lines)<2
-    return
-  endif
-  let key = remove(a:lines, 0)
-  let Cmd = get(g:buffer_action, key,'buffer')
-  for line in a:lines
-    let bid = matchstr(line, '^[ 0-9]*')
-    execute Cmd bid
-  endfor
-endfunction
-
-noremap <silent> <Bs> :call skim#run(skim#wrap({
-      \ 'source':  reverse(<sid>buflist()),
-      \ 'sink*':  function('BufferSink'),
-      \ 'options': '-m --expect='.join(keys(buffer_action), ',')
-      \ }))<CR>
-
+"""" picker
+nnoremap <C-p> :PickerEdit<CR>
+nnoremap <C-t> :PickerEdit %:h<CR>
+nnoremap <bs> :PickerBuffer<cr>
 
 """" ags
 let g:ags_enable_async = 1
 let g:ags_winplace = 'right'
+nnoremap <Leader>a :Ags<Space>
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']

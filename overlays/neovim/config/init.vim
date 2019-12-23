@@ -28,5 +28,6 @@ if has('vim_starting') && has('timers')
 endif
 
 colorscheme retro
+hi link jsVariableType Statement
 
 set secure

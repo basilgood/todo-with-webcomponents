@@ -13,13 +13,13 @@ with super;
     };
   };
 
-  skim-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "skim-vim";
+  vim-picker = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-picker";
     src = fetchFromGitHub {
-      owner = "lotabout";
-      repo = "skim.vim";
-      rev = "4e9d9a3deb2060e2e79fede1c213f13ac7866eb5";
-      sha256 = "0vpfn2zivk8cf2l841jbd78zl1vzdw1wjf9p0dm6pgr84kj9pkx4";
+      owner = "srstevenson";
+      repo = "vim-picker";
+      rev = "0bd022884a5d125cbbb1cd80606f2d23f1cb1ffd";
+      sha256 = "167qh2aj2r7x7iixa8kdspmqrngd74naxghhzj7q82cxylybzz9x";
     };
   };
 
@@ -38,7 +38,7 @@ with super;
     src = fetchFromGitHub {
       owner = "prabirshrestha";
       repo = "vim-lsp";
-      rev = "a38c46d59184e932c6394a65bb2b31b8b22ad00d";
+      rev = "afaba6a1f29aa06c6aafb4d5a4893ff825bc9eb3";
       sha256 = "1nw47jr273qzck43lzr8ksibgsgl4m6i0lpsv0m72mgwz03fmmx6";
     };
   };
