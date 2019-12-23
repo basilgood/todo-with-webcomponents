@@ -83,7 +83,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-"""" git.
+"""" git, fugitive
 nnoremap [git]  <Nop>
 nmap <space>g [git]
 nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
@@ -95,6 +95,12 @@ function! InFugitive() abort
 endfunction
 
 autocmd vimRc FileType fugitive call InFugitive()
+
+"""" gitgutter
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+
 
 """" mergetool
 let g:mergetool_layout = 'bmr'
