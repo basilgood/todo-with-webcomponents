@@ -10,9 +10,9 @@ let
   '';
 
   ftplugins = ''
-    filetype off | syn off
+    filetype off | syntax off
     ${super.lib.concatStrings (map loadPlugin ftPackages)}
-    filetype indent plugin on | syn on
+    filetype indent plugin on | syntax on
   '';
 
   ftPackages = with super.vimPlugins; [
@@ -21,8 +21,6 @@ let
     vim-markdown
     vim-json
     vim-nix
-    customPlugins.vim-lsp
-    customPlugins.async.vim
     customPlugins.vim-js
     customPlugins.jsx
     customPlugins.yats
@@ -44,7 +42,7 @@ in {
     configure = {
       packages.myVimPackage = with allPlugins; {
 
-        start = ftPackages ++ [ allfunc neomake repeat ];
+        start = ftPackages ++ [ allfunc neomake repeat vim-lsp async.vim ];
 
         opt = [
           vim-picker
@@ -68,7 +66,6 @@ in {
           vim-editorconfig
           cool
           retro
-          nordish
         ];
       };
 

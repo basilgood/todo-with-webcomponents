@@ -23,16 +23,6 @@ with super;
     };
   };
 
-  vim-js = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-js";
-    src = fetchFromGitHub {
-      owner = "yuezk";
-      repo = "vim-js";
-      rev = "48624983bf747624921075679d65533fa75a6174";
-      sha256 = "1vczqq1gflyy2g2ycsyrpvz6zsscnmhi08k3imh86snk9ivs4ipb";
-    };
-  };
-
   vim-lsp = pkgs.vimUtils.buildVimPlugin {
     name = "vim-lsp";
     src = fetchFromGitHub {
@@ -76,6 +66,16 @@ with super;
     };
   };
 
+  vim-js = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-js";
+    src = fetchFromGitHub {
+      owner = "yuezk";
+      repo = "vim-js";
+      rev = "48624983bf747624921075679d65533fa75a6174";
+      sha256 = "1vczqq1gflyy2g2ycsyrpvz6zsscnmhi08k3imh86snk9ivs4ipb";
+    };
+  };
+
   jsx = pkgs.vimUtils.buildVimPlugin {
     name = "vim-jsx-pretty";
     src = fetchFromGitHub {
@@ -103,26 +103,6 @@ with super;
       repo = "targets.vim";
       rev = "a79447f261e4b8b4327557aa03726f3849334b84";
       sha256 = "0x6a9rmv220kncjgak6aw3gbf3sidnj6nijphnsm5360lvi3ck4w";
-    };
-  };
-
-  wildfire = pkgs.vimUtils.buildVimPlugin {
-    name = "wildfire.vim";
-    src = fetchFromGitHub {
-      owner = "gcmt";
-      repo = "wildfire.vim";
-      rev = "e2baded7162260e05d2527f5bca9fca81f0bc8f2";
-      sha256 = "01i12x8brsnqicj5vclg57nv6ha7nz70gilphf6sr14xr741ra1y";
-    };
-  };
-
-  vcs-jump = pkgs.vimUtils.buildVimPlugin {
-    name = "vcs-jump";
-    src = fetchFromGitHub {
-      owner = "wincent";
-      repo = "vcs-jump";
-      rev = "a83cd2a6bfbf9356ee439a0e6aa29f8eaea4bb38";
-      sha256 = "1n6g49pkf0qb2p5d845qgyndw3xh2ijzz8vm7lblsi9kb452bn7w";
     };
   };
 
@@ -183,18 +163,6 @@ with super;
     unpackCmd = ''
       mkdir -p out/colors;
       ln -s $curSrc out/colors/retro.vim
-    '';
-    buildPhase = ":";
-    configurePhase = ":";
-  };
-
-  nordish = pkgs.vimUtils.buildVimPlugin {
-    pname = "nordish";
-    version = "0.0.1";
-    src = ./colors/nordish.vim;
-    unpackCmd = ''
-      mkdir -p out/colors;
-      ln -s $curSrc out/colors/nordish.vim
     '';
     buildPhase = ":";
     configurePhase = ":";
