@@ -1,7 +1,7 @@
 # sway config file
 set $mod Mod4
 
-font pango: Mononoki Nerd Font 9
+font pango: monospace 9
 
 # Output configuration
 # exec_always --no-startup-id xrandr DVI-0 resolution 1920x1080

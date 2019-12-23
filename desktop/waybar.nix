@@ -101,7 +101,7 @@ in {
       * {
         border: none;
         border-radius: 0;
-        font-family: "SauceCodePro Nerd Font";
+        font-family: monospace;
         font-size: 12px;
         min-height: 0;
       }

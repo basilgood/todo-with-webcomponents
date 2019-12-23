@@ -20,18 +20,9 @@ scrolling:
   multiplier: 2
   auto_scroll: false
 
-tabspaces: 2
+tabspaces: 8
 
 font:
-  normal:
-    family: monospace
-    # style: Regular
-  bold:
-    family: monospace
-    # style: Bold
-  italic:
-    family: monospace
-    # style: Italic
   size: 11.0
   offset:
     x: 0
