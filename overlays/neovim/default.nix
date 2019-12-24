@@ -3,6 +3,7 @@ with super;
 let
   customPlugins = import ./plugins.nix { inherit self super; };
   allPlugins = vimPlugins // customPlugins;
+  lsp = import ../lsp self super;
 
   loadPlugin = p: ''
     set rtp^=${p.rtp}
@@ -34,15 +35,38 @@ let
   commands = builtins.readFile ./config/commands.vim;
   autocmds = builtins.readFile ./config/autocmds.vim;
 
-in {
+in
+{
 
   neovim = neovim.override {
     withNodeJs = true;
+    extraMakeWrapperArgs = "--prefix PATH : ${stdenv.lib.makeBinPath
+      [
+        ag
+        fd
+        fzy
+        lsp.js.vim-language-server
+        lsp.js.import-js
+        lsp.js.stylelint
+        nodePackages.typescript
+        nodePackages.eslint
+        nodePackages.typescript-language-server
+        nodePackages.vscode-html-languageserver-bin
+        nodePackages.vscode-css-languageserver-bin
+        nixpkgs-fmt
+      ]
+    }";
 
     configure = {
       packages.myVimPackage = with allPlugins; {
 
-        start = ftPackages ++ [ allfunc neomake repeat vim-lsp async.vim ];
+        start = ftPackages ++ [
+          allfunc
+          neomake
+          repeat
+          LanguageClient-neovim
+          async.vim
+        ];
 
         opt = [
           vim-picker
@@ -66,6 +90,7 @@ in {
           vim-editorconfig
           cool
           retro
+          candy
         ];
       };
 

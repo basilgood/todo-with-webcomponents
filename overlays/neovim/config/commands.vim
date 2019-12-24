@@ -9,4 +9,4 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | d
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 command! -nargs=0 OrganiseImports :CocCommand tsserver.organizeImports
 command! -nargs=0 FixAllImports :CocCommand tsserver.executeAutoFix
-command! -nargs=0 NixFormat silent! execute "!nixfmt %"
+command! -nargs=0 NixFormat silent! execute "!nixpkgs-fmt %"

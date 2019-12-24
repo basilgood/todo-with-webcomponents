@@ -23,6 +23,16 @@ with super;
     };
   };
 
+  vim-js = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-js";
+    src = fetchFromGitHub {
+      owner = "yuezk";
+      repo = "vim-js";
+      rev = "48624983bf747624921075679d65533fa75a6174";
+      sha256 = "1vczqq1gflyy2g2ycsyrpvz6zsscnmhi08k3imh86snk9ivs4ipb";
+    };
+  };
+
   vim-lsp = pkgs.vimUtils.buildVimPlugin {
     name = "vim-lsp";
     src = fetchFromGitHub {
@@ -63,16 +73,6 @@ with super;
       repo = "vim-twig";
       rev = "ad115512725bcc156f7f89b72ff563b9fa44933b";
       sha256 = "1p7sfhk0mwx4xk88b29ijb9nfbjwsf6hf3nab2ybcw291qaa75nj";
-    };
-  };
-
-  vim-js = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-js";
-    src = fetchFromGitHub {
-      owner = "yuezk";
-      repo = "vim-js";
-      rev = "48624983bf747624921075679d65533fa75a6174";
-      sha256 = "1vczqq1gflyy2g2ycsyrpvz6zsscnmhi08k3imh86snk9ivs4ipb";
     };
   };
 
@@ -163,6 +163,18 @@ with super;
     unpackCmd = ''
       mkdir -p out/colors;
       ln -s $curSrc out/colors/retro.vim
+    '';
+    buildPhase = ":";
+    configurePhase = ":";
+  };
+
+  candy = pkgs.vimUtils.buildVimPlugin {
+    pname = "candy";
+    version = "0.0.1";
+    src = ./colors/candy.vim;
+    unpackCmd = ''
+      mkdir -p out/colors;
+      ln -s $curSrc out/colors/candy.vim
     '';
     buildPhase = ":";
     configurePhase = ":";
