@@ -78,10 +78,10 @@ hi Todo            ctermfg=33   ctermbg=NONE cterm=bold
 hi Title           ctermfg=227
 
 " diffs
-highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
-highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
-highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
-highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
+hi DiffAdd cterm=NONE ctermbg=235
+hi DiffChange cterm=NONE ctermbg=235
+hi DiffDelete cterm=NONE ctermfg=238   ctermbg=244
+hi DiffText cterm=bold ctermfg=255   ctermbg=196
 
 hi diffAdded ctermfg=150 guifg=#b4be82
 hi diffRemoved ctermfg=203 guifg=#e27878
