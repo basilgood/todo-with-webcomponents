@@ -1,62 +1,82 @@
 { config, options, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.programs.git;
-
-  difftools = {
-    nvim = ''${pkgs.nvim}/bin/nvim -d "$LOCAL" "$REMOTE"'';
-    vim = ''${pkgs.vim}/bin/vim -d "$LOCAL" "$REMOTE"'';
-    kdiff3 = ''${pkgs.kdiff3}/bin/kdiff3 "$LOCAL" "$REMOTE"'';
-  };
-
-  mergetools = {
-    nvim = ''
-      ${pkgs.nvim}/bin/nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'';
-    vim = ''
-      ${pkgs.vim}/bin/vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'';
-    kdiff3 =
-    ''${pkgs.kdiff3}/bin/kdiff3 "$BASE" "$LOCAL" "$REMOTE" -o "$MERGED"'';
-    v3 = ''
-      ${pkgs.vim}/bin/vim -f -d  \"$LOCAL\" \"$MERGED\" \"$REMOTE\" \"+2wincmd w\"
-      '';
-    vimmerge = ''
-      vimmerge \"$MERGED\"
-    '';
-    meld = ''
-      ${pkgs.meld}/bin/meld --diff $BASE $LOCAL --diff $BASE $REMOTE --diff $LOCAL $BASE $REMOTE $MERGED
-    '';
-  };
+let cfg = config.programs.git;
 in {
   options = {
     programs.git = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
       };
 
       lfsEnable = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
       };
 
-      name = mkOption {
-        type = types.str;
+      user = mkOption {
+        type = types.lines;
         default = "";
       };
 
-      email = mkOption {
-        type = types.str;
+      core = mkOption {
+        type = types.lines;
         default = "";
       };
 
-      editor = mkOption {
-        type = types.str;
-        default = "${pkgs.nvim}/bin/nvim";
+      status = mkOption {
+        type = types.lines;
+        default = "";
       };
 
-      pager = mkOption {
-        type = types.str;
-        default = "${pkgs.less}/bin/less";
+      rerere = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      color = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      colorBranch = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      colorDiff = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      colorStatus = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      diff = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      diffTool = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      merge = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      mergeTool = mkOption {
+        type = types.lines;
+        default = "";
+      };
+
+      alias = mkOption {
+        type = types.lines;
+        default = "";
       };
 
       extraConfig = mkOption {
@@ -64,19 +84,9 @@ in {
         default = "";
       };
 
-      difftool = mkOption {
-        type = types.enum [ "nvim" "vim" "kdiff3" ];
-        default = "nvim";
-      };
-
-      mergetool = mkOption {
-        type = types.enum [ "nvim" "vim" "kdiff3" "v3" "vimmerge" "meld" ];
-        default = "nvim";
-      };
-
-      interface = mkOption {
-        type = types.package;
-        default = pkgs.gitAndTools.tig;
+      extraPackages = mkOption {
+        type = types.listOf types.package;
+        default = [ ];
       };
     };
   };
@@ -84,53 +94,35 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       environment = {
-        systemPackages = with pkgs; [ git cfg.interface ];
+        systemPackages = with pkgs; [ git ] ++ cfg.extraPackages;
         etc."gitconfig".text = ''
           [user]
-            name = ${cfg.name}
-            email = ${cfg.email}
+            ${cfg.user}
           [core]
-            editor = ${cfg.editor}
-            pager = ${cfg.pager}
-            excludesfile = $HOME/.gitignore
+            ${cfg.core}
           [status]
-            showuntrackedfiles = all
+            ${cfg.status}
           [rerere]
-            enabled = 1
-            autoupdate = 1
+            ${cfg.rerere}
           [color]
-            diff = auto
-            status = auto
-            branch = auto
-            ui = auto
-          [color "diff"]
-            meta = blue
-            frag = black
-            old = red
-            new = green
-          [color "status"]
-            added = green
-            changed = yellow
-            untracked = cyan
+            ${cfg.color}
           [color "branch"]
-            current = yellow reverse
-            local = yellow
-            remote = green
-          [alias]
-            lg = log --oneline --graph --all
-          ${cfg.extraConfig}
+            ${cfg.colorBranch}
+          [color "diff"]
+            ${cfg.colorBranch}
+          [color "status"]
+            ${cfg.colorStatus}
           [diff]
-            prompt = false
-            tool = diff_tool
-          [difftool "diff_tool"]
-            cmd = ${difftools.${cfg.difftool}}
+            ${cfg.diff}
+          [difftool]
+            ${cfg.diffTool}
           [merge]
-            tool = diff_tool
-            conflictstyle = diff3
-          [mergetool "diff_tool"]
-            prompt = false
-            keepBackup = false
-            cmd = ${mergetools.${cfg.mergetool}}
+            ${cfg.merge}
+          [mergetool]
+            ${cfg.mergeTool}
+          [alias]
+            ${cfg.alias}
+          ${cfg.extraConfig}
         '';
       };
     }
