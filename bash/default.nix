@@ -21,28 +21,45 @@
         local prompt="\n"
         local prompt_end=""
         local jobsval=`jobs -p | wc -l`
+
         [ -n "$retval" ] && prompt+="$red$retval$reset "
         [ -n "$IN_NIX_SHELL" ] && prompt+="$cyan $reset "
         prompt+="$bold$yellow\w$reset"
-        [ $jobsval -ne 0 ] && prompt_end+=" $jobsval"
+
+        [ $jobsval -ne 0 ] && prompt_end+=" $bold$cyan$jobsval$reset"
         prompt_end+="\n"
-        [ $(id -u) -eq 0 ] && prompt_end+="\[$red\]#\[$reset\]" || prompt_end+="\[$magenta\]❯\[$reset\]"
-        __git_ps1 "$prompt" "$prompt_end "
+        [ $(id -u) -eq 0 ] && prompt_end+="\[$red\]#" || prompt_end+="\[$magenta\]❯"
+        prompt_end+="\[$reset\] "
+
+        if type -t __git_ps1 > /dev/null 2>&1 ; then
+          __git_ps1 "$prompt" "$prompt_end"
+        else
+          PS1="$prompt $prompt_end"
+        fi
         history -a
       }
       PROMPT_COMMAND=prompt_command
     '';
     interactiveShellInit = ''
-      PROMPT_DIRTRIM=3
-      set -o notify
-      shopt -s checkwinsize
-      shopt -s globstar 2> /dev/null
-      shopt -s nocaseglob;
-      shopt -s autocd 2> /dev/null
-      shopt -s dirspell 2> /dev/null
-      shopt -s cdspell 2> /dev/null
-      shopt -s histappend
-      shopt -s cmdhist
+      HISTFILE=$HOME/.bash_history
+      HISTFILESIZE=-1
+      HISTSIZE=''${HISTFILESIZE}
+      HISTCONTROL="erasedups:ignoreboth"
+      HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:?:??"
+
+      # Words are separated using space
+      WORDCHARS='''
+
+      bind '"\e[A": history-search-backward'
+      bind '"\e[B": history-search-forward'
+
+      # tab complete
+      bind '"\t": menu-complete'
+      bind '"\e[Z": menu-complete-backward'
+
+      bind '"\e[M": kill-word'
+      bind '"\C-h": backward-kill-word'
+
       bind "set completion-ignore-case on"
       bind "set completion-map-case on"
       bind "set show-all-if-ambiguous on"
@@ -53,22 +70,38 @@
       bind "set page-completions off"
       bind "set skip-completed-text on"
       bind "set bell-style none"
-      bind '"\t": menu-complete'
-      bind '"\e[Z": menu-complete-backward'
-      bind '"\e[A": history-search-backward'
-      bind '"\e[B": history-search-forward'
-      bind '"\e[M": kill-word'
-      bind '"\C-h": backward-kill-word'
-      HISTFILESIZE=-1
-      HISTSIZE=''${HISTFILESIZE}
-      HISTCONTROL="erasedups:ignoreboth"
-      HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:?:??"
+      bind "set echo-control-characters off"
+
+      # Toggle backgrounding with <C-z>
+      stty susp undef
+      bind '"\C-z":"fg > /dev/null\015"'
+
+      # Save multi-line commands as one command
+      shopt -s cmdhist
+
+      # Do not overwrite history file
+      shopt -s histappend
+
+      # Automatically add  cd  when entering a path by itself
+      shopt -s autocd 2> /dev/null
+
+      # Correct spelling errors
+      shopt -s dirspell 2> /dev/null
+      shopt -s cdspell 2> /dev/null
+
+      # More globbing options!
+      shopt -s globstar 2> /dev/null
+      shopt -s extglob
+
+      # Case-insensitive globbing (used in pathname expansion)
+      shopt -s nocaseglob
+
+      # Update window size after every command
+      shopt -s checkwinsize
+
+      PROMPT_DIRTRIM=3
 
       eval `${pkgs.coreutils}/bin/dircolors "${./dircolors}"`
-      source ${pkgs.fzf}/share/fzf/completion.bash
-      source ${pkgs.fzf}/share/fzf/key-bindings.bash
-      FZF_CTRL_T_OPTS="--preview '${pkgs.bat}/bin/bat --color=always --line-range :500 {}'"
-      FZF_DEFAULT_COMMAND='${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git'
 
       stty -ixon
     '';
