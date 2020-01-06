@@ -1,36 +1,40 @@
 self: super:
 with super;
+with lib;
 let
-  vimrc = callPackage ./vimrc.nix { };
-  options = callPackage ./options.nix { };
-  mappings = callPackage ./mappings.nix { };
-  # customPlugins = import ./plugins.nix { inherit self super; };
-  # allPlugins = vimPlugins // customPlugins;
+  lsp = import ../lsp self super;
 in {
-  vim = ((vim_configurable.overrideAttrs (attrs: rec {
+  vim_one = ((vim_configurable.overrideAttrs (attrs: rec {
     name = "vim-${version}";
-    version = "8.2.0008";
+    version = "8.2.0090";
 
     src = fetchFromGitHub {
       owner = "vim";
       repo = "vim";
       rev = "v${version}";
-      sha256 = "09vxwjsywcgg426sshxbxwzm08v8qniqzask3zgyc37fwwmgsnqh";
+      sha256 = "1pq9i01kzvqzyw39qgakr7348n4c9ckjamlhjf3ls6sxg7fxpdcs";
     };
+    nativeBuildInputs = [ makeWrapper ];
+    postInstall = ''
+      wrapProgram $out/bin/vim --prefix PATH : ${
+        makeBinPath [
+          ag
+          fd
+          fzy
+          lsp.js.vim-language-server
+          lsp.js.import-js
+          lsp.js.stylelint
+          nodePackages.typescript
+          nodePackages.eslint
+          nodePackages.typescript-language-server
+          nodePackages.vscode-html-languageserver-bin
+          nodePackages.vscode-css-languageserver-bin
+          nixpkgs-fmt
+        ]
+      }
+    '';
   })).override {
     python = python3;
     ftNixSupport = false;
-  }).customize {
-    name = "vim";
-    vimrcConfig = {
-      packages.myVimPackage = with vimPlugins; {
-        start = [ vim-nix  ];
-      };
-      customRC = ''
-          ${vimrc}
-          ${options}
-          ${mappings}
-        '';
-      };
-    };
-    }
+  });
+}
