@@ -1,9 +1,10 @@
 self: super: {
-  myNodePackages = super.pkgs.callPackage ../../node-packages { };
   pack = with self;
     buildEnv {
       name = "pack";
       paths = [
+        aspell
+        aspellDicts.en
         tree
         htop
         xclip
@@ -12,49 +13,54 @@ self: super: {
         lm_sensors
         keepassxc
         pavucontrol
-        fzy
-        fzf
+        # fzy
         bat
-        fd
-        ag
-        fasd
+        # fd
+        # ag
         file
         mupdf
         pciutils
         mimeo
-        nixfmt
+        # nixfmt
+        # ueberzug
         # popcornTime
-        skypeforlinux
-        teamviewer
+        # skypeforlinux
+        # teamviewer
 
-        nodePackages.node2nix
-        nodePackages.bash-language-server
+        # nodePackages.ungit
+        # nodePackages.node2nix
+        # nodePackages.bash-language-server
         nodePackages.typescript
         nodePackages.eslint
         nodePackages.typescript-language-server
-        nodePackages.dockerfile-language-server-nodejs
+        nodePackages.vscode-html-languageserver-bin
+        nodePackages.vscode-css-languageserver-bin
+        # nodePackages.dockerfile-language-server-nodejs
 
-        nix-npm-install
         chromium
         firefox
 
         j4-dmenu-desktop
         lazygit
 
-        st
+        # nerdfont_dejavu
+        alacritty
+        tmuxPlugins.resurrect
+        tmuxPlugins.sensible
+        tmuxPlugins.prefix-highlight
+        tmuxPlugins.pain-control
+        # kitty
 
-        vimHugeX
+	      vim_one
         neovim
         editorconfig-core-c
-        vscode
-        emacs
+        kak
         # hnix-lsp
 
         vim-vint
         python37Packages.yamllint
-        # python27Packages.docker
-        # python37Packages.docker
 
+        kodiPlain
         spotify
         mpv
         moc
