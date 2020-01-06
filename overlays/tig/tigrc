@@ -69,6 +69,8 @@ bind main gas ?git pull --rebase --autostash
 bind main   gC ?git cherry-pick -n %(commit)
 bind status A ?git commit --amend
 bind status E ?git commit --amend --no-edit
+bind diff A ?git commit --amend
+bind diff E ?git commit --amend --no-edit
 
 # stash
 bind main  gst ?git stash
