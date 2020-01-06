@@ -1,4 +1,5 @@
 { config, lib, pkgs, options, ... }:
+with lib;
 
 {
 
@@ -6,12 +7,13 @@
 
   nix.buildCores = 0;
 
-  i18n = {
-    consoleFont = "ter-118n";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-    consolePackages = [ pkgs.terminus_font ];
+  console = {
+    font = "ter-118n";
+    keyMap = "us";
+    packages = [ pkgs.terminus_font ];
   };
+
+  i18n.defaultLocale = "en_US.UTF-8";
 
   powerManagement = { enable = true; };
 
@@ -44,6 +46,10 @@
   environment.variables = {
     EDITOR = "vim";
     VISUAL = "vim";
+    PAGER = mkForce "${pkgs.bat}/bin/bat";
+    BAT_PAGER = "${pkgs.less}/bin/less -RF";
+    BAT_THEME = "onedark";
+    BAT_STYLE = "full";
     PATH = "$PATH:~/.local/bin";
   };
 
@@ -70,17 +76,67 @@
     ssh.startAgent = true;
     java.enable = true;
     tmux = import ./tmux/tmux.nix { inherit pkgs; };
-    git.enable = true;
-    git.lfsEnable = true;
-    git.name = "vasile luta";
-    git.email = "elsile69@yahoo.com";
-    git.editor = "${pkgs.vim}/bin/vim";
-    git.pager =
-      "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=1,5 -XFR";
-    git.extraConfig = "";
-    git.difftool = "vim";
-    git.mergetool = "meld";
-    git.interface = pkgs.gitAndTools.tig;
+  };
+
+programs.git = {
+    enable = true;
+    lfsEnable = true;
+    user = ''
+      name = vasile luta
+      email = elsile69@yahoo.com
+    '';
+    core = ''
+      editor = ${pkgs.vim}/bin/vim
+      excludesfile = ~/.gitignore
+    '';
+    status = ''
+      showuntrackedfiles = all
+    '';
+    rerere = ''
+      enabled = 1
+      autoupdate = 1
+    '';
+    color = ''
+      ui = auto
+    '';
+    colorBranch = ''
+      current = yellow reverse
+      local = yellow
+      remote = green
+    '';
+    colorDiff = ''
+      meta = blue
+      frag = black
+      old = red
+      new = green
+    '';
+    colorStatus = ''
+      added = green
+      changed = yellow
+      untracked = cyan
+    '';
+    diff = ''
+      tool = vimdiff
+    '';
+    diffTool = ''
+      prompt = false
+      trustExitCode = true
+    '';
+    merge = ''
+      tool = vimdiff
+    '';
+    mergeTool = ''
+      conflictstyle = diff3
+      prompt = false
+      keepBackup = false
+    '';
+    alias = ''
+      lg = log --oneline --graph --all
+    '';
+    extraPackages = with pkgs; [
+      gitAndTools.tig
+      gitAndTools.git-imerge
+    ];
   };
 
   virtualisation = {
@@ -96,7 +152,7 @@
   #     };
   # };
 
-  environment.systemPackages = with pkgs; [ acl wget ];
+  environment.systemPackages = with pkgs; [ acl wget neovim ];
 
   nixpkgs.overlays = [
     (import ./overlays/packages)
@@ -104,12 +160,11 @@
     (import ./overlays/tmux)
     # (import ./overlays/emacs)
     (import ./overlays/vim)
-    # (import ./overlays/neovim)
+    (import ./overlays/neovim)
     (import ./overlays/lazygit)
     (import ./overlays/lsp)
     (import ./overlays/chromium)
     (import ./overlays/kakoune)
-    # (import ./overlays/st)
     (import ./overlays/alacritty)
     (import ./overlays/fonts)
     # (import ./overlays/ueberzug)
