@@ -1,0 +1,111 @@
+self: super:
+with super;
+with lib;
+let
+  vimrc = builtins.readFile ./config/vimrc;
+  options = builtins.readFile ./config/options.vim;
+  mappings = builtins.readFile ./config/mappings.vim;
+  plugrc = builtins.readFile ./config/plugrc.vim;
+  commands = builtins.readFile ./config/commands.vim;
+  autocmds = builtins.readFile ./config/autocmds.vim;
+  lsp = import ../lsp self super;
+  customPlugins = import ./plugins.nix { inherit self super; };
+  allPlugins = vimPlugins // customPlugins;
+  loadPlugin = p: ''
+    set rtp^=${p.rtp}
+    set rtp+=${p.rtp}/after
+  '';
+  ftplugins = ''
+    filetype off | syntax off
+    ${concatStrings (map loadPlugin ftPackages)}
+    filetype indent plugin on | syntax on
+  '';
+  ftPackages = with super.vimPlugins; [
+    vim-coffee-script
+    vim-jinja
+    vim-markdown
+    vim-json
+    vim-nix
+    vim-html-template-literals
+    customPlugins.vim-js
+    customPlugins.jsx
+    customPlugins.yats
+    customPlugins.twig
+  ];
+in {
+  vim_one = ((vim_configurable.overrideAttrs (attrs: rec {
+    name = "vim-${version}";
+    version = "8.2.0076";
+
+    src = fetchFromGitHub {
+      owner = "vim";
+      repo = "vim";
+      rev = "v${version}";
+      sha256 = "0i2navw22sfrixagz1d1b5c1cpkhx9iaw546z0rws034p1g04ndc";
+    };
+    nativeBuildInputs = [ makeWrapper ];
+    postInstall = ''
+      wrapProgram $out/bin/vim --prefix PATH : ${
+        makeBinPath [
+          ag
+          fd
+          fzy
+          lsp.js.vim-language-server
+          lsp.js.import-js
+          lsp.js.stylelint
+          nodePackages.typescript
+          nodePackages.eslint
+          nodePackages.typescript-language-server
+          nodePackages.vscode-html-languageserver-bin
+          nodePackages.vscode-css-languageserver-bin
+          nixpkgs-fmt
+        ]
+      }
+    '';
+  })).override {
+    python = python3;
+    ftNixSupport = false;
+  }).customize {
+    name = "vim";
+    vimrcConfig = {
+      packages.myVimPackage = with allPlugins; {
+        start = ftPackages ++ [ allfunc neomake vim-lsc ];
+        opt = [
+          vinegar
+          vim-fugitive
+          repeat
+          surround
+          tcomment_vim
+          vim-easy-align
+          multiple-cursors
+          vim-fugitive
+          vim-gitgutter
+          targets
+          vim-altscreen
+          vim-fzy
+          vim-mergetool
+          conflict-marker
+          auto-git-diff
+          vim-dispatch
+          asyncdo
+          vim-editorconfig
+          vim-indent-object
+          retro
+          min
+        ];
+      };
+      customRC = ''
+        ${ftplugins}
+        ${vimrc}
+        ${options}
+        let &t_SI.="\e[5 q"
+        let &t_SR.="\e[4 q"
+        let &t_EI.="\e[1 q"
+        ${mappings}
+        ${plugrc}
+        ${autocmds}
+        ${commands}
+      '';
+    };
+  };
+}

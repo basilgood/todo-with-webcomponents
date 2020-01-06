@@ -1,0 +1,61 @@
+set encoding=utf-8
+scriptencoding utf-8
+
+augroup vimRc
+  autocmd!
+augroup END
+
+if has('vim_starting')
+  let g:startuptime = reltime()
+  autocmd vimRc VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+        \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+endif
+
+" vim 8 defaults
+unlet! skip_defaults_vim
+silent! source $VIMRUNTIME/defaults.vim
+
+let g:loaded_rrhelper           = 1
+let g:did_install_default_menus = 1
+let g:is_bash                   = 1
+let g:sh_noisk                  = 1
+let g:loaded_vimball            = 1
+let g:loaded_vimballPlugin      = 1
+let g:loaded_getscript          = 1
+let g:loaded_getscriptPlugin    = 1
+let g:loaded_logipat            = 1
+let g:loaded_man                = 1
+
+" after vim start
+if has('vim_starting') && has('timers')
+  autocmd vimRc VimEnter * call timer_start(1, 'functions#packhandler', {'repeat': 0})
+endif
+
+" backup, swap, undo
+if !isdirectory($HOME.'/.cache/vim/undo-dir')
+  call mkdir($HOME.'/.cache/vim/undo-dir', 'p')
+endif
+set undodir=~/.cache/vim/undo-dir
+set undofile
+set nobackup
+set noswapfile
+
+" viminfo
+set viminfo=!,'300,<50,s10,h,n$HOME/.cache/vim/.viminfo
+
+" path
+set path& | let &path .= '**'
+
+filetype plugin indent on
+syntax on
+
+set background=dark
+silent! colorscheme min
+hi GitGutterAdd ctermfg=22
+hi GitGutterChange ctermfg=178
+hi GitGutterDelete ctermfg=196
+hi GitGutterChangeDelete ctermfg=160
+hi NeomakeErrorSign ctermfg=red ctermbg=235
+hi NeomakeWarningSign ctermfg=yellow ctermbg=235
+
+set secure
