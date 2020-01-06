@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-set path=.,**
+setglobal path=.,,
 set copyindent
 set preserveindent
 set softtabstop=2
@@ -16,6 +16,7 @@ set lazyredraw
 set shortmess+=aoOtTIc
 set noerrorbells
 set novisualbell
+set noshowmode
 set nowrap
 set splitbelow
 set splitright

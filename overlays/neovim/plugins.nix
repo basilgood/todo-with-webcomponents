@@ -53,6 +53,16 @@ with super;
     };
   };
 
+  nvim-lsp = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-lsp";
+    src = fetchFromGitHub {
+      owner = "neovim";
+      repo = "nvim-lsp";
+      rev = "7298dcacad5424cc4f3567143ae141265beb0734";
+      sha256 = "0m0k49sd1w73j75bcsc12x517lzqy8vfcv7vsnqjxc5asqk9r52j";
+    };
+  };
+
   yats = pkgs.vimUtils.buildVimPlugin {
     pname = "yats-vim";
     version = "0.1";

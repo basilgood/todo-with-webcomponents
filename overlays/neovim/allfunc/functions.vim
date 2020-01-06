@@ -69,6 +69,7 @@ endfunction
 
 " lazy load plugins
 function! functions#packaddhandler(timer)
+  execute 'packadd vim-lsp'
   execute 'packadd deoplete-nvim'
   execute 'packadd vim-fugitive'
   execute 'packadd vim-gitgutter'
@@ -86,14 +87,10 @@ function! functions#packaddhandler(timer)
   execute 'packadd auto-git-diff'
   execute 'packadd vim-html-template-literals'
   execute 'packadd vim-indent-object'
-  execute 'packadd quickfix-reflector-vim'
   execute 'packadd targets.vim'
   execute 'packadd vim-edgemotion'
   execute 'packadd vim-cool'
-  execute 'packadd vim-parenmatch'
-  execute 'packadd vim-submode'
-  execute 'packadd cmdline-completion'
-  execute 'packadd ferret'
   doautocmd fugitive BufReadPost
   doautocmd plugin-editorconfig BufReadPost
+  doautocmd lsp_auto_enable VimEnter
 endfunction

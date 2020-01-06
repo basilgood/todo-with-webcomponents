@@ -35,8 +35,28 @@ let
   commands = builtins.readFile ./config/commands.vim;
   autocmds = builtins.readFile ./config/autocmds.vim;
 
+  neovimLuaEnv = lua.withPackages(ps:
+    (with ps; [ compat53 lpeg luabitop luv luv-dev mpack ]
+    ++ optionals doCheck [
+        nvim-client coxpcall busted luafilesystem penlight inspect
+      ]
+    ));
+
 in
 {
+
+  neovim-unwrapped = (neovim-unwrapped).overrideAttrs (old: rec {
+    name = "neovim-unwrapped-${version}";
+    version = "nightly";
+    src = fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      rev = "34a59242a0d42687a49119cca590e7b4203496ef";
+      sha256 = "0gs0h16jwr52k8mjb38bk69f4zkwzybm8l1vi5gadbqk7b3jvhjy";
+    };
+    NIX_CFLAGS_COMPILE = "-O3 -march=native";
+    buildInputs = old.buildInputs ++ [ utf8proc];
+  });
 
   neovim = neovim.override {
     withNodeJs = true;
@@ -62,13 +82,14 @@ in
 
         start = ftPackages ++ [
           allfunc
+          async.vim
           neomake
           repeat
-          LanguageClient-neovim
-          async.vim
+          # nvim-lsp
         ];
 
         opt = [
+          vim-lsp
           vim-picker
           deoplete-nvim
           ags
