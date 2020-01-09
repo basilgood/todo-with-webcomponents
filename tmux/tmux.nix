@@ -1,15 +1,15 @@
 { pkgs }: {
   enable = true;
   baseIndex = 1;
-  terminal = "tmux-256color";
+  terminal = "xterm-256color";
   keyMode = "vi";
   extraTmuxConf = ''
       # Automatically set window title
       set-window-option -g automatic-rename on
       set-option -g set-titles on
       set-option -g renumber-windows on
-      set-window-option -g xterm-keys on
-      set -ga terminal-overrides ",xterm-256color:Tc"
+      # set-window-option -g xterm-keys on
+      # set -ga terminal-overrides ",xterm-256color:Tc"
       set -g focus-events on
       setw -g mouse on
       setw -g monitor-activity on
