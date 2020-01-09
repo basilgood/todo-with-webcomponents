@@ -78,7 +78,7 @@ with lib;
     tmux = import ./tmux/tmux.nix { inherit pkgs; };
   };
 
-programs.git = {
+  programs.git = {
     enable = true;
     lfsEnable = true;
     user = ''
@@ -133,10 +133,7 @@ programs.git = {
     alias = ''
       lg = log --oneline --graph --all
     '';
-    extraPackages = with pkgs; [
-      gitAndTools.tig
-      gitAndTools.git-imerge
-    ];
+    extraPackages = with pkgs; [ gitAndTools.tig gitAndTools.git-imerge ];
   };
 
   virtualisation = {
