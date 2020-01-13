@@ -67,7 +67,6 @@ in
         fzy
         lsp.js.vim-language-server
         lsp.js.import-js
-        lsp.js.stylelint
         nodePackages.typescript
         nodePackages.eslint
         nodePackages.typescript-language-server

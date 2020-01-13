@@ -137,25 +137,29 @@ with lib;
   };
 
   virtualisation = {
-    lxc.enable = true;
-    docker.enable = true;
+    lxc = {
+      enable = true;
+      lxcfs.enable = true;
+      net.enable = true;
+    };
+    lxd.enable = true;
+    # virtualbox.host.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
-  # nixpkgs.config.packageOverrides = pkgs: {
-  #   nur = import (builtins.fetchTarball
-  #     "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-  #       inherit pkgs;
-  #     };
-  # };
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
 
-  environment.systemPackages = with pkgs; [ acl wget neovim ];
+  environment.systemPackages = with pkgs;
+    [ acl wget neovim ];
 
   nixpkgs.overlays = [
     (import ./overlays/packages)
     (import ./overlays/tig)
     (import ./overlays/tmux)
-    # (import ./overlays/emacs)
     (import ./overlays/vim)
     (import ./overlays/neovim)
     (import ./overlays/lazygit)
@@ -164,7 +168,7 @@ with lib;
     (import ./overlays/kakoune)
     (import ./overlays/alacritty)
     (import ./overlays/fonts)
-    # (import ./overlays/ueberzug)
+    (import ./overlays/lxd)
     # (import ./overlays/nixfmt)
     # (import ./overlays/popcorn)
     # (import ./overlays/nodeEnv)

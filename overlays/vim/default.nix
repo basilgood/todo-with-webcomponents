@@ -6,13 +6,13 @@ let
 in {
   vim_one = ((vim_configurable.overrideAttrs (attrs: rec {
     name = "vim-${version}";
-    version = "8.2.0090";
+    version = "8.2.0114";
 
     src = fetchFromGitHub {
       owner = "vim";
       repo = "vim";
       rev = "v${version}";
-      sha256 = "1pq9i01kzvqzyw39qgakr7348n4c9ckjamlhjf3ls6sxg7fxpdcs";
+      sha256 = "043sa5mqwnjy0mq6ldir067xk4dpv98xhkv4v0xyqi0sxigbcpla";
     };
     nativeBuildInputs = [ makeWrapper ];
     postInstall = ''
@@ -23,9 +23,11 @@ in {
           fzy
           lsp.js.vim-language-server
           lsp.js.import-js
-          lsp.js.stylelint
+          lsp.js.diagnostic-languageserver
           nodePackages.typescript
           nodePackages.eslint
+          nodePackages.eslint_d
+          nodePackages.prettier
           nodePackages.typescript-language-server
           nodePackages.vscode-html-languageserver-bin
           nodePackages.vscode-css-languageserver-bin

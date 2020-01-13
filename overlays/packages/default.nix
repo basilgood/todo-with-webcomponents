@@ -7,7 +7,6 @@ self: super: {
         aspellDicts.en
         tree
         htop
-        xclip
         p7zip
         unzip
         lm_sensors
@@ -21,21 +20,12 @@ self: super: {
         mupdf
         pciutils
         mimeo
-        # nixfmt
-        # ueberzug
-        # popcornTime
-        # skypeforlinux
-        # teamviewer
 
-        # nodePackages.ungit
-        # nodePackages.node2nix
-        # nodePackages.bash-language-server
         nodePackages.typescript
         nodePackages.eslint
         nodePackages.typescript-language-server
         nodePackages.vscode-html-languageserver-bin
         nodePackages.vscode-css-languageserver-bin
-        # nodePackages.dockerfile-language-server-nodejs
 
         chromium
         firefox
@@ -51,11 +41,11 @@ self: super: {
         tmuxPlugins.pain-control
         # kitty
 
-	      vim_one
+        vim_one
         neovim
+        nixpkgs-fmt
         editorconfig-core-c
         kak
-        # hnix-lsp
 
         vim-vint
         python37Packages.yamllint

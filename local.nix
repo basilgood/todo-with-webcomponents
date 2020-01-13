@@ -15,6 +15,7 @@
         "networkmanager"
         "systemd-journal"
         "lxd"
+        "lxc"
         "docker"
         "vboxusers"
         "sway"

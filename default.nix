@@ -8,5 +8,7 @@
     ./desktop/waybar.nix
     ./lf/lf.nix
     ./vifm
+    ./virtualisation/lxc.nix
+    ./virtualisation/lxd.nix
   ];
 }

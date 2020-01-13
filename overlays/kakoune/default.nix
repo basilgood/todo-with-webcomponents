@@ -37,7 +37,7 @@ in {
       hook global WinCreate .* %{
         addhl window/wrap wrap -marker '↪ '
         addhl window/number-lines number-lines -hlcursor
-        addhl window/show-whitespaces show-whitespaces -tab '│' -tabpad ' ' -lf ' ' -spc ' ' -nbsp '⍽'
+        addhl window/show-whitespaces show-whitespaces -tab '›' -tabpad ' ' -lf ' ' -spc ' ' -nbsp '⍽'
         addhl window/show-matching show-matching
         addhl window/regex regex \b(TODO|FIXME|XXX|NOTE|BUG|DEBUG|TBD|HACK)\b 0:default+rb
         addhl window/regex regex '[^\S\n]+$' 0:Error
