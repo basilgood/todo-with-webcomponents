@@ -3,7 +3,7 @@ with lib;
 
 {
 
-  boot = { kernelPackages = pkgs.linuxPackages_latest; };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nix.buildCores = 0;
 
@@ -123,10 +123,10 @@ with lib;
       trustExitCode = true
     '';
     merge = ''
-      tool = vimdiff
+      conflictStyle = diff3
     '';
     mergeTool = ''
-      conflictstyle = diff3
+      tool = vimdiff
       prompt = false
       keepBackup = false
     '';
