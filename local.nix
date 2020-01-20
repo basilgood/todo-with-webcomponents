@@ -16,6 +16,7 @@
         "systemd-journal"
         "lxd"
         "lxc"
+        "kvm"
         "docker"
         "vboxusers"
         "sway"
