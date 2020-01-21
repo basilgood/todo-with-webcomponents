@@ -23,11 +23,11 @@ let g:loaded_logipat            = 1
 let g:loaded_man                = 1
 
 """" after vim start
-if has('vim_starting') && has('timers')
-  autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
-endif
+" if has('vim_starting') && has('timers')
+"   autocmd vimRc VimEnter * call timer_start(1, 'functions#packaddhandler', {'repeat': 0})
+" endif
 
-colorscheme retro
-hi link jsVariableType Statement
+" colorscheme retro
+" hi link jsVariableType Statement
 
 set secure

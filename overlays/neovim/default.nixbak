@@ -3,7 +3,6 @@ with super;
 with lib;
 let
   lsp = import ../lsp self super;
-  plugins = callPackage ./plugins.nix {};
 in
 {
   neovim-unwrapped = (neovim-unwrapped).overrideAttrs (
@@ -42,17 +41,6 @@ in
 
   neovim = neovim.override {
     withNodeJs = true;
-    configure = {
-      plug.plugins = with pkgs.vimPlugins; [vim-nix ];
-      customRC = ''
-        ${builtins.readFile ./config/init.vim};
-        ${builtins.readFile ./config/options.vim};
-        ${builtins.readFile ./config/mappings.vim};
-        ${builtins.readFile ./config/commands.vim};
-        ${builtins.readFile ./config/autocmds.vim};
-        ${builtins.readFile ./config/plugins.vim};
-        ${builtins.readFile ./config/min.vim};
-      '';
-    };
+    configure = {};
   };
 }
