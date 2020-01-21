@@ -58,3 +58,4 @@ in {
     name = "vim-surround";
     src = pluginSrc ./plugins/tpope.vim-surround.nix;
   };
+}
