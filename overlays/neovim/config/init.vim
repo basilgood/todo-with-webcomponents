@@ -30,4 +30,4 @@ let g:loaded_man                = 1
 " colorscheme retro
 " hi link jsVariableType Statement
 
-set secure
+" set secure

@@ -1,94 +1,36 @@
 scriptencoding utf-8
 
-"""" neomake
-let g:neomake_warning_sign = {
-      \ 'text': '_w',
-      \ }
-let g:neomake_error_sign = {
-      \ 'text': '_e',
-      \ }
-augroup my_neomake
-  au!
-  autocmd FileType * call neomake#configure#automake_for_buffer('nw', 1000)
-augroup END
-
-"""" deoplete
+" deoplete
 let g:deoplete#enable_at_startup = 1
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
-"""" lsp
-" let g:lsp_diagnostics_enabled = 1
-" let g:lsp_signs_enabled = 1
-" let g:lsp_diagnostics_echo_cursor = 1
+" ale
+let g:ale_set_signs = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 0
+let g:ale_code_actions_enabled = 1
+let g:ale_sign_info = '_i'
+let g:ale_sign_error = '_e'
+let g:ale_sign_warning = '_w'
+let g:ale_set_balloons = 1
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_echo_msg_format = '%linter%: %s %severity%'
+let g:ale_linters = {
+      \   'jsx': ['eslint'],
+      \   'javascript': ['eslint'],
+      \   'typescript': ['eslint'],
+      \}
+let g:ale_fixers = {
+      \   'javascript': ['prettier', 'eslint'],
+      \   'html': ['prettier', 'eslint'],
+      \   'yaml': ['prettier'],
+      \   'nix': ['nixpkgs-fmt']
+      \}
 
-let g:lsp_signs_enabled = 1
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_virtual_text_enabled = 1
-let g:lsp_signs_error = {'text': '✗'}
-let g:lsp_signs_warning = {'text': '‼'}
-let g:lsp_signs_information = {'text': 'i'}
-let g:lsp_signs_hint = {'text': '?'}
-let g:lsp_virtual_text_prefix = ' ‣ '
-
-let g:lsp_highlight_references_enabled = 0
-
-let g:lsp_preview_float = 1
-
-if executable('typescript-language-server')
-  autocmd vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio',]},
-        \ 'whitelist': ['javascript', 'typescript', 'typescriptreact'],
-        \ })
-endif
-
-if executable('vim-language-server')
-  autocmd vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'vim-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vim-language-server --stdio',]},
-        \ 'whitelist': ['vim'],
-        \ })
-endif
-
-if executable('html-languageserver')
-  autocmd vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'html-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
-        \ 'whitelist': ['html', 'html.twig', 'jinja.html'],
-        \ })
-endif
-
-if executable('css-languageserver')
-  autocmd vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'css-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio',]},
-        \ 'whitelist': ['css', 'less', 'sass'],
-        \ })
-endif
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  nnoremap [a :<C-u>LspCodeAction<CR>
-  nnoremap [D :<C-u>LspDeclaration<CR>
-  nnoremap [d :<C-u>LspDefinition<CR>
-  nnoremap [q :<C-u>LspDocumentDiagnostics<CR>
-  nnoremap [r :<C-u>LspRename<CR>
-  nnoremap [R :<C-u>LspReferences<CR>
-  nnoremap [p :<C-u>LspPreviousError<CR>
-  nnoremap [n :<C-u>LspNextError<CR>
-  nnoremap [f :<C-u>LspDocumentFormat<CR>
-  vnoremap [f :<C-u>LspDocumentRangeFormat<CR>
-  nnoremap [t :<C-u>LspTypeDefinition<CR>
-  nnoremap [s :<C-u>LspDocumentSymbol<CR>
-  nnoremap [S :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap [? :<C-u>LspStatus<CR>
-  nnoremap K :<c-u>LspHover<cr>
-endfunction
-
-autocmd vimRc User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+nnoremap [a :ALEPreviousWrap<CR>
+nnoremap ]a :ALENextWrap<CR>
 
 """" git, fugitive
 nnoremap [git]  <Nop>
@@ -137,24 +79,17 @@ let g:editorconfig_blacklist  = {
 """" netrw
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
 let g:netrw_altfile             = 1
-let g:netrw_sort_dotfiles_first = 1
-let g:netrw_dirhistmax          = 0
-let g:netrw_banner = 0
-let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_list_hide='^\./$,^\../$'
-setlocal bufhidden=delete
+function! Innetrw() abort
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+  nmap <buffer> gq :bn<bar>bd#<cr>
+  nmap <buffer> D .!rm -rf
+endfunction
+autocmd vimRc FileType netrw call Innetrw()
 
-nmap <silent> - :call functions#opendir()<CR>
-
-"""" picker
-nnoremap <C-p> :PickerEdit<CR>
-nnoremap <C-t> :PickerEdit %:h<CR>
-nnoremap <bs> :PickerBuffer<cr>
-
-"""" ags
-let g:ags_enable_async = 1
-let g:ags_winplace = 'right'
-nnoremap <Leader>a :Ags<Space>
+"""" neovim-fuzzy
+nnoremap <C-p> :packadd vim-picker<cr>:PickerEdit<CR>
+nnoremap <bs> :packadd vim-picker<cr>:PickerBuffer<CR>
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
@@ -162,10 +97,3 @@ let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=
 """" easy-align.
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
-
-"""" edgemotion
-map <C-j> <Plug>(edgemotion-j)
-map <C-k> <Plug>(edgemotion-k)
-
-"""" cool
-let g:CoolTotalMatches = 1

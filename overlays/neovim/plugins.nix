@@ -1,61 +1,66 @@
 { pkgs, fetchFromGitHub }:
 let
-buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
-pluginSrc = src: (import src) { inherit
-fetchFromGitHub; };
+  buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
+  pluginSrc = src: (import src) { inherit fetchFromGitHub; };
 in {
-  purescript-vim = buildVimPlugin {
-    name = "purescript-vim";
-    src = pluginSrc ./plugins/purescript-contrib.purescript-vim.nix;
+  nvimlsp = buildVimPlugin {
+    name = "nvim-lsp";
+    src = pluginSrc ./plugins/nvim-lsp.nix;
   };
-
-  # LanguageClient-neovim = buildVimPlugin {
-  #   name = "LanguageClient-neovim";
-  #   src = pluginSrc ./plugins/autozimu.LanguageClient-neovim.nix;
-  # };
-
-  vim-commentary = buildVimPlugin {
-    name = "vim-commentary";
-    src = pluginSrc ./plugins/tpope.vim-commentary.nix;
+  ale = buildVimPlugin {
+    name = "ale";
+    src = pluginSrc ./plugins/ale.nix;
   };
-
-  vim-repeat = buildVimPlugin {
-    name = "vim-repeat";
-    src = pluginSrc ./plugins/tpope.vim-repeat.nix;
-  };
-
-  deoplete-nvim = buildVimPlugin {
-    name = "deoplete-nvim";
+  deoplete = buildVimPlugin {
+    name = "deoplete.nvim";
     src = pluginSrc ./plugins/deoplete.nix;
   };
-
-  neovim-fuzzy = buildVimPlugin {
-    name = "neovim-fuzzy";
-    src = pluginSrc ./plugins/cloudhead.neovim-fuzzy.nix;
+  deoplete-lsp = buildVimPlugin {
+    name = "deoplete-lsp";
+    src = pluginSrc ./plugins/deoplete-lsp.nix;
   };
-
-  editorconfig-vim = buildVimPlugin {
-    name = "editorconfig-vim";
-    src = pluginSrc ./plugins/editorconfig.editorconfig-vim.nix;
-  };
-
-  neomake = buildVimPlugin {
-    name = "neomake";
-    src = pluginSrc ./plugins/neomake.neomake.nix;
-  };
-
-  vim-javascript = buildVimPlugin {
-    name = "vim-javascript";
-    src = pluginSrc ./plugins/pangloss.vim-javascript.nix;
-  };
-
-  vim-fugitive = buildVimPlugin {
+  vimfugitive = buildVimPlugin {
     name = "vim-fugitive";
-    src = pluginSrc ./plugins/tpope.vim-fugitive.nix;
+    src = pluginSrc ./plugins/fugitive.nix;
   };
-
-  vim-surround = buildVimPlugin {
-    name = "vim-surround";
-    src = pluginSrc ./plugins/tpope.vim-surround.nix;
+  dispatch = buildVimPlugin {
+    name = "vim-dispatch";
+    src = pluginSrc ./plugins/dispatch.nix;
+  };
+  vim-picker = buildVimPlugin {
+    name = "vim-picker";
+    src = pluginSrc ./plugins/vim-picker.nix;
+  };
+  sgureditorconfig = buildVimPlugin {
+    name = "vim-editorconfig";
+    src = pluginSrc ./plugins/vim-editorconfig.nix;
+  };
+  hlyank = buildVimPlugin {
+    name = "hlyank.vim";
+    src = pluginSrc ./plugins/hlyank.nix;
+  };
+  vim-async-grep = buildVimPlugin {
+    name = "vim-async-grep";
+    src = pluginSrc ./plugins/vim-async-grep.nix;
+  };
+  conflict-marker = buildVimPlugin {
+    name = "conflict-marker.vim";
+    src = pluginSrc ./plugins/conflict-marker.nix;
+  };
+  vimjavascript = buildVimPlugin {
+    name = "vim-javascript";
+    src = pluginSrc ./plugins/vim-javascript.nix;
+  };
+  vim-pug = buildVimPlugin {
+    name = "vim-pug";
+    src = pluginSrc ./plugins/vim-pug.nix;
+  };
+  vim-pug-complete = buildVimPlugin {
+    name = "vim-pug-complete";
+    src = pluginSrc ./plugins/vim-pug-complete.nix;
+  };
+  vim-fixjson = buildVimPlugin {
+    name = "vim-fixjson";
+    src = pluginSrc ./plugins/vim-fixjson.nix;
   };
 }

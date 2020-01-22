@@ -23,7 +23,15 @@ autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
 
 " update diff
 autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
-autocmd vimRc BufEnter * if &diff | call functions#diff_maps() | endif
+
+" diff mappings
+function! Diffmaps()
+  nnoremap <buffer> zp :diffput<CR>
+  nnoremap <buffer> zg :diffget<CR>
+  vnoremap <buffer> zg :diffget<CR>
+  vnoremap <buffer> zp :diffput<CR>
+endfunction
+autocmd vimRc BufEnter * if &diff | call Diffmaps() | endif
 
 " external changes
 autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutter | endif
@@ -43,11 +51,18 @@ autocmd vimRc BufReadPost *
 " fugitive files
 autocmd vimRc FileType git setlocal nofoldenable
 
-" fix insert leave
-autocmd vimRc InsertLeave * call functions#insertleave()
-
 " hlsearch
-autocmd vimRc CursorMoved,InsertLeave * call functions#highlight_current()
+highlight default link CurrentSearch IncSearch
+command! -bar Nohlsearch ClearCurrentSearch | nohlsearch
+command! -bar ClearCurrentSearch silent! call matchdelete(get(s:, 'current_search_id', -1))
+function! HighlightCurrent() abort
+  ClearCurrentSearch
+  if get(v:, 'hlsearch', 0) == 1
+    let pat = (&ignorecase && (!&smartcase || @/ !~# '\u')  ? '\c' : '\C') . '\m\%#' . (&magic ? '' : '\M') . @/
+    let s:current_search_id = matchadd('CurrentSearch', pat, 10, get(s:, 'current_search_id', -1))
+  endif
+endfunction
+autocmd vimRc CursorMoved,InsertLeave * call HighlightCurrent()
 
 " filetype
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript

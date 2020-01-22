@@ -136,14 +136,22 @@ nnoremap <silent> <space>n :Nohlsearch<cr>
 
 " toggles
 nnoremap cos
-      \ :<C-u>call functions#toggle_option('spell')<CR>
+      \ :<C-u>call Toggleoption('spell')<CR>
 nnoremap cow
-      \ :<C-u>call functions#toggle_option('wrap')<CR>
+      \ :<C-u>call Toggleoption('wrap')<CR>
 nnoremap con
-      \ :<C-u>call functions#toggle_option('relativenumber')<CR>
+      \ :<C-u>call Toggleoption('relativenumber')<CR>
 nnoremap col
-      \ :<C-u>call functions#toggle_option('cursorline')<CR>
+      \ :<C-u>call Toggleoption('cursorline')<CR>
 nnoremap coc
-      \ :<C-u>call functions#toggle_option('cursorcolumn')<CR>
+      \ :<C-u>call Toggleoption('cursorcolumn')<CR>
 nnoremap cof
-      \ :<C-u>call functions#togglefixonsave()<CR>
+      \ :<C-u>call Alefixonsave()<CR>
+function! Toggleoption(option_name) abort
+  execute 'setlocal' a:option_name.'!'
+  execute 'setlocal' a:option_name.'?'
+endfunction
+function! Alefixonsave() abort
+    let g:ale_fix_on_save = !g:ale_fix_on_save
+    echo g:ale_fix_on_save == 1 ? 'ale_fix_on_save enabled' : 'ale_fix_on_save disabled'
+endfunction
