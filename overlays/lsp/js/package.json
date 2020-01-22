@@ -1,5 +1,6 @@
 [
   "vim-language-server",
   "diagnostic-languageserver",
+  "fixjson",
   "import-js"
 ]
