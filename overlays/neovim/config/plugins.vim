@@ -1,6 +1,29 @@
 scriptencoding utf-8
 
+" lsp
+autocmd vimRc BufReadPost *
+      \ execute 'packadd nvim-lsp'
+lua << EOF
+if not package.loaded.nvim_lsp then
+  vim.cmd 'packadd nvim-lsp'
+  vim._update_package_paths()
+end
+local nvim_lsp = require'nvim_lsp'
+
+nvim_lsp.tsserver.setup {
+  cmd = {'typescript-language-server', '--stdio'},
+  filetypes = { 'javascript', 'typescript' }
+}
+
+nvim_lsp.vimls.setup {
+  cmd = {'vim-language-server', '--stdio'},
+  filetypes = { 'vim' }
+}
+EOF
+
 " deoplete
+autocmd vimRc BufReadPost *
+      \ execute 'packadd deoplete.nvim'
 let g:deoplete#enable_at_startup = 1
 
 " ale
@@ -31,8 +54,14 @@ let g:ale_fixers = {
 
 nnoremap [a :ALEPreviousWrap<CR>
 nnoremap ]a :ALENextWrap<CR>
+autocmd vimRc BufReadPost *
+      \ execute 'packadd ale'
 
 """" git, fugitive
+autocmd vimRc BufReadPre *
+      \ execute 'packadd vim-fugitive'
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-dispatch'
 nnoremap [git]  <Nop>
 nmap <space>g [git]
 nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
@@ -46,30 +75,60 @@ endfunction
 autocmd vimRc FileType fugitive call InFugitive()
 
 """" gitgutter
+let g:gitgutter_sign_priority = 8
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_sign_added              = '|'
+let g:gitgutter_sign_modified           = '|'
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
 
-"""" mergetool
+" git
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-mergetool'
+autocmd vimRc BufReadPre *
+      \ execute 'packadd conflict-marker.vim'
+autocmd vimRc FileType gitrebase
+      \ execute 'packadd auto-git-diff'
 let g:mergetool_layout = 'bmr'
 nmap [git]m <plug>(MergetoolToggle)
 nmap <expr> <C-Left> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-Left>'
 nmap <expr> <C-Right> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-Right>'
 nmap <expr> <C-Down> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-Down>'
 nmap <expr> <C-Up> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-Up>'
-if &diff == 1
-  vmap <silent> <buffer> dg :diffget<CR>
-  vmap <silent> <buffer> dp :diffput<CR>
-  nmap <silent> <buffer> dg V:diffget<CR>
-  nmap <silent> <buffer> dp V:diffput<CR>
+if &diff
+  vmap <silent> <buffer> zg :diffget<CR>
+  vmap <silent> <buffer> zp :diffput<CR>
+  nmap <silent> <buffer> zg V:diffget<CR>
+  nmap <silent> <buffer> zp V:diffput<CR>
 endif
 
 """" surround.
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-surround'
 let surround_indent=1
 nmap S ysiw
 
+" tcomment_vim
+autocmd vimRc BufReadPost *
+      \ execute 'packadd tcomment_vim'
+
+" hlyank
+autocmd vimRc BufReadPost *
+      \ execute 'packadd hlyank.vim'
+
+" targets
+autocmd vimRc BufReadPost *
+      \ execute 'packadd targets-vim'
+
+" vim-async-grep
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-async-grep'
+
 """" editorconfig.
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-editorconfig'
 let g:editorconfig_root_chdir = 1
 let g:editorconfig_verbose    = 1
 let g:editorconfig_blacklist  = {
@@ -88,12 +147,19 @@ endfunction
 autocmd vimRc FileType netrw call Innetrw()
 
 """" neovim-fuzzy
-nnoremap <C-p> :packadd vim-picker<cr>:PickerEdit<CR>
-nnoremap <bs> :packadd vim-picker<cr>:PickerBuffer<CR>
+let g:fuzzy_bufferpos = 'botright'
+nnoremap <C-p> :packadd neovim-fuzzy<cr>:FuzzyOpen<cr>
+nnoremap <leader>g :packadd neovim-fuzzy<cr>:FuzzyGrep<space>
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
 
 """" easy-align.
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-easy-align'
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
+
+" html-template-literals
+let g:htl_all_templates = 1
+let g:htl_css_templates = 1

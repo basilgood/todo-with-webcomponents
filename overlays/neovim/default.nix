@@ -4,6 +4,10 @@ with lib;
 let
   lsp = import ../lsp self super;
   extraPlugins = callPackage ./plugins.nix { };
+  loadPlugin = plugin: ''
+    set rtp^=${plugin.rtp}
+    set rtp+=${plugin.rtp}/after
+  '';
 in {
   neovim-unwrapped = (neovim-unwrapped).overrideAttrs (old: rec {
     name = "neovim-unwrapped-${version}";
@@ -11,8 +15,8 @@ in {
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "5355cee77d7b3b62917036281406726832b6d7dc";
-      sha256 = "0qk8r84v6aa6f0maqd02c2xzcb6bj9ahx0mwf72qvc7gwc64843r";
+      rev = "97dcc48c998ccecaa37a3cbea568d85c2f1407f9";
+      sha256 = "1cnqmgfa33k6x0rbx5dhdqn1819rsggrwr0l4xwia8awbiwq93ym";
     };
     nativeBuildInputs = old.nativeBuildInputs ++ [ utf8proc makeWrapper ];
     postInstall = old.postInstall + ''
@@ -34,37 +38,23 @@ in {
           nodePackages.vscode-css-languageserver-bin
           nixpkgs-fmt
           nixfmt
+          editorconfig-core-c
         ]
       }
     '';
   });
 
-  neovim = neovim.override {
+  neovim = (neovim.override {
     withNodeJs = true;
     configure = {
       packages.myVimPackage = with vimPlugins // extraPlugins; {
         start = [
-          # nvim-lsp
-          ale
-          deoplete
           deoplete-lsp
           vim-nix
-          vimfugitive
-          dispatch
           vinegar
           gitgutter
-          easy-align
-          surround
           repeat
-          sgureditorconfig
-          tcomment_vim
-          targets-vim
-          hlyank
           quickfix-reflector-vim
-          vim-async-grep
-          vim-mergetool
-          conflict-marker
-          auto-git-diff
           vimjavascript
           vim-pug
           vim-pug-complete
@@ -73,10 +63,30 @@ in {
           vim-jinja
           vim-twig
           vim-fixjson
+          lithtml
         ];
-        opt = [ vim-picker ];
+        opt = [
+          nvim-lsp
+          ale
+          deoplete
+          neovimfuzzy
+          vimfugitive
+          dispatch
+          easy-align
+          vim-surround
+          sgureditorconfig
+          tcomment_vim
+          hlyank
+          targets-vim
+          vim-async-grep
+          vim-mergetool
+          conflict-marker
+          auto-git-diff
+        ];
       };
       customRC = ''
+        filetype plugin indent on
+        syntax enable
         ${builtins.readFile ./config/init.vim};
         ${builtins.readFile ./config/options.vim};
         ${builtins.readFile ./config/mappings.vim};
@@ -86,5 +96,9 @@ in {
         ${builtins.readFile ./config/colorscheme.vim};
       '';
     };
-  };
+  }).overrideAttrs (old: rec {
+    buildCommand = ''
+      export HOME=$TMPDIR
+    '' + old.buildCommand;
+  });
 }

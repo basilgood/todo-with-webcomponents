@@ -141,8 +141,13 @@ nnoremap cow
       \ :<C-u>call Toggleoption('wrap')<CR>
 nnoremap con
       \ :<C-u>call Toggleoption('relativenumber')<CR>
-nnoremap col
-      \ :<C-u>call Toggleoption('cursorline')<CR>
+if &diff
+  nnoremap col
+        \ :windo set cursorline!<cr>
+else
+  nnoremap col
+        \ :<C-u>call Toggleoption('cursorline')<CR>
+endif
 nnoremap coc
       \ :<C-u>call Toggleoption('cursorcolumn')<CR>
 nnoremap cof
@@ -152,6 +157,6 @@ function! Toggleoption(option_name) abort
   execute 'setlocal' a:option_name.'?'
 endfunction
 function! Alefixonsave() abort
-    let g:ale_fix_on_save = !g:ale_fix_on_save
-    echo g:ale_fix_on_save == 1 ? 'ale_fix_on_save enabled' : 'ale_fix_on_save disabled'
+  let g:ale_fix_on_save = !g:ale_fix_on_save
+  echo g:ale_fix_on_save == 1 ? 'ale_fix_on_save enabled' : 'ale_fix_on_save disabled'
 endfunction

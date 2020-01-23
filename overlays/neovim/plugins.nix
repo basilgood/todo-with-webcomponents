@@ -1,10 +1,15 @@
 { pkgs, fetchFromGitHub }:
 let
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
-  pluginSrc = src: (import src) { inherit fetchFromGitHub; };
-in {
+  pluginSrc = src: (import src) {
+    inherit
+      fetchFromGitHub
+      ;
+  };
+in
+{
   nvimlsp = buildVimPlugin {
-    name = "nvim-lsp";
+    pname = "nvim-lsp";
     src = pluginSrc ./plugins/nvim-lsp.nix;
   };
   ale = buildVimPlugin {
@@ -27,9 +32,9 @@ in {
     name = "vim-dispatch";
     src = pluginSrc ./plugins/dispatch.nix;
   };
-  vim-picker = buildVimPlugin {
-    name = "vim-picker";
-    src = pluginSrc ./plugins/vim-picker.nix;
+  neovimfuzzy = buildVimPlugin {
+    name = "neovim-fuzzy";
+    src = pluginSrc ./plugins/neovim-fuzzy.nix;
   };
   sgureditorconfig = buildVimPlugin {
     name = "vim-editorconfig";
@@ -50,6 +55,10 @@ in {
   vimjavascript = buildVimPlugin {
     name = "vim-javascript";
     src = pluginSrc ./plugins/vim-javascript.nix;
+  };
+  lithtml = buildVimPlugin {
+    name = "vim-html-template-literals";
+    src = pluginSrc ./plugins/lithtml.nix;
   };
   vim-pug = buildVimPlugin {
     name = "vim-pug";
