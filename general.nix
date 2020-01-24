@@ -169,6 +169,7 @@ with lib;
     (import ./overlays/alacritty)
     (import ./overlays/fonts)
     (import ./overlays/lxd)
+    (import ./overlays/scout)
     # (import ./overlays/nixfmt)
     # (import ./overlays/popcorn)
     # (import ./overlays/nodeEnv)

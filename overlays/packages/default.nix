@@ -46,6 +46,7 @@ self: super: {
         nixpkgs-fmt
         editorconfig-core-c
         kak
+        scout
 
         vim-vint
         python37Packages.yamllint
