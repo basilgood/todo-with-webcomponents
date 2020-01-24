@@ -139,15 +139,12 @@ function! Innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
 
-"""" leadef
-let g:Lf_PreviewInPopup = 1
-let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShortcutB = '<bs>'
-let g:Lf_WindowHeight = 0.25
-let g:Lf_CursorBlink = 0
-let g:Lf_CacheDirectory = '/tmp'
-nnoremap <C-p> :packadd LeaderF<cr>:LeaderfFile<cr>
+"""" scout
+let g:scout_command = '/etc/profiles/per-user/vasy/bin/scout'
+let g:scout_find_files_command = 'fd --type f --hidden --follow --exclude .git'
+let g:scout_size = '15%'
+nnoremap <C-p> :packadd scout.vim<cr>:ScoutFiles<cr>
+nnoremap <bs> :packadd scout.vim<cr>:ScoutBuffers<cr>
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']

@@ -32,9 +32,9 @@ in
     name = "vim-dispatch";
     src = pluginSrc ./plugins/dispatch.nix;
   };
-  neovimfuzzy = buildVimPlugin {
-    name = "neovim-fuzzy";
-    src = pluginSrc ./plugins/neovim-fuzzy.nix;
+  scout = buildVimPlugin {
+    name = "scout.vim";
+    src = pluginSrc ./plugins/scout.nix;
   };
   leaderf = buildVimPlugin {
     name = "LeaderF";
