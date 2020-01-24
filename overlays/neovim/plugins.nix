@@ -36,6 +36,10 @@ in
     name = "neovim-fuzzy";
     src = pluginSrc ./plugins/neovim-fuzzy.nix;
   };
+  leaderf = buildVimPlugin {
+    name = "LeaderF";
+    src = pluginSrc ./plugins/leaderf.nix;
+  };
   sgureditorconfig = buildVimPlugin {
     name = "vim-editorconfig";
     src = pluginSrc ./plugins/vim-editorconfig.nix;

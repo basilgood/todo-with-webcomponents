@@ -23,7 +23,8 @@ EOF
 
 " deoplete
 autocmd vimRc BufReadPost *
-      \ execute 'packadd deoplete.nvim'
+      \ execute 'packadd deoplete.nvim' |
+      \ execute 'packadd deoplete-lsp'
 let g:deoplete#enable_at_startup = 1
 
 " ale
@@ -93,16 +94,6 @@ autocmd vimRc FileType gitrebase
       \ execute 'packadd auto-git-diff'
 let g:mergetool_layout = 'bmr'
 nmap [git]m <plug>(MergetoolToggle)
-nmap <expr> <C-Left> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-Left>'
-nmap <expr> <C-Right> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-Right>'
-nmap <expr> <C-Down> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-Down>'
-nmap <expr> <C-Up> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-Up>'
-if &diff
-  vmap <silent> <buffer> zg :diffget<CR>
-  vmap <silent> <buffer> zp :diffput<CR>
-  nmap <silent> <buffer> zg V:diffget<CR>
-  nmap <silent> <buffer> zp V:diffput<CR>
-endif
 
 """" surround.
 autocmd vimRc BufReadPost *
@@ -136,6 +127,8 @@ let g:editorconfig_blacklist  = {
       \ 'pattern': ['\.un~$']}
 
 """" netrw
+autocmd vimRc BufEnter *
+      \ execute 'packadd vim-vinegar'
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
 let g:netrw_altfile             = 1
 function! Innetrw() abort
@@ -146,10 +139,15 @@ function! Innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
 
-"""" neovim-fuzzy
-let g:fuzzy_bufferpos = 'botright'
-nnoremap <C-p> :packadd neovim-fuzzy<cr>:FuzzyOpen<cr>
-nnoremap <leader>g :packadd neovim-fuzzy<cr>:FuzzyGrep<space>
+"""" leadef
+let g:Lf_PreviewInPopup = 1
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_ShortcutB = '<bs>'
+let g:Lf_WindowHeight = 0.25
+let g:Lf_CursorBlink = 0
+let g:Lf_CacheDirectory = '/tmp'
+nnoremap <C-p> :packadd LeaderF<cr>:LeaderfFile<cr>
 
 """" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
@@ -160,6 +158,31 @@ autocmd vimRc BufReadPost *
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
-" html-template-literals
+" ftplugins
+autocmd vimRc BufReadPre *.nix
+      \ execute 'packadd vim-nix'
+
 let g:htl_all_templates = 1
 let g:htl_css_templates = 1
+autocmd vimRc BufReadPre *.js,*.jsx
+      \ execute 'packadd vim-javascript' |
+      \ execute 'packadd vim-html-template-literals'
+
+autocmd vimRc BufReadPre *.pug
+      \ execute 'packadd vim-pug' |
+      \ execute 'packadd vim-pug-complete'
+
+autocmd vimRc BufReadPre *.coffee
+      \ execute 'packadd vim-coffee-script'
+
+autocmd vimRc BufReadPre *.md
+      \ execute 'packadd vim-markdown'
+
+autocmd vimRc BufReadPre *.jinja
+      \ execute 'packadd vim-jinja'
+
+autocmd vimRc BufReadPre *.twig
+      \ execute 'packadd vim-twig'
+
+autocmd vimRc BufReadPre *.json
+      \ execute 'packadd vim-fixjson'
