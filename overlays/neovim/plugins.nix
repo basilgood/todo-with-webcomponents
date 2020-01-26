@@ -32,10 +32,17 @@ in
     name = "vim-dispatch";
     src = pluginSrc ./plugins/dispatch.nix;
   };
-  };
   leaderf = buildVimPlugin {
     name = "LeaderF";
     src = pluginSrc ./plugins/leaderf.nix;
+    buildInputs = with pkgs; [
+      python3
+    ];
+    buildPhase = ''
+      patchShebangs .
+      export PY3=ON
+      ./install.sh
+    '';
   };
   sgureditorconfig = buildVimPlugin {
     name = "vim-editorconfig";
