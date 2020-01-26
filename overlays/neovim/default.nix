@@ -51,7 +51,7 @@ in {
           ale
           deoplete
           deoplete-lsp
-          scout
+          leaderf
           vimfugitive
           dispatch
           easy-align

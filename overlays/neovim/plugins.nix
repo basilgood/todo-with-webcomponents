@@ -32,9 +32,6 @@ in
     name = "vim-dispatch";
     src = pluginSrc ./plugins/dispatch.nix;
   };
-  scout = buildVimPlugin {
-    name = "scout.vim";
-    src = pluginSrc ./plugins/scout.nix;
   };
   leaderf = buildVimPlugin {
     name = "LeaderF";
