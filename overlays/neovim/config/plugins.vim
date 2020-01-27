@@ -139,8 +139,10 @@ function! Innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
 
-"""" leadef
+" leadef
+let g:Lf_DefaultExternalTool = 'ag'
 let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewHorizontalPosition = 'center'
 let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
 let g:Lf_ShortcutF = '<C-P>'
 let g:Lf_ShortcutB = '<bs>'

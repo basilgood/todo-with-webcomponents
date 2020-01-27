@@ -35,12 +35,9 @@ in
   leaderf = buildVimPlugin {
     name = "LeaderF";
     src = pluginSrc ./plugins/leaderf.nix;
-    buildInputs = with pkgs; [
-      python3
-    ];
+    buildInputs = with pkgs; [ python3 ];
     buildPhase = ''
       patchShebangs .
-      export PY3=ON
       ./install.sh
     '';
   };
