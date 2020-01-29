@@ -32,15 +32,6 @@ in
     name = "vim-dispatch";
     src = pluginSrc ./plugins/dispatch.nix;
   };
-  leaderf = buildVimPlugin {
-    name = "LeaderF";
-    src = pluginSrc ./plugins/leaderf.nix;
-    buildInputs = with pkgs; [ python3 ];
-    buildPhase = ''
-      patchShebangs .
-      ./install.sh
-    '';
-  };
   sgureditorconfig = buildVimPlugin {
     name = "vim-editorconfig";
     src = pluginSrc ./plugins/vim-editorconfig.nix;
@@ -56,6 +47,10 @@ in
   conflict-marker = buildVimPlugin {
     name = "conflict-marker.vim";
     src = pluginSrc ./plugins/conflict-marker.nix;
+  };
+  vim-smoothie = buildVimPlugin {
+    name = "vim-smoothie";
+    src = pluginSrc ./plugins/vim-smoothie.nix;
   };
   vimjavascript = buildVimPlugin {
     name = "vim-javascript";

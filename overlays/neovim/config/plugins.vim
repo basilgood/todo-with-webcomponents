@@ -84,7 +84,6 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
-
 " git
 autocmd vimRc BufReadPost *
       \ execute 'packadd vim-mergetool'
@@ -139,27 +138,48 @@ function! Innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
 
-" leadef
-let g:Lf_DefaultExternalTool = 'ag'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_PreviewHorizontalPosition = 'center'
-let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShortcutB = '<bs>'
-let g:Lf_WindowHeight = 0.25
-let g:Lf_CursorBlink = 0
-let g:Lf_CacheDirectory = '/tmp'
-nnoremap <C-p> :packadd LeaderF<cr>:LeaderfFile<cr>
-nnoremap <C-h> :packadd LeaderF<cr>:LeaderfFile %:h<cr>
+" fzf
+autocmd vimRc BufReadPost *
+      \ execute 'packadd fzfWrapper'
+let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+let g:fzf_layout = { 'down': '~25%' }
+let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-w': 'bdelete'}
+nnoremap <c-p> :Files<cr>
+nnoremap <c-h> :Files %:h<cr>
+nnoremap <bs> :Buffers<cr>
 
-"""" markdown
+" super ruler(cohama)
+function! SuperRuler(count)
+  let cnt = (a:count == 0) ? '' : a:count
+  redir => ruler_out
+    silent execute 'silent normal! ' . cnt . "\<C-g>"
+  redir END
+  let super_ruler = ruler_out[2:] . ' | ' . &fileformat . ' | ' . &fileencoding . ' | ' . &filetype . ' | ' . VCSRepoInfo()
+  echo super_ruler
+endfunction
+
+function! VCSRepoInfo() abort
+  packadd vim-fugitive
+  return fugitive#statusline()[1:]
+endfunction
+nnoremap <C-G> :<C-u>call SuperRuler(v:count)<CR>
+
+" markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
 
-"""" easy-align.
+" easy-align.
 autocmd vimRc BufReadPost *
       \ execute 'packadd vim-easy-align'
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
+
+" vim-smoothie
+autocmd vimRc BufReadPost *
+      \ execute 'packadd vim-smoothie'
 
 " ftplugins
 autocmd vimRc BufReadPre *.nix

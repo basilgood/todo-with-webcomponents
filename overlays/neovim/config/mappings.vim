@@ -21,13 +21,7 @@ nnoremap { {zz
 " tab complete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
-
-" Smart <C-f>, <C-b>.
-nnoremap <expr> <C-f> max([winheight(0) - 2, 1])
-      \ . "\<C-d>" . (line('w$') >= line('$') ? "L" : "M")
-nnoremap <expr> <C-b> max([winheight(0) - 2, 1])
-      \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "M")
+inoremap <expr> <CR>    pumvisible() ? "\<C-Y>" : "\<CR>"
 
 " windows
 nnoremap <silent> <Tab> <c-w>w
