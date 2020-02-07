@@ -34,7 +34,7 @@ endfunction
 autocmd vimRc BufEnter * if &diff | call Diffmaps() | endif
 
 " external changes
-autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutter | endif
+autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime |  endif
 
 " mkdir
 autocmd vimRc BufWritePre *

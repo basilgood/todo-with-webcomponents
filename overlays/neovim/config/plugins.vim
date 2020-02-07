@@ -1,62 +1,10 @@
 scriptencoding utf-8
 
-" lsp
-autocmd vimRc BufReadPost *
-      \ execute 'packadd nvim-lsp'
-lua << EOF
-if not package.loaded.nvim_lsp then
-  vim.cmd 'packadd nvim-lsp'
-  vim._update_package_paths()
-end
-local nvim_lsp = require'nvim_lsp'
-
-nvim_lsp.tsserver.setup {
-  cmd = {'typescript-language-server', '--stdio'},
-  filetypes = { 'javascript', 'typescript' }
-}
-
-nvim_lsp.vimls.setup {
-  cmd = {'vim-language-server', '--stdio'},
-  filetypes = { 'vim' }
-}
-EOF
-
 " deoplete
 autocmd vimRc BufReadPost *
       \ execute 'packadd deoplete.nvim' |
       \ execute 'packadd deoplete-lsp'
 let g:deoplete#enable_at_startup = 1
-
-" ale
-let g:ale_set_signs = 1
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 0
-let g:ale_code_actions_enabled = 1
-let g:ale_sign_info = '_i'
-let g:ale_sign_error = '_e'
-let g:ale_sign_warning = '_w'
-let g:ale_set_balloons = 1
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
-let g:ale_echo_msg_format = '%linter%: %s %severity%'
-let g:ale_linters = {
-      \   'jsx': ['eslint'],
-      \   'javascript': ['eslint'],
-      \   'typescript': ['eslint'],
-      \}
-let g:ale_fixers = {
-      \   'javascript': ['prettier', 'eslint'],
-      \   'html': ['prettier', 'eslint'],
-      \   'yaml': ['prettier'],
-      \   'nix': ['nixpkgs-fmt']
-      \}
-
-nnoremap [a :ALEPreviousWrap<CR>
-nnoremap ]a :ALENextWrap<CR>
-autocmd vimRc BufReadPost *
-      \ execute 'packadd ale'
 
 """" git, fugitive
 autocmd vimRc BufReadPre *
@@ -74,15 +22,6 @@ function! InFugitive() abort
 endfunction
 
 autocmd vimRc FileType fugitive call InFugitive()
-
-"""" gitgutter
-let g:gitgutter_sign_priority = 8
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added              = '|'
-let g:gitgutter_sign_modified           = '|'
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " git
 autocmd vimRc BufReadPost *
