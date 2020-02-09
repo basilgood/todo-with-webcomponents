@@ -2,5 +2,7 @@
   "vim-language-server",
   "diagnostic-languageserver",
   "fixjson",
-  "import-js"
+  "import-js",
+  "coc-git",
+  "coc-eslint"
 ]
