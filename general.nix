@@ -169,7 +169,13 @@ with lib;
     (import ./overlays/alacritty)
     (import ./overlays/fonts)
     (import ./overlays/lxd)
-    (import ./overlays/scout)
+    # (
+    #   import (
+    #     builtins.fetchTarball {
+    #       url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    #     }
+    #   )
+    # )
     # (import ./overlays/nixfmt)
     # (import ./overlays/popcorn)
     # (import ./overlays/nodeEnv)
