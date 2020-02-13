@@ -9,6 +9,7 @@ self: super: {
         htop
         p7zip
         unzip
+        unrar
         lm_sensors
         keepassxc
         pavucontrol
@@ -46,7 +47,7 @@ self: super: {
         nixpkgs-fmt
         editorconfig-core-c
         kak
-        scout
+        emacs
 
         vim-vint
         python37Packages.yamllint
