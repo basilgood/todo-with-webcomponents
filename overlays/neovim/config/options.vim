@@ -15,6 +15,7 @@ set undofile
 set inccommand=nosplit
 set number
 set mouse=a
+set termguicolors
 set shortmess+=aoOtTIc
 set sidescrolloff=10
 set sidescroll=1

@@ -8,21 +8,9 @@ let
   };
 in
 {
-  nvimlsp = buildVimPlugin {
-    pname = "nvim-lsp";
-    src = pluginSrc ./plugins/nvim-lsp.nix;
-  };
   ale = buildVimPlugin {
     name = "ale";
     src = pluginSrc ./plugins/ale.nix;
-  };
-  deoplete = buildVimPlugin {
-    name = "deoplete.nvim";
-    src = pluginSrc ./plugins/deoplete.nix;
-  };
-  deoplete-lsp = buildVimPlugin {
-    name = "deoplete-lsp";
-    src = pluginSrc ./plugins/deoplete-lsp.nix;
   };
   vimfugitive = buildVimPlugin {
     name = "vim-fugitive";
@@ -52,9 +40,17 @@ in
     name = "vim-smoothie";
     src = pluginSrc ./plugins/vim-smoothie.nix;
   };
-  vimjavascript = buildVimPlugin {
-    name = "vim-javascript";
-    src = pluginSrc ./plugins/vim-javascript.nix;
+  cmdline-completion = buildVimPlugin {
+    name = "cmdline-completion";
+    src = pluginSrc ./plugins/cmdline-completion.nix;
+  };
+  vim-pairify = buildVimPlugin {
+    name = "dhruvasagar";
+    src = pluginSrc ./plugins/vim-pairify.nix;
+  };
+  xcode = buildVimPlugin {
+    name = "vim-colors-xcode";
+    src = pluginSrc ./plugins/vim-colors-xcode.nix;
   };
   lithtml = buildVimPlugin {
     name = "vim-html-template-literals";

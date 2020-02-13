@@ -92,10 +92,9 @@ nnoremap [subst] <Nop>
 nmap   s [subst]
 xmap   s [subst]
 nnoremap [subst]s :%s/
-nnoremap [subst]l :s//<left>
+nnoremap [subst]l :s/
 xnoremap [subst]  :s/
 nnoremap [subst]a :<c-u>%s/\C\<<c-r><c-w>\>/<c-r><c-w>
-nnoremap [subst]p :'{,'}s//<left>
 nnoremap [subst]w :<C-u>%s/\C\<<C-R><C-w>\>//g<Left><Left>
 nnoremap [subst]n *``cgn
 
@@ -126,7 +125,7 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
       \ : "\<C-l>:syntax sync fromstart\<cr>:nohlsearch<cr>"
-nnoremap <silent> <space>n :Nohlsearch<cr>
+nnoremap <silent> <esc> :nohlsearch<cr><esc>
 
 " toggles
 nnoremap cos
@@ -146,10 +145,12 @@ nnoremap coc
       \ :<C-u>call Toggleoption('cursorcolumn')<CR>
 nnoremap cof
       \ :<C-u>call Alefixonsave()<CR>
+
 function! Toggleoption(option_name) abort
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction
+
 function! Alefixonsave() abort
   let g:ale_fix_on_save = !g:ale_fix_on_save
   echo g:ale_fix_on_save == 1 ? 'ale_fix_on_save enabled' : 'ale_fix_on_save disabled'
