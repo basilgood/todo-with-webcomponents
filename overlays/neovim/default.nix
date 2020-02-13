@@ -22,7 +22,7 @@ let
       hi Comment guifg=#7f8c98 guibg=NONE guisp=NONE gui=italic cterm=NONE
       hi String ctermfg=44 ctermbg=NONE cterm=NONE guifg=#007878 guibg=NONE gui=NONE
       hi GitGutterAdd guifg=#22a17b ctermfg=22
-      hi GitGutterChange ctermfg=142
+      hi GitGutterChange guifg=#abb81c ctermfg=142
       hi GitGutterDelete guifg=#bd286b ctermfg=9
       hi GitGutterChangeDelete guifg=#bd286b ctermfg=9
       hi ALEWarningSign guifg=#adb53f ctermfg=yellow ctermbg=NONE
