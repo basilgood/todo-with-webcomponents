@@ -3,6 +3,7 @@ with super;
 with lib;
 let
   lsp = import ../lsp self super;
+  nixfmt = import ../nixfmt self super;
   extraPlugins = callPackage ./plugins.nix {};
 
   neovimConfig = {
@@ -422,54 +423,53 @@ let
     };
     customRC = cfg.customRC + "\n" + concatMapStringsSep "\n" (george: george.config) cfg.plugins;
   };
-
 in
 {
-  neovim-unwrapped = (neovim-unwrapped).overrideAttrs (
-    old: rec {
-      name = "neovim-unwrapped-${version}";
-      version = "nightly";
-      src = fetchFromGitHub {
-        owner = "neovim";
-        repo = "neovim";
-        rev = "97dcc48c998ccecaa37a3cbea568d85c2f1407f9";
-        sha256 = "1cnqmgfa33k6x0rbx5dhdqn1819rsggrwr0l4xwia8awbiwq93ym";
-      };
-      nativeBuildInputs = old.nativeBuildInputs ++ [ utf8proc makeWrapper ];
-      postInstall = old.postInstall + ''
-        wrapProgram $out/bin/nvim --prefix PATH : ${
-      makeBinPath [
-        ag
-        fzf
-        git
-        lsp.js.vim-language-server
-        lsp.js.fixjson
-        nodePackages.eslint
-        nodePackages.eslint_d
-        nodePackages.prettier
-        nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.vscode-html-languageserver-bin
-        nodePackages.vscode-css-languageserver-bin
-        nixpkgs-fmt
-        nixfmt
-        editorconfig-core-c
-      ]
+  neovim-unwrapped = (neovim-unwrapped).overrideAttrs
+    (
+      old: rec {
+        name = "neovim-unwrapped-${version}";
+        version = "nightly";
+        src = fetchFromGitHub {
+          owner = "neovim";
+          repo = "neovim";
+          rev = "97dcc48c998ccecaa37a3cbea568d85c2f1407f9";
+          sha256 = "1cnqmgfa33k6x0rbx5dhdqn1819rsggrwr0l4xwia8awbiwq93ym";
+        };
+        nativeBuildInputs = old.nativeBuildInputs ++ [ utf8proc makeWrapper ];
+        postInstall = old.postInstall + ''
+          wrapProgram $out/bin/nvim --prefix PATH : ${makeBinPath
+          [
+            ag
+            fzf
+            git
+            lsp.js.vim-language-server
+            lsp.js.fixjson
+            nodePackages.eslint
+            nodePackages.eslint_d
+            nodePackages.prettier
+            nodePackages.typescript
+            nodePackages.typescript-language-server
+            nodePackages.vscode-html-languageserver-bin
+            nodePackages.vscode-css-languageserver-bin
+            nixfmt.nixpkgs-fmt
+            editorconfig-core-c
+          ]}
+        '';
       }
-      '';
-    }
-  );
+    );
 
   neovim = (
     neovim.override {
       withNodeJs = true;
       configure = fun neovimConfig;
     }
-  ).overrideAttrs (
-    old: rec {
-      buildCommand = ''
-        export HOME=$TMPDIR
-      '' + old.buildCommand;
-    }
-  );
+  ).overrideAttrs
+    (
+      old: rec {
+        buildCommand = ''
+          export HOME=$TMPDIR
+        '' + old.buildCommand;
+      }
+    );
 }
