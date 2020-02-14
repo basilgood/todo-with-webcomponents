@@ -44,7 +44,6 @@ self: super: {
 
         vim_one
         neovim
-        nixpkgs-fmt
         editorconfig-core-c
         kak
         emacs
