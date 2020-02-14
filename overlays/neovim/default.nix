@@ -13,7 +13,6 @@ let
       ${builtins.readFile ./config/mappings.vim};
       ${builtins.readFile ./config/commands.vim};
       ${builtins.readFile ./config/autocmds.vim};
-      ${builtins.readFile ./config/colorscheme.vim};
 
       colorscheme xcodedark
       hi Normal guifg=#c3d5ec guibg=#1e222c ctermfg=252 ctermbg=235

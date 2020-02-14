@@ -51,9 +51,6 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
-" Better x
-nnoremap x "_x
-
 " disable EX-mode
 nnoremap Q <Nop>
 
