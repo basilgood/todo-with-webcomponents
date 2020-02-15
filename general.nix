@@ -165,7 +165,7 @@ with lib;
     (import ./overlays/fonts)
     (import ./overlays/lxd)
     (import ./overlays/nixfmt)
-    # (import ./overlays/popcorn)
+    (import ./overlays/dmenu-wayland)
     # (import ./overlays/nodeEnv)
   ];
 

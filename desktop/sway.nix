@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 let
   waybarConfig =
-    pkgs.writeText "config" (pkgs.callPackage ./waybar-config.nix { });
+    pkgs.writeText "config" (pkgs.callPackage ./waybar-config.nix {});
   waybarStyle = pkgs.writeText "config" (builtins.readFile ./waybar.css);
-in {
+in
+{
   programs.sway = {
     enable = true;
     extraSessionCommands = ''
@@ -20,12 +21,13 @@ in {
       xwayland
       xdg_utils
       wl-clipboard
+      dmenu-wayland
     ];
   };
 
   environment.etc."sway/config".text = with pkgs; ''
     set $term ${alacritty}/bin/alacritty
-    set $menu ${j4-dmenu-desktop}/bin/j4-dmenu-desktop
+    set $menu ${dmenu-wayland}/bin/dmenu-wl_run
     set $brightness ${brightnessctl}/bin/brightnessctl
     set $grim ${grim}/bin/grim
     set $mogrify ${imagemagick}/bin/mogrify
