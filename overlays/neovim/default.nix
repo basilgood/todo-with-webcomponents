@@ -441,6 +441,7 @@ in
           [
             ag
             fzf
+            fd
             git
             lsp.js.vim-language-server
             lsp.js.fixjson
