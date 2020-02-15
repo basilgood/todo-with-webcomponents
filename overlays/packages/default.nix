@@ -28,10 +28,10 @@ self: super: {
         nodePackages.vscode-html-languageserver-bin
         nodePackages.vscode-css-languageserver-bin
 
+        brave
         chromium
         firefox
 
-        j4-dmenu-desktop
         lazygit
 
         # nerdfont_dejavu
