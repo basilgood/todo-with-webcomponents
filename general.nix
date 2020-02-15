@@ -166,7 +166,6 @@ with lib;
     (import ./overlays/lxd)
     (import ./overlays/nixfmt)
     (import ./overlays/dmenu-wayland)
-    # (import ./overlays/nodeEnv)
   ];
 
 }
