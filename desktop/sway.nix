@@ -10,18 +10,22 @@ in
     extraSessionCommands = ''
       export XKB_DEFAULT_LAYOUT=us
       export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle,caps:escape
+      export XDG_DATA_DIRS=${
+    let
+      schema = pkgs.gsettings-desktop-schemas;
+    in "${schema}/share/gsettings-schemas/${schema.name}"
+    }:$XDG_DATA_DIRS
     '';
     extraPackages = with pkgs; [
       glib
-      swayidle
-      swaylock
-      grim
-      slurp
-      mako
+      jmtpfs
       xwayland
       xdg_utils
       wl-clipboard
       dmenu-wayland
+      nordic
+      paper-icon-theme
+      playerctl
     ];
   };
 
@@ -32,9 +36,10 @@ in
     set $grim ${grim}/bin/grim
     set $mogrify ${imagemagick}/bin/mogrify
     set $slurp ${slurp}/bin/slurp
-    set $xclip ${xclip}/bin/xclip
     set $mako ${mako}/bin/mako
+    set $idle ${swayidle}/bin/swayidle
     set $swaylock ${swaylock}/bin/swaylock
+    set $lock $grim /tmp/lock.png && $mogrify -scale 10% -scale 1000% /tmp/lock.png && $swaylock -f -i /tmp/lock.png
     set $status ${waybar.override { pulseSupport = true; }}/bin/waybar
     output * bg ${./catalina.jpg} fill
     ${builtins.readFile ./config}
