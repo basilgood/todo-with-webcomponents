@@ -17,37 +17,31 @@
     set -g prefix C-Space
     bind C-Space send-prefix
 
-    # Default colors
-    set-option -g status-style fg=white,bg=black
+    # theme
+    set -g status-style bg=colour237,fg=white
+    set -g pane-active-border-style fg=colour241
+    set -g pane-border-style fg=colour237
+    set -g message-style bg=colour239,fg=colour223
+    set -g message-command-style bg=colour239,fg=colour223
+    set -g display-panes-active-colour colour250
+    set -g display-panes-colour colour237
+    set -g mode-style fg=brightwhite,bg=cyan
 
-    # Status
-    set -g status-interval 1
-    set -g status-justify left
-    set -g status-left-length 40
+    # Prefix Highlight
+    set -g @prefix_highlight_fg 'brightwhite'
+    set -g @prefix_highlight_bg 'blue'
+    set -g @prefix_highlight_show_copy_mode on
+    set -g @prefix_highlight_copy_mode_attr fg=brightwhite,bg=cyan
+    set -g @prefix_highlight_prefix_prompt 'Prefix'
+    set -g @prefix_highlight_copy_prompt 'Copy'
 
-    # Window titles
-    set-window-option -g window-status-style fg=default,bg=default
-    set-window-option -g window-status-current-style fg=white,bold,bg=default
-    set-window-option -g window-status-activity-style fg=default,noreverse,bg=default
-
-    # Bars
-    set -g window-status-separator ""
-    set -g status-left "#[fg=black,bg=blue,bold] #S #[fg=blue,bg=black,nobold,noitalics,nounderscore]"
-    set -g status-right "#{prefix_highlight}#[fg=brightblack,bg=black,nobold,noitalics,nounderscore]#[fg=cyan,bg=brightblack] #[fg=black,bg=cyan,bold] #H "
-
-    # Windows
-    set -g window-status-format "#[fg=black,bg=brightblack,nobold,noitalics,nounderscore] #[fg=white,bg=brightblack]#I #[fg=white,bg=brightblack,nobold,noitalics,nounderscore] #[fg=white,bg=brightblack]#W #F #[fg=brightblack,bg=black,nobold,noitalics,nounderscore]"
-    set -g window-status-current-format "#[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#I #[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#W #F #[fg=cyan,bg=black,nobold,noitalics,nounderscore]"
-    set -g window-status-separator ""
-
-    # Panes
-    set -g pane-border-style bg=default,fg=black
-    set -g pane-active-border-style bg=default,fg=blue
-
-    # tmux-prefix-highlight
-    set -g @prefix_highlight_output_prefix "#[fg=brightcyan]#[bg=black]#[nobold]#[noitalics]#[nounderscore]#[bg=brightcyan]#[fg=black]"
-    set -g @prefix_highlight_output_suffix ""
-    set -g @prefix_highlight_copy_mode_attr "fg=brightcyan,bg=black,bold"
+    # Statusbar formatting
+    set -g status-interval 3
+    set -g status-left ""
+    set -g status-right-length 40
+    set -g status-right "#{prefix_highlight} #S@#h "
+    setw -g window-status-format "#[bg=colour237,fg=white] #I: #W "
+    setw -g window-status-current-format "#[bg=colour239,fg=white] #I: #W "
 
     run-shell ${pkgs.tmuxPlugins.pain-control.rtp}
     run-shell ${pkgs.tmuxPlugins.sensible.rtp}
