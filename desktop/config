@@ -175,3 +175,10 @@ assign [class="^Spotify$"] $ws10
 
 # startup
 exec --no-startup-id $mako --default-timeout=10000 --font='sansSerif 9' --background-color=#282c34 --border-size=0 border-radius=15 margin=20 padding=15 --border-color=#0059a3 --max-icon-size=20
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+  gsettings set $gnome-schema gtk-theme 'Nordic-blue'
+  gsettings set $gnome-schema icon-theme 'Paper'
+  gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
+}
