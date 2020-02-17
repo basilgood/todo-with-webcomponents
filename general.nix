@@ -44,12 +44,12 @@ with lib;
   };
 
   environment.variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
+    EDITOR = "neovim";
+    VISUAL = "neovim";
     PAGER = mkForce "${pkgs.bat}/bin/bat";
     BAT_PAGER = "${pkgs.less}/bin/less -RF";
-    BAT_THEME = "onedark";
-    BAT_STYLE = "full";
+    BAT_THEME = "TwoDark";
+    BAT_STYLE = "numbers,changes,header";
     PATH = "$PATH:~/.local/bin";
   };
 
