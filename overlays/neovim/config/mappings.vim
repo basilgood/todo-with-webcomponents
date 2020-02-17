@@ -17,6 +17,7 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
+nnoremap vv viw
 
 " tab complete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
