@@ -2,6 +2,7 @@
   programs.bash = {
     shellAliases = {
       grep = "grep --color=auto";
+      fzf = "${pkgs.fzf}/bin/fzf";
       hid =
         "${pkgs.gawk}/bin/gawk -i inplace '!a[$0]++' $HISTFILE; ${pkgs.gnused}/bin/sed -i 's/[[:space:]]*$//' $HISTFILE";
       };
