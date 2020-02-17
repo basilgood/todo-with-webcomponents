@@ -55,10 +55,8 @@ with lib;
 
   fonts = {
     fontconfig = {
-      penultimate.enable = true;
       defaultFonts = {
         monospace = [ "DejaVuSansMono Nerd Font" ];
-        sansSerif = [ "DejaVu Sans" ];
       };
     };
     fonts = with pkgs; [ nerdfont_dejavu ];
