@@ -109,7 +109,7 @@ bindsym $mod+Return exec $term
 # dmenu with mod+d for programs
 bindsym $mod+d exec $menu
 # lock screen
-bindsym $mod+shift+l exec i3lock-fancy -- scrot -z
+bindsym $mod+shift+l exec swaylock -c 00000000
 # screenshot
 bindsym --release Print exec scrot -s
 
@@ -127,6 +127,17 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 # brightness
 bindsym XF86MonBrightnessDown exec $brightness set 10%-
 bindsym XF86MonBrightnessUp exec $brightness set +10%
+
+# lock
+bindsym --release $mod+Control+l exec loginctl lock-session
+bindsym Print exec $slurp | $grim -g - - | wl-copy
+exec $idle -w \
+  timeout 300 '$lock' \
+  timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+  before-sleep '$lock' \
+  lock '$lock'
+
 
 # Base16 colors
 set $base00 #282c34
@@ -157,9 +168,6 @@ client.focused_inactive $base01 $base01 $base05 $base03 $base01
 client.unfocused        $base01 $base00 $base05 $base01 $base01
 client.urgent           $base08 $base08 $base00 $base08 $base08
 
-bindsym --release $mod+Control+l exec loginctl lock-session
-bindsym Print exec $slurp | $grim -g - - | wl-copy
-
 # windows
 no_focus [title="^mpv-preview$"]
 
@@ -169,8 +177,6 @@ for_window [title="Pavucontrol"] floating enable
 for_window [title="Skype"] floating enable
 
 # default workspaces
-assign [class="Chromium"] $ws1
-assign [class="Skype"] $workspace9
 assign [class="^Spotify$"] $ws10
 
 # startup
