@@ -11,13 +11,20 @@ in
         "height": 22,
         "modules-left": ["sway/workspaces", "sway/mode"],
         "modules-center": ["clock"],
-        "modules-right": ["network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
+        "modules-right": ["idle_inhibitor", "network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
         "sway/workspaces": {
           "all-outputs": false,
           "format": "{name}"
         },
         "sway/mode": {
             "format": " {}"
+        },
+        "idle_inhibitor": {
+          "format": "{icon}",
+          "format-icons": {
+            "activated": "",
+            "deactivated": ""
+          }
         },
         "sway/workspaces": {
             "format": "{name}",
@@ -92,10 +99,6 @@ in
       window {
         background: transparent;
       }
-      window#waybar.solo {
-          color:      rgba(217, 216, 216, 1);
-          background: rgba(35, 31, 32, 0.85);
-      }
       #workspaces {
         margin-left: 12px;
         border-radius: 5px;
@@ -104,7 +107,7 @@ in
       }
       #workspaces button {
         padding: 0 2px;
-        color: #bfb8a8;
+        background: transparent;
       }
       #workspaces button.focused {
         color:  #00736f;
