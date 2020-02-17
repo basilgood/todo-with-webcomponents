@@ -6,218 +6,147 @@ in
   config = {
     environment.etc."xdg/waybar/config".text = with pkgs; ''
       {
-         "layer": "bottom",
-         "position": "bottom",
-          "height": 28,
-         // "width": 1000,
-
-         "modules-left": ["sway/workspaces", "sway/window"],
-         "modules-center": ["clock"],
-         "modules-right": [
-           "network",
-           "cpu",
-           "temperature#cpu",
-           "memory",
-           "temperature#gpu",
-           "pulseaudio",
-           "battery",
-           "tray"
-         ],
-          "sway/workspaces": {
-            "all-outputs": false,
-            "format": "{name}"
+        "layer": "bottom",
+        "position": "bottom",
+        "height": 22,
+        "modules-left": ["sway/workspaces", "sway/mode"],
+        "modules-center": ["clock"],
+        "modules-right": ["network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
+        "sway/workspaces": {
+          "all-outputs": false,
+          "format": "{name}"
+        },
+        "sway/mode": {
+            "format": " {}"
+        },
+        "sway/workspaces": {
+            "format": "{name}",
+            "disable-scroll": false
+        },
+        "clock": {
+           "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+           "format-alt": "{:%Y-%m-%d}"
+        },
+        "tray": {
+            // "icon-size": 21,
+            "spacing": 10
+        },
+        "cpu": {
+            "format": "{usage}% ",
+            "tooltip": false
+        },
+        "temperature#gpu": {
+          "thermal-zone": 2,
+          "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+          "critical-threshold": 80,
+          "format-critical": "{temperatureC}°C ",
+          "format": "{temperatureC}°C "
+        },
+        "battery": {
+            "states": {
+                "warning": 30,
+                "critical": 15
+            },
+            "format": "{capacity}% {icon}",
+            "format-icons": ["", "", "", "", ""]
+        },
+        "network": {
+          "format": "{icon}",
+          "format-alt": "{ipaddr}/{cidr} {icon}",
+          "format-alt-click": "click-right",
+          "format-icons": {
+            "wifi": ["", "" ,""],
+            "ethernet": [""],
+            "disconnected": [""]
           },
-         "sway/window": {
-           "format": "  {}  ",
-                 "text-align": "center",
-                 "line-height": 0
-             },
-         "sway/mode": {
-             "format": "<span style=\"bold\">{}</span>"
-         },
-         "network": {
-           "format": "{icon}",
-           "format-wifi": "({signalStrength}%) {icon}",
-           "format-ethernet": "{icon}",
-           "format-icons": {
-             "wifi": [""],
-             "ethernet": [""],
-             "disconnected": ["⚠"]
-           },
-           "tooltip": false
-         },
-         "tray": {
-             // "icon-size": 21,
-             "spacing": 10
-         },
-         "clock": {
-             "tooltip-format": "{:%Y-%m-%d | %H:%M}",
-             "format-alt": "{:%Y-%m-%d}"
-         },
-         "cpu": {
-             "format": "{usage}%",
-             "tooltip": false
-         },
-         "temperature#cpu": {
-           "thermal-zone": 1,
-           "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
-           "critical-threshold": 80,
-           "format-critical": "{temperatureC}°C",
-           "format": "{temperatureC}°C"
-         },
-         "memory": {
-             "format": "{}%"
-         },
-         "temperature#gpu": {
-           "thermal-zone": 2,
-           "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
-           "critical-threshold": 80,
-           "format-critical": "{temperatureC}°C",
-           "format": "{temperatureC}°C"
-         },
-         "battery": {
-           "bat": "BAT1",
-           "interval": 60,
-           "states": {
-             "warning": 40,
-             "critical": 20
-           },
-           "format": "{capacity}% {icon}",
-           "format-icons": ["", "", "", "", ""],
-           "max-length": 25
-         },
-         "pulseaudio": {
-           "format": "{volume}% {icon}",
-           "format-muted": "[MUTE]",
-           "format-icons": {
-               "headphones": "♫",
-               "handsfree": "♫",
-               "headset": "♫",
-               "phone": "♫",
-               "portable": "♫",
-               "car": "V",
-               "default": ["♫", "♫", "♫"]
-           },
-           "scroll-step": 5,
-           "on-click-right": "pactl set-sink-mute 0 toggle",
-           "tooltip": false
+          "tooltip": false
+        },
+        "pulseaudio": {
+          "format": "{volume}% {icon}",
+          "format-bluetooth": "{volume}% {icon}",
+          "format-muted": "",
+          "format-icons": {
+              "headphones": "",
+              "handsfree": "",
+              "headset": "",
+              "phone": "",
+              "portable": "",
+              "car": "",
+              "default": ["", ""]
+          },
+          "scroll-step": 5,
+          "on-click-right": "pactl set-sink-mute alsa_output.pci-0000_38_00.6.analog-stereo toggle",
+          "tooltip": false
         }
       }
     '';
     environment.etc."xdg/waybar/style.css".text = with pkgs; ''
       * {
+        margin-top: 1px;
         border-top: 0;
         border-radius: 0;
         font-family: monospace;
-        font-size: 14px;
-        color: #f0f0f0;
+        font-size: 12px;
         min-height: 0;
       }
-      window#waybar {
+      window {
         background: transparent;
       }
-
-      window box > box{
-        margin: 6px 45px 0px 45px;
-        background-color: rgba(0, 0, 0, 0.82);
-        border: 1px solid rgba(106, 159, 203, 0.666);
-        transition-property: background-color;
-        transition-duration: .5s;
-        border-radius: 6px;
-        padding: 1px 8px 1px 8px ;
+      window#waybar.solo {
+          color:      rgba(217, 216, 216, 1);
+          background: rgba(35, 31, 32, 0.85);
       }
-
-      window#waybar.hidden {
-        opacity: 0.2;
+      #workspaces {
+        margin-left: 12px;
+        border-radius: 5px;
+        padding: 0 12px;
+        background: #1e222c;
       }
-
       #workspaces button {
-        padding: 0 5px;
-        background-color: transparent;
-        color: #c5c8c6;
-        border: 1px solid transparent;
-        border-radius:3px;
+        padding: 0 2px;
+        color: #bfb8a8;
       }
-
-      #workspaces button:hover {
-        background: rgba( 26, 69, 105, 0.4);
-        box-shadow: inherit;
-        border: 1px solid #ffffff;
-      }
-
       #workspaces button.focused {
-        background-color: #0d0f11;
-        border: 1px solid #6a9fcb;
+        color:  #00736f;
       }
-
-      #workspaces button.urgent {
-        background-color: #eb4d4b;
+      #workspaces button:hover {
+        box-shadow: none;
+        text-shadow: none;
+        border-color: transparent;
+        background: transparent;
       }
-
-      #mode, #pulseaudio, #cpu, #temperature.cpu, #temperature.gpu, #memory, #network, #tray,
-
       #clock {
-             padding: 1px 5px 0px 5px;
+        color: #bfb8a8;
+        background: #1e222c;
+        padding: 0 12px;
+        border-radius: 5px;
       }
-
-      @keyframes blink {
-        to {
-          background-color: #ffffff;
-          color: #000000;
-        }
-      }
-
-      label:focus {
-        background-color: #000000;
-      }
-
-      #cpu, #temperature.cpu {
-        margin-left: 0px;
-        margin-right:0px;
-        background-color: rgba(167,90,123,.6);
-        padding: 1px 12px 0px 12px;
-      }
-
-      #memory, #temperature.gpu {
-        margin-left: 0px;
-        margin-right: 0px;
-        background-color: rgba(150,157,79,.6);
-        padding: 1px 9px 0px 9px;
-      }
-
       #pulseaudio {
-        margin: 0px 6px 0px 4px;
-        background-color: rgba(122,76,43,.7);
-        padding: 1px 6px 0px 5px;
+        background: #5c7ea1;
       }
-
-      #pulseaudio.muted {
-        background-color: rgb(62,38,107);
-        color: #2a5c45;
+      #memory {
+        background: #ad6179;
       }
-
+      #temperature.gpu {
+        background: #0b7054;
+      }
+      #cpu {
+        background: #b7bd73;
+      }
       #battery {
-        color: #e5c07b;
+        background: white;
       }
       #battery.charging {
-        color: #26A65B;
+        background: green;
       }
-      #battery.warning,
-      #batter.critical
-      {
-        color: #f53c3c;
+      #network {
+        background: #80709c;
       }
-      #battery.critical:not(.charging) {
-        color: #f53c3c;
-        animation-name: blink;
-        animation-duration: 0.5s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-
-      #tray {
-        background-color: #2980b9;
+      #pulseaudio, #memory, #cpu, #temperature.gpu, #battery, #network, #tray {
+        color: #1E1F23;
+        border-radius: 5px;
+        margin: 0 4px;
+        padding: 0 12px;
       }
     '';
   };
