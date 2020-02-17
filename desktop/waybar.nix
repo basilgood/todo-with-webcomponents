@@ -8,7 +8,7 @@ in
       {
         "layer": "bottom",
         "position": "bottom",
-        "height": 22,
+        "height": 24,
         "modules-left": ["sway/workspaces", "sway/mode"],
         "modules-center": ["clock"],
         "modules-right": ["idle_inhibitor", "network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
@@ -31,16 +31,15 @@ in
             "disable-scroll": false
         },
         "clock": {
-           "tooltip-format": "{:%Y-%m-%d | %H:%M}",
-           "format-alt": "{:%Y-%m-%d}"
+          "tooltip-format": "{:%Y-%m-%d | %H:%M}",
+          "format-alt": "{:%Y-%m-%d}"
         },
         "tray": {
-            // "icon-size": 21,
-            "spacing": 10
+          "spacing": 10
         },
         "cpu": {
-            "format": "{usage}% ",
-            "tooltip": false
+          "format": "{usage}% ",
+          "tooltip": false
         },
         "temperature#gpu": {
           "thermal-zone": 2,
@@ -50,10 +49,10 @@ in
           "format": "{temperatureC}°C "
         },
         "battery": {
-            "states": {
-                "warning": 30,
-                "critical": 15
-            },
+          "states": {
+             "warning": 30,
+             "critical": 15
+          },
             "format": "{capacity}% {icon}",
             "format-icons": ["", "", "", "", ""]
         },
@@ -93,7 +92,7 @@ in
         border-top: 0;
         border-radius: 0;
         font-family: monospace;
-        font-size: 12px;
+        font-size: 14px;
         min-height: 0;
       }
       window {
@@ -148,7 +147,7 @@ in
       #pulseaudio, #memory, #cpu, #temperature.gpu, #battery, #network, #tray {
         color: #1E1F23;
         border-radius: 5px;
-        margin: 0 4px;
+        margin: 1 4px;
         padding: 0 12px;
       }
     '';
