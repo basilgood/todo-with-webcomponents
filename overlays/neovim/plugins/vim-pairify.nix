@@ -1,7 +1,7 @@
 { fetchFromGitHub }:
 fetchFromGitHub {
-  owner = "dhruvasagar";
+  owner = "nickspoons";
   repo = "vim-pairify";
-  rev = "c8c04eb555ead4200b3ab5c6f7fe232098deda25";
-  sha256 = "1cby64skykpivv540qwaqhzapln9l5zbxvz8675r4yx96w384d4w";
+  rev = "15e4864b89721dcf073308ec2174f1f0f33e41b9";
+  sha256 = "0vf5g33h2wk4cm0dwrf9imnzx05rjz42ybr1mzxkly5pxa9rncyz";
 }
