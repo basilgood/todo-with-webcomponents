@@ -45,7 +45,7 @@ in
     src = pluginSrc ./plugins/cmdline-completion.nix;
   };
   vim-pairify = buildVimPlugin {
-    name = "dhruvasagar";
+    name = "vim-pairify";
     src = pluginSrc ./plugins/vim-pairify.nix;
   };
   xcode = buildVimPlugin {
