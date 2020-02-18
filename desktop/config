@@ -108,8 +108,6 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Return exec $term
 # dmenu with mod+d for programs
 bindsym $mod+d exec $menu
-# lock screen
-bindsym $mod+shift+l exec swaylock -c 00000000
 # screenshot
 bindsym --release Print exec scrot -s
 
