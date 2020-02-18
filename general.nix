@@ -71,6 +71,12 @@ with lib;
   };
 
   programs = {
+    sway = {
+      enable = true;
+      extraConfig = ''
+        output * bg ${./desktop/catalina.jpg} fill
+      '';
+    };
     ssh.startAgent = true;
     java.enable = true;
     tmux = import ./tmux/tmux.nix { inherit pkgs; };
