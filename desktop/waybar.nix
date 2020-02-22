@@ -11,20 +11,13 @@ in
         "height": 24,
         "modules-left": ["sway/workspaces", "sway/mode"],
         "modules-center": ["clock"],
-        "modules-right": ["idle_inhibitor", "network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
+        "modules-right": ["network", "cpu", "temperature#gpu", "memory", "battery", "pulseaudio", "tray"],
         "sway/workspaces": {
           "all-outputs": false,
           "format": "{name}"
         },
         "sway/mode": {
             "format": " {}"
-        },
-        "idle_inhibitor": {
-          "format": "{icon}",
-          "format-icons": {
-            "activated": "",
-            "deactivated": ""
-          }
         },
         "sway/workspaces": {
             "format": "{name}",
