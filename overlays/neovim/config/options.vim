@@ -33,20 +33,9 @@ set timeoutlen=3000
 set updatetime=50
 set wildmode=longest:full,full
 set wildignore=
-      \*.png,
-      \*.jpg,
-      \*.gif,
-      \*.gem,
-      \*.swp,
-      \*.zip,
-      \*.gz,
       \*/.DS_Store/*,
-      \*/tmp/*,
       \*/node_modules/*,
       \*/bower_components/*,
-      \*/vendor/*,
-      \*/pack/*,
-      \*/.gem/*,
       \*/.git/*,
       \*/.hg/*,
       \*/.svn/*
