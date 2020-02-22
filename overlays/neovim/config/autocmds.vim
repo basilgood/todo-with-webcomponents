@@ -68,6 +68,7 @@ autocmd vimRc CursorMoved,InsertLeave * call HighlightCurrent()
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
 autocmd vimRc BufReadPre,BufNewFile *.tsx setlocal filetype=typescript
 autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig
+autocmd vimRc BufNewFile,BufRead *config setlocal filetype=config
 autocmd vimRc BufRead,BufNewFile *.gitignore  setlocal filetype=gitignore
 autocmd vimRc BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
 autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=

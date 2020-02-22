@@ -14,19 +14,8 @@ let
       ${builtins.readFile ./config/commands.vim};
       ${builtins.readFile ./config/autocmds.vim};
 
-      colorscheme xcodedark
-      hi Normal guifg=#c3d5ec guibg=#1e222c ctermfg=252 ctermbg=235
-      hi EndOfBuffer guifg=#c3d5ec guibg=#1e222c ctermfg=252 ctermbg=235
-      hi MatchParen guifg=#f78c6c guibg=#111111 gui=bold ctermbg=NONE cterm=bold
-      hi StatusLine guifg=#dfdfe0 guibg=#40614f guisp=NONE gui=NONE cterm=NONE
-      hi Comment guifg=#7f8c98 guibg=NONE guisp=NONE gui=italic cterm=NONE
-      hi String ctermfg=44 ctermbg=NONE cterm=NONE guifg=#007878 guibg=NONE gui=NONE
-      hi GitGutterAdd guifg=#22a17b ctermfg=22
-      hi GitGutterChange guifg=#abb81c ctermfg=142
-      hi GitGutterDelete guifg=#bd286b ctermfg=9
-      hi GitGutterChangeDelete guifg=#bd286b ctermfg=9
-      hi ALEWarningSign guifg=#adb53f ctermfg=yellow ctermbg=NONE
-      hi ALEErrorSign guifg=#bd286b ctermfg=red ctermbg=NONE
+      colorscheme slate
+      ${builtins.readFile ./config/colorscheme.vim};
 
       set secure
     '';
@@ -140,10 +129,6 @@ let
           nnoremap <c-h> :Files %:h<cr>
           nnoremap <bs> :Buffers<cr>
         '';
-      }
-      {
-        opt = xcode;
-        config = "";
       }
       {
         opt = fzfWrapper;
@@ -432,8 +417,8 @@ in
         src = fetchFromGitHub {
           owner = "neovim";
           repo = "neovim";
-          rev = "97dcc48c998ccecaa37a3cbea568d85c2f1407f9";
-          sha256 = "1cnqmgfa33k6x0rbx5dhdqn1819rsggrwr0l4xwia8awbiwq93ym";
+          rev = "a2efc9cf8b0fdf14b01156ba424145e1847f789c";
+          sha256 = "1d7i8087mjzbc9awqp3j0jr0pdn1k04kckml3wbbknws46fb27gx";
         };
         nativeBuildInputs = old.nativeBuildInputs ++ [ utf8proc makeWrapper ];
         postInstall = old.postInstall + ''
