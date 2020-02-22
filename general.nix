@@ -74,7 +74,7 @@ with lib;
     sway = {
       enable = true;
       extraConfig = ''
-        output * bg ${./desktop/catalina.jpg} fill
+        output * bg ${./desktop/wall.jpg} fill
       '';
     };
     ssh.startAgent = true;
