@@ -119,7 +119,6 @@ in
         #clock {
           margin:     0px 16px 0px 10px;
           min-width:  10px;
-          background: rgba(100, 114, 125, 0.2);
         }
         #battery {
           color:       #689d6a;
