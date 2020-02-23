@@ -51,7 +51,6 @@ self: super: {
         vim-vint
         python37Packages.yamllint
 
-        kodiPlain
         spotify
         mpv
         moc
