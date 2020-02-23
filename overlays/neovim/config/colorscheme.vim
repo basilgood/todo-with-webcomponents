@@ -12,9 +12,9 @@ hi Boolean         ctermfg=204
 hi Float           ctermfg=204
 
 " programming statements
-" hi Identifier      ctermfg=216               cterm=NONE
+hi Identifier      ctermfg=68               cterm=NONE
 " hi Function        ctermfg=68   ctermbg=NONE cterm=italic
-" hi Statement       ctermfg=175               cterm=NONE
+hi Statement       ctermfg=167               cterm=bold
 " hi Conditional     ctermfg=217               cterm=NONE
 " hi Repeat          ctermfg=217               cterm=NONE
 " hi Label           ctermfg=158               cterm=NONE
