@@ -93,7 +93,7 @@ in
           border:        none;
           border-radius: 0;
           font-family:  monospace;
-          font-size:     15px;
+          font-size:     12px;
           box-shadow:    none;
           text-shadow:   none;
           transition-duration: 0s;
