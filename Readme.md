@@ -1,1 +1,1 @@
-# Nixos configuration and dotfiles
+
